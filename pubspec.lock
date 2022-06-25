@@ -8,6 +8,27 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "38.0.0"
+  adaptive_breakpoints:
+    dependency: transitive
+    description:
+      name: adaptive_breakpoints
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.4"
+  adaptive_components:
+    dependency: "direct main"
+    description:
+      name: adaptive_components
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.7"
+  adaptive_navigation:
+    dependency: transitive
+    description:
+      name: adaptive_navigation
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.7"
   analyzer:
     dependency: transitive
     description:
@@ -15,6 +36,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.4.1"
+  animations:
+    dependency: "direct main"
+    description:
+      name: animations
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.3"
   args:
     dependency: transitive
     description:
@@ -28,7 +56,7 @@ packages:
       name: async
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.8.2"
+    version: "2.9.0"
   auto_route:
     dependency: "direct main"
     description:
@@ -112,7 +140,7 @@ packages:
       name: characters
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.2.0"
+    version: "1.2.1"
   charcode:
     dependency: transitive
     description:
@@ -183,6 +211,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.3"
+  dynamic_color:
+    dependency: "direct main"
+    description:
+      name: dynamic_color
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.4.0"
   fake_async:
     dependency: transitive
     description:
@@ -209,6 +244,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_hooks:
+    dependency: "direct main"
+    description:
+      name: flutter_hooks
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.18.5+1"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -216,11 +258,25 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
+  flutter_riverpod:
+    dependency: transitive
+    description:
+      name: flutter_riverpod
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.4"
   flutter_test:
     dependency: "direct dev"
     description: flutter
     source: sdk
     version: "0.0.0"
+  font_awesome_flutter:
+    dependency: "direct main"
+    description:
+      name: font_awesome_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "10.1.0"
   freezed:
     dependency: "direct main"
     description:
@@ -256,6 +312,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  hooks_riverpod:
+    dependency: "direct main"
+    description:
+      name: hooks_riverpod
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.4"
   html:
     dependency: transitive
     description:
@@ -320,19 +383,19 @@ packages:
     source: hosted
     version: "0.12.11"
   material_color_utilities:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: material_color_utilities
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.4"
+    version: "0.1.5"
   meta:
     dependency: transitive
     description:
       name: meta
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.7.0"
+    version: "1.8.0"
   mime:
     dependency: transitive
     description:
@@ -340,13 +403,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
-  nested:
-    dependency: transitive
-    description:
-      name: nested
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0"
   package_config:
     dependency: transitive
     description:
@@ -360,7 +416,7 @@ packages:
       name: path
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.8.1"
+    version: "1.8.2"
   pool:
     dependency: transitive
     description:
@@ -368,13 +424,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.5.1"
-  provider:
-    dependency: "direct main"
-    description:
-      name: provider
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "6.0.3"
   pub_semver:
     dependency: transitive
     description:
@@ -428,7 +477,7 @@ packages:
       name: source_span
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.8.2"
+    version: "1.9.0"
   stack_trace:
     dependency: transitive
     description:
@@ -463,7 +512,7 @@ packages:
       name: string_scanner
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.0"
+    version: "1.1.1"
   term_glyph:
     dependency: transitive
     description:
@@ -535,5 +584,5 @@ packages:
     source: hosted
     version: "3.1.1"
 sdks:
-  dart: ">=2.17.0-266.5.beta <3.0.0"
-  flutter: ">=1.16.0"
+  dart: ">=2.17.0 <3.0.0"
+  flutter: ">=3.0.0"
