@@ -1,5 +1,7 @@
 import 'package:adaptive_components/adaptive_components.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:freeman_portfolio/src/presentation/widgets/light_dark_toggle_switch.dart';
 import 'package:freeman_portfolio/src/presentation/widgets/navigation_menu_bar.dart';
 import 'package:freeman_portfolio/src/presentation/widgets/social_media_bar.dart';
 import 'package:freeman_portfolio/src/shared/extensions.dart';
@@ -55,13 +57,12 @@ class HomePage extends StatelessWidget {
                         columnSpan: 12,
                         child: Column(
                           children: [
-                            ...List.generate(
-                              10,
-                              (index) => const SizedBox(
-                                height: 500,
-                                width: 100,
-                              ),
-                            )
+                            const AnimatedHeader(),
+                            Container(
+                              width: 1340,
+                              height: 250,
+                              color: Colors.red,
+                            ),
                           ],
                         ),
                       )
@@ -78,12 +79,48 @@ class HomePage extends StatelessWidget {
               ),
               const Align(
                 alignment: Alignment.centerLeft,
-                child: Switch(),
+                child: Padding(
+                  padding: EdgeInsets.only(left: Insets.xl),
+                  child: LightDarkToggleSwitch(),
+                ),
               ),
             ],
           ),
         );
       },
+    );
+  }
+}
+
+class AnimatedHeader extends StatelessWidget {
+  const AnimatedHeader({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context).colorScheme;
+    return Column(
+      children: [
+        Text(
+          "I'm Freeman.\nflutter developer",
+          textAlign: TextAlign.center,
+          style: TextStyles.h1,
+        ),
+        DefaultTextStyle(
+          style: TextStyles.h1.copyWith(color: theme.onBackground),
+          child: AnimatedTextKit(
+            pause: const Duration(seconds: 3),
+            repeatForever: true,
+            animatedTexts: [
+              TypewriterAnimatedText(
+                'portfolio',
+                speed: kThemeAnimationDuration,
+              )
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

@@ -12,10 +12,7 @@ class SocialMediaBar extends StatelessWidget {
   }) {
     return IconButton(
       onPressed: onPressed,
-      icon: FaIcon(
-        iconData,
-        color: Colors.black,
-      ),
+      icon: FaIcon(iconData),
     );
   }
 

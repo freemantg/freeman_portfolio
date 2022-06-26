@@ -28,6 +28,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   adaptive_components: ^0.0.7
+  animated_text_kit: ^4.2.2
   animations: ^2.0.3
   auto_route: ^4.0.1
   build_runner: ^2.1.11

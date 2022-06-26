@@ -27,7 +27,11 @@ class AppTheme {
 
   ThemeData get themeData {
     var t = ThemeData.from(colorScheme: colorScheme);
-    return t;
+    return t.copyWith(
+      iconTheme: IconThemeData(
+        color: isDark ? const Color(0xFFFFFFFF) : const Color(0xFF111013),
+      ),
+    );
   }
 }
 
@@ -65,11 +69,11 @@ const lightColorScheme = ColorScheme(
 
 const darkColorScheme = ColorScheme(
   brightness: Brightness.dark,
-  primary: Color(0xFFADC6FF),
+  primary: Color(0xFFBBC7C9),
   onPrimary: Color(0xFF002E69),
   primaryContainer: Color(0xFF004494),
   onPrimaryContainer: Color(0xFFD8E2FF),
-  secondary: Color(0xFFBBC6E4),
+  secondary: Color(0xFFFF9BCD),
   onSecondary: Color(0xFF253048),
   secondaryContainer: Color(0xFF3B475F),
   onSecondaryContainer: Color(0xFFD8E2FF),
@@ -81,7 +85,7 @@ const darkColorScheme = ColorScheme(
   onError: Color(0xFF690005),
   errorContainer: Color(0xFF93000A),
   onErrorContainer: Color(0xFFFFB4AB),
-  background: Color(0xFF1B1B1F),
+  background: Color(0xFF1C2029),
   onBackground: Color(0xFFE3E2E6),
   surface: Color(0xFF1B1B1F),
   onSurface: Color(0xFFE3E2E6),
