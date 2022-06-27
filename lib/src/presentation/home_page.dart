@@ -1,13 +1,16 @@
 import 'package:adaptive_components/adaptive_components.dart';
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:freeman_portfolio/src/presentation/widgets/light_dark_toggle_switch.dart';
-import 'package:freeman_portfolio/src/presentation/widgets/navigation_menu_bar.dart';
-import 'package:freeman_portfolio/src/presentation/widgets/social_media_bar.dart';
+import 'package:freeman_portfolio/src/presentation/widgets/centered_view.dart';
+import 'package:freeman_portfolio/src/presentation/widgets/custom_animated_opacity.dart';
+import 'package:freeman_portfolio/src/presentation/widgets/custom_animated_project_tile.dart';
 import 'package:freeman_portfolio/src/shared/extensions.dart';
 
 import '../shared/styles.dart';
+import 'widgets/animated_header.dart';
+import 'widgets/light_dark_toggle_switch.dart';
 import 'widgets/navigation_drawer.dart';
+import 'widgets/navigation_menu_bar.dart';
+import 'widgets/social_media_bar.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -55,15 +58,25 @@ class HomePage extends StatelessWidget {
                       ),
                       AdaptiveContainer(
                         columnSpan: 12,
-                        child: Column(
-                          children: [
-                            const AnimatedHeader(),
-                            Container(
-                              width: 1340,
-                              height: 250,
-                              color: Colors.red,
-                            ),
-                          ],
+                        child: CenteredView(
+                          child: Column(
+                            children: [
+                              const AnimatedHeader(),
+                              const SizedBox(height: 150),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Container(
+                                      height: 465,
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                  const VSpace(size: 40),
+                                  const CustomAnimatedProjectTile()
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       )
                     ],
@@ -88,39 +101,6 @@ class HomePage extends StatelessWidget {
           ),
         );
       },
-    );
-  }
-}
-
-class AnimatedHeader extends StatelessWidget {
-  const AnimatedHeader({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context).colorScheme;
-    return Column(
-      children: [
-        Text(
-          "I'm Freeman.\nflutter developer",
-          textAlign: TextAlign.center,
-          style: TextStyles.h1,
-        ),
-        DefaultTextStyle(
-          style: TextStyles.h1.copyWith(color: theme.onBackground),
-          child: AnimatedTextKit(
-            pause: const Duration(seconds: 3),
-            repeatForever: true,
-            animatedTexts: [
-              TypewriterAnimatedText(
-                'portfolio',
-                speed: kThemeAnimationDuration,
-              )
-            ],
-          ),
-        ),
-      ],
     );
   }
 }

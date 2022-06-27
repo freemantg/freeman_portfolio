@@ -12,7 +12,7 @@ class NavigationMenuBar extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        const CustomAnimatedOpacity(FlutterLogo(size: 80)),
+        const CustomAnimatedOpacity(child:FlutterLogo(size: 80)),
         const Spacer(),
         NavigationWebMenu(
           menuItems: [

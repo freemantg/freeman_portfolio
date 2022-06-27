@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 class FadeThroughTransitionSwitcher extends StatelessWidget {
   const FadeThroughTransitionSwitcher({super.key, required this.child});
 
-  final Widget child;
+  final Widget? child;
 
   @override
   Widget build(BuildContext context) {
     return PageTransitionSwitcher(
       transitionBuilder: ((child, primaryAnimation, secondaryAnimation) {
-        return FadeThroughTransition(
+        return SharedAxisTransition(
+          transitionType: SharedAxisTransitionType.vertical,
           animation: primaryAnimation,
           secondaryAnimation: secondaryAnimation,
           child: child,

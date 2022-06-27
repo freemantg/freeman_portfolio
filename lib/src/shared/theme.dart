@@ -28,6 +28,7 @@ class AppTheme {
   ThemeData get themeData {
     var t = ThemeData.from(colorScheme: colorScheme);
     return t.copyWith(
+      canvasColor: Colors.transparent,
       iconTheme: IconThemeData(
         color: isDark ? const Color(0xFFFFFFFF) : const Color(0xFF111013),
       ),
@@ -86,7 +87,7 @@ const darkColorScheme = ColorScheme(
   errorContainer: Color(0xFF93000A),
   onErrorContainer: Color(0xFFFFB4AB),
   background: Color(0xFF1C2029),
-  onBackground: Color(0xFFE3E2E6),
+  onBackground: Color(0xFFFFFFFF),
   surface: Color(0xFF1B1B1F),
   onSurface: Color(0xFFE3E2E6),
   surfaceVariant: Color(0xFF44474F),
