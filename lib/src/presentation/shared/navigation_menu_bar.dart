@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:freeman_portfolio/src/shared/app_router.gr.dart';
+import 'package:freeman_portfolio/src/shared/providers.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../shared/styles.dart';
-import 'custom_animated_opacity.dart';
+import '../home/custom_animated_opacity.dart';
+import '../home/home_view.dart';
+
 
 class NavigationMenuBar extends StatelessWidget {
   const NavigationMenuBar({super.key});
@@ -11,26 +16,26 @@ class NavigationMenuBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        const CustomAnimatedOpacity(child:FlutterLogo(size: 80)),
-        const Spacer(),
+      children: const [
+        CustomAnimatedOpacity(child: FlutterLogo(size: 80)),
+        Spacer(),
         NavigationWebMenu(
           menuItems: [
             NavigationBarItem(
               'HOME',
-              () {},
+              centerView: HomeView(),
             ),
             NavigationBarItem(
               'ABOUT',
-              () {},
+              centerView: Text('About'),
             ),
             NavigationBarItem(
               'PROJECTS',
-              () {},
+              centerView: Text('Projects'),
             ),
             NavigationBarItem(
               'CONTACT',
-              () {},
+              centerView: Text('Contact'),
             ),
           ],
         )
@@ -60,7 +65,7 @@ class NavigationWebMenu extends HookWidget {
               .map(
                 (menuItem) => NavigationBarItem(
                   menuItem.title,
-                  menuItem.onPress,
+                  centerView: menuItem.centerView,
                   isHovered: hoverController.value,
                 ),
               )
@@ -71,20 +76,20 @@ class NavigationWebMenu extends HookWidget {
   }
 }
 
-class NavigationBarItem extends StatelessWidget {
+class NavigationBarItem extends ConsumerWidget {
   const NavigationBarItem(
-    this.title,
-    this.onPress, {
+    this.title, {
     super.key,
+    required this.centerView,
     this.isHovered = false,
   });
 
   final String title;
-  final VoidCallback onPress;
+  final Widget centerView;
   final bool isHovered;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context).colorScheme;
 
     return Padding(
@@ -101,7 +106,10 @@ class NavigationBarItem extends StatelessWidget {
             },
           ),
         ),
-        onPressed: onPress,
+        onPressed: () => ref.read(appRouterProvider).pushAndPopUntil(
+              PortfolioLayoutPageRoute(centerView: centerView),
+              predicate: (_) => false,
+            ),
         child: Text(title, style: TextStyles.title1),
       ),
     );

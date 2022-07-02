@@ -1,8 +1,14 @@
-import 'package:auto_route/annotations.dart';
-import 'package:freeman_portfolio/src/presentation/home_page.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:freeman_portfolio/src/presentation/portfolio_layout_page.dart';
 
 @MaterialAutoRouter(
   replaceInRouteName: 'Page',
-  routes: [AutoRoute(page: HomePage, initial: true)],
+  routes: [
+    CustomRoute(
+      page: PortfolioLayoutPage,
+      initial: true,
+      transitionsBuilder: TransitionsBuilders.fadeIn,
+    )
+  ],
 )
 class $AppRouter {}

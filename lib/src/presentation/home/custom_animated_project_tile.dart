@@ -1,10 +1,11 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'dart:math' as math;
 
 import '../../shared/styles.dart';
-import 'project_preview_dialog.dart';
+import '../shared/project_preview_dialog.dart';
 
 class CustomAnimatedProjectTile extends HookWidget {
   const CustomAnimatedProjectTile({Key? key, required this.constraints})
@@ -48,13 +49,7 @@ class CustomAnimatedProjectTile extends HookWidget {
                           ? IconButton(
                               icon: const FaIcon(FontAwesomeIcons.expand),
                               color: Colors.white,
-                              onPressed: () => showDialog(
-                                barrierColor: const Color(0xFF111013),
-                                context: context,
-                                builder: ((context) {
-                                  return const ProjectPreviewDialog();
-                                }),
-                              ),
+                              onPressed: () => _showAnimatedDialog(context),
                             )
                           : null,
                     ),
@@ -82,17 +77,19 @@ class CustomAnimatedProjectTile extends HookWidget {
                           )),
                       child: hoverController.value
                           ? Text(
-                              'View Project___',
-                              style: TextStyles.body1
-                                  .copyWith(color: Colors.white),
                               key: UniqueKey(),
+                              'View Project___',
+                              style: TextStyles.body1.copyWith(
+                                color: Colors.white,
+                              ),
                             )
                           : Text(
+                              key: UniqueKey(),
                               'Description',
                               style: TextStyles.body1.copyWith(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w100),
-                              key: UniqueKey(),
+                                color: Colors.white,
+                                fontWeight: FontWeight.w100,
+                              ),
                             ),
                     )
                   ],
@@ -102,6 +99,27 @@ class CustomAnimatedProjectTile extends HookWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Future<Dialog?> _showAnimatedDialog(BuildContext context) {
+    return showGeneralDialog(
+      context: context,
+      transitionDuration: kThemeAnimationDuration * 2,
+      transitionBuilder: (context, animation, secondaryAnimation, child) {
+        return SharedAxisTransition(
+          animation: animation,
+          secondaryAnimation: secondaryAnimation,
+          transitionType: SharedAxisTransitionType.vertical,
+          child: FadeTransition(
+            opacity: animation,
+            child: child,
+          ),
+        );
+      },
+      pageBuilder: (context, animation, secondaryAnimation) {
+        return const ProjectPreviewDialog();
+      },
     );
   }
 }
