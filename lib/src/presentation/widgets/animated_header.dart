@@ -14,7 +14,7 @@ class AnimatedHeader extends StatelessWidget {
     return Column(
       children: [
         Text(
-          "I'm Freeman.\nhere is my flutter",
+          "I'm Freeman.\nthis is my flutter",
           textAlign: TextAlign.center,
           style: TextStyles.h1,
         ),
@@ -27,8 +27,8 @@ class AnimatedHeader extends StatelessWidget {
               TypewriterAnimatedText(
                 'journey.',
                 cursor: '|',
-                speed: kThemeAnimationDuration * 2,
-                curve: Curves.bounceInOut,
+                speed: kThemeAnimationDuration,
+                curve: Curves.linear,
               )
             ],
           ),

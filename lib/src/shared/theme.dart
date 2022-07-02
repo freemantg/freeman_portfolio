@@ -29,9 +29,12 @@ class AppTheme {
     var t = ThemeData.from(colorScheme: colorScheme);
     return t.copyWith(
       canvasColor: Colors.transparent,
+      textSelectionTheme:
+          TextSelectionThemeData(selectionColor: colorScheme.secondary),
       iconTheme: IconThemeData(
         color: isDark ? const Color(0xFFFFFFFF) : const Color(0xFF111013),
       ),
+      dialogBackgroundColor: const Color(0xFF111013),
     );
   }
 }

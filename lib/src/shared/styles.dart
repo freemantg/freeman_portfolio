@@ -25,18 +25,16 @@ class TextStyles {
   );
 
   static TextStyle get h1 => codecPro.copyWith(
-      fontWeight: FontWeight.w600,
-      fontSize: 75,
-      letterSpacing: -3,
-      height: 0.9);
-  static TextStyle get h2 => h1.copyWith(fontSize: 30, color: Colors.white);
-  static TextStyle get h3 => h1.copyWith(fontSize: 16);
+      fontWeight: FontWeight.w600, fontSize: 75, letterSpacing: -3, height: 1);
+  static TextStyle get h2 => h1.copyWith(fontSize: 52, color: Colors.white);
+  static TextStyle get h3 => h1.copyWith(fontSize: 30, color: Colors.white);
+  static TextStyle get h4 => h1.copyWith(fontSize: 16);
   static TextStyle get title1 =>
       codecPro.copyWith(fontSize: 17, fontWeight: FontWeight.w600);
   static TextStyle get title2 =>
       title1.copyWith(fontSize: 15, fontWeight: FontWeight.normal);
   static TextStyle get body1 =>
-      codecPro.copyWith(fontWeight: FontWeight.normal, fontSize: 14);
+      codecPro.copyWith(fontWeight: FontWeight.w100, fontSize: 16, height: 1.5);
   static TextStyle get body2 => body1.copyWith(fontSize: 12);
   static TextStyle get caption =>
       codecPro.copyWith(fontWeight: FontWeight.w500, fontSize: 11);
