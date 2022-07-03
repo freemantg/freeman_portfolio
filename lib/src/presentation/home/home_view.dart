@@ -1,9 +1,8 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:freeman_portfolio/src/shared/extensions.dart';
 
-
 import '../../shared/styles.dart';
-import 'animated_header.dart';
 import 'custom_animated_project_tile.dart';
 
 class HomeView extends StatelessWidget {
@@ -14,7 +13,7 @@ class HomeView extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) => Column(
         children: [
-          const AnimatedHeader(),
+          const _AnimatedHeader(),
           const SizedBox(height: 150),
           (constraints.isDesktop)
               ? _buildDesktopLayout(constraints)
@@ -80,6 +79,41 @@ class HomeView extends StatelessWidget {
             child: CustomAnimatedProjectTile(constraints: constraints),
           ),
         )
+      ],
+    );
+  }
+}
+
+class _AnimatedHeader extends StatelessWidget {
+  const _AnimatedHeader({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context).colorScheme;
+    return Column(
+      children: [
+        Text(
+          "I'm Freeman.\nthis is my flutter",
+          textAlign: TextAlign.center,
+          style: TextStyles.h1,
+        ),
+        DefaultTextStyle(
+          style: TextStyles.h1.copyWith(color: theme.onBackground),
+          child: AnimatedTextKit(
+            pause: const Duration(milliseconds: 1000),
+            repeatForever: true,
+            animatedTexts: [
+              TypewriterAnimatedText(
+                'journey.',
+                cursor: '|',
+                speed: kThemeAnimationDuration,
+                curve: Curves.linear,
+              )
+            ],
+          ),
+        ),
       ],
     );
   }

@@ -1,16 +1,17 @@
 import 'package:adaptive_components/adaptive_components.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:freeman_portfolio/src/shared/constants.dart';
 import 'package:freeman_portfolio/src/shared/extensions.dart';
 
 import '../shared/styles.dart';
+import 'home/home_view.dart';
 import 'shared/information_tile.dart';
 import 'shared/centered_view.dart';
 import 'shared/light_dark_toggle_switch.dart';
 import 'shared/navigation_drawer.dart';
 import 'shared/navigation_menu_bar.dart';
 import 'shared/social_media_bar.dart';
-import 'widgets/home/home_view.dart';
 
 class PortfolioLayoutPage extends StatelessWidget {
   const PortfolioLayoutPage({
@@ -93,7 +94,7 @@ class PortfolioLayoutPage extends StatelessWidget {
               child: InformationTile(
                 header: 'Contact',
                 title: 'Let\'s get in touch',
-                subtitle: 'freeman.khe.tang@gmail.com',
+                subtitle: ContactDetails.personalEmail,
               ),
             ),
             Spacer(),

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:freeman_portfolio/src/presentation/about/about_view.dart';
+import 'package:freeman_portfolio/src/presentation/contact/contact_view.dart';
+import 'package:freeman_portfolio/src/presentation/project/projects_view.dart';
 import 'package:freeman_portfolio/src/shared/app_router.gr.dart';
 import 'package:freeman_portfolio/src/shared/providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -7,7 +10,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../shared/styles.dart';
 import '../home/custom_animated_opacity.dart';
 import '../home/home_view.dart';
-
 
 class NavigationMenuBar extends StatelessWidget {
   const NavigationMenuBar({super.key});
@@ -26,16 +28,16 @@ class NavigationMenuBar extends StatelessWidget {
               centerView: HomeView(),
             ),
             NavigationBarItem(
-              'ABOUT',
-              centerView: Text('About'),
-            ),
-            NavigationBarItem(
               'PROJECTS',
-              centerView: Text('Projects'),
+              centerView: ProjectsView(),
             ),
             NavigationBarItem(
               'CONTACT',
-              centerView: Text('Contact'),
+              centerView: ContactView(),
+            ),
+            NavigationBarItem(
+              'ABOUT',
+              centerView: AboutView(),
             ),
           ],
         )
