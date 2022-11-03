@@ -1,12 +1,22 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:freeman_portfolio/src/shared/extensions.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../shared/styles.dart';
 import 'custom_animated_project_tile.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends ConsumerStatefulWidget {
   const HomeView({super.key});
+
+  @override
+  ConsumerState<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends ConsumerState<HomeView> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +24,7 @@ class HomeView extends StatelessWidget {
       builder: (context, constraints) => Column(
         children: [
           const _AnimatedHeader(),
-          const SizedBox(height: 150),
+          const SizedBox(height: 100),
           (constraints.isDesktop)
               ? _buildDesktopLayout(constraints)
               : _buildTabletLayout(constraints),
@@ -92,27 +102,18 @@ class _AnimatedHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
+
     return Column(
       children: [
         Text(
-          "I'm Freeman.\nthis is my flutter",
+          "Freeman.",
           textAlign: TextAlign.center,
           style: TextStyles.h1,
         ),
-        DefaultTextStyle(
-          style: TextStyles.h1.copyWith(color: theme.onBackground),
-          child: AnimatedTextKit(
-            pause: const Duration(milliseconds: 1000),
-            repeatForever: true,
-            animatedTexts: [
-              TypewriterAnimatedText(
-                'journey.',
-                cursor: '|',
-                speed: kThemeAnimationDuration,
-                curve: Curves.linear,
-              )
-            ],
-          ),
+        Text(
+          "Flutter Developer Portfolio",
+          textAlign: TextAlign.center,
+          style: TextStyles.title2,
         ),
       ],
     );

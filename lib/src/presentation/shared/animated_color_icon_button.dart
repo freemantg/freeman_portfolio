@@ -28,7 +28,7 @@ class AnimatedColorIconButton extends HookWidget {
         onEnter: (_) => isHovered.value = true,
         onExit: (_) => isHovered.value = false,
         child: IconButton(
-          onPressed: () {},
+          onPressed: onPressed,
           icon: Icon(
             iconData,
             color: isHovered.value

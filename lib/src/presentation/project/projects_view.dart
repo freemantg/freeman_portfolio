@@ -2,6 +2,10 @@ import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:freeman_portfolio/src/presentation/home/custom_animated_opacity.dart';
+import 'package:freeman_portfolio/src/presentation/project/project_view.dart';
+import 'package:freeman_portfolio/src/shared/app_router.gr.dart';
+import 'package:freeman_portfolio/src/shared/providers.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../shared/styles.dart';
 import '../shared/project_preview_dialog.dart';
@@ -15,19 +19,19 @@ class ProjectsView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: const [
         AnimatedProjectTitle(
-          title: 'Be:Mind',
+          title: 'GitHub 0Auth 2.0',
           subtitle: 'Flutter',
           projectNumber: '01',
         ),
         HSpace(size: Insets.xl),
         AnimatedProjectTitle(
-          title: 'Indigo',
+          title: 'Inky',
           subtitle: 'Flutter',
           projectNumber: '02',
         ),
         HSpace(size: Insets.xl),
         AnimatedProjectTitle(
-          title: 'Pomodoro',
+          title: 'Crack\'d',
           subtitle: 'Flutter',
           projectNumber: '03',
         ),
@@ -50,7 +54,7 @@ class ProjectsView extends StatelessWidget {
   }
 }
 
-class AnimatedProjectTitle extends HookWidget {
+class AnimatedProjectTitle extends HookConsumerWidget {
   const AnimatedProjectTitle({
     Key? key,
     required this.title,
@@ -63,7 +67,7 @@ class AnimatedProjectTitle extends HookWidget {
   final String projectNumber;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context).colorScheme;
     final hoverController = useState(false);
 
@@ -71,7 +75,9 @@ class AnimatedProjectTitle extends HookWidget {
       onEnter: (_) => hoverController.value = true,
       onExit: (_) => hoverController.value = false,
       child: GestureDetector(
-        onTap: () => _showAnimatedProjectDialog(context),
+        onTap: () => ref.read(appRouterProvider).push(
+              PortfolioLayoutPageRoute(centerView: const ProjectView()),
+            ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -102,7 +108,7 @@ class AnimatedProjectTitle extends HookWidget {
               child: Text(
                 hoverController.value ? '/ $subtitle' : projectNumber,
                 key: UniqueKey(),
-                style: TextStyles.title1.copyWith(fontWeight: FontWeight.w600),
+                style: TextStyles.title2.copyWith(fontWeight: FontWeight.w600),
               ),
             ),
           ],

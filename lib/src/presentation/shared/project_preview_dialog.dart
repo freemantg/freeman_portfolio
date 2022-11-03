@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:freeman_portfolio/src/presentation/project/project_view.dart';
 import 'package:freeman_portfolio/src/shared/app_router.gr.dart';
@@ -108,41 +109,62 @@ class ProjectPreviewDetails extends ConsumerWidget {
   }
 }
 
-//TODO: FIX COLOR OF TEXTBUTTON TO DYNAMIC
-class ProjectImageCarousel extends StatelessWidget {
+class ProjectImageCarousel extends HookWidget {
   const ProjectImageCarousel({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        vertical: 42.0,
-        horizontal: 50.0,
-      ),
-      color: Colors.blue,
-      child: Align(
-        alignment: Alignment.bottomRight,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            AnimatedColorIconButton(
-              inverseColor: true,
-              onPressed: () {},
-              key: UniqueKey(),
-              iconData: Icons.arrow_back,
-            ),
-            const VSpace(size: Insets.m),
-            AnimatedColorIconButton(
-              inverseColor: true,
-              onPressed: () {},
-              key: UniqueKey(),
-              iconData: Icons.arrow_forward,
-            ),
-          ],
+    final scrollController = useScrollController();
+    return Stack(
+      children: [
+        ListView.builder(
+          controller: scrollController,
+          itemCount: 5,
+          itemBuilder: (context, index) => Image(
+            image: AssetImage('projects/inky/inky_$index.png'),
+          ),
         ),
-      ),
+        Padding(
+          padding: const EdgeInsets.symmetric(
+            vertical: 42.0,
+            horizontal: 50.0,
+          ),
+          child: Align(
+            alignment: Alignment.bottomRight,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                AnimatedColorIconButton(
+                  key: UniqueKey(),
+                  inverseColor: true,
+                  onPressed: () => scrollController.animateTo(
+                    scrollController.position.pixels -
+                        scrollController.position.maxScrollExtent / 4,
+                    duration: const Duration(seconds: 1),
+                    curve: Curves.easeInOut,
+                  ),
+                  iconData: Icons.arrow_upward,
+                ),
+                const Spacer(),
+                AnimatedColorIconButton(
+                  
+                  key: UniqueKey(),
+                  inverseColor: true,
+                  onPressed: () => scrollController.animateTo(
+                    scrollController.position.pixels +
+                        scrollController.position.maxScrollExtent / 4,
+                    duration: const Duration(seconds: 1),
+                    curve: Curves.easeInOut,
+                  ),
+                  iconData: Icons.arrow_downward,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

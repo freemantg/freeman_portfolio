@@ -1,9 +1,11 @@
 import 'package:animations/animations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'dart:math' as math;
+import 'package:freeman_portfolio/src/presentation/project/project_view.dart';
 
+import '../../shared/app_router.gr.dart';
 import '../../shared/styles.dart';
 import '../shared/project_preview_dialog.dart';
 
@@ -14,6 +16,7 @@ class CustomAnimatedProjectTile extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).colorScheme;
     var hoverController = useState(false);
 
     return MouseRegion(
@@ -27,9 +30,12 @@ class CustomAnimatedProjectTile extends HookWidget {
               height: constraints.biggest.height,
               constraints: const BoxConstraints(minWidth: 394, maxHeight: 465),
               decoration: BoxDecoration(
+                image: const DecorationImage(
+                  image:
+                      AssetImage("projects/github_oauth2/github_oauth2_0.png"),
+                  fit: BoxFit.cover,
+                ),
                 borderRadius: BorderRadius.circular(Insets.sm),
-                color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
-                    .withOpacity(1.0),
               ),
               child: Padding(
                 padding: const EdgeInsets.all(32.0),
@@ -76,13 +82,7 @@ class CustomAnimatedProjectTile extends HookWidget {
                             ),
                           )),
                       child: hoverController.value
-                          ? Text(
-                              key: UniqueKey(),
-                              'View Project___',
-                              style: TextStyles.body1.copyWith(
-                                color: Colors.white,
-                              ),
-                            )
+                          ? const ViewProjectButton()
                           : Text(
                               key: UniqueKey(),
                               'Description',
@@ -120,6 +120,36 @@ class CustomAnimatedProjectTile extends HookWidget {
       pageBuilder: (context, animation, secondaryAnimation) {
         return const ProjectPreviewDialog();
       },
+    );
+  }
+}
+
+class ViewProjectButton extends HookWidget {
+  const ViewProjectButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    var hoverController = useState(false);
+    return MouseRegion(
+      onEnter: (_) => hoverController.value = true,
+      onExit: (_) => hoverController.value = false,
+      child: GestureDetector(
+        onTap: () => AutoRouter.of(context).push(
+          PortfolioLayoutPageRoute(centerView: const ProjectView()),
+        ),
+        child: Text(
+          key: UniqueKey(),
+          'View Project___',
+          style: TextStyles.body1.copyWith(
+            color: (hoverController.value)
+                ? theme.colorScheme.secondary
+                : Colors.white,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ),
     );
   }
 }

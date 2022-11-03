@@ -16,13 +16,22 @@ class ProjectView extends StatelessWidget {
           child: ProjectDetails(),
         ),
         Column(
-          children: [
-            AspectRatio(
-              aspectRatio: 16 / 9,
-              child: Container(
-                decoration: const BoxDecoration(color: Colors.red),
-              ),
-            )
+          children: const [
+            Image(
+              image: AssetImage("projects/inky/inky_1.png"),
+            ),
+            Image(
+              image: AssetImage("projects/inky/inky_2.png"),
+            ),
+            Image(
+              image: AssetImage("projects/inky/inky_3.png"),
+            ),
+            Image(
+              image: AssetImage("projects/inky/inky_4.png"),
+            ),
+            Image(
+              image: AssetImage("projects/inky/inky_5.png"),
+            ),
           ],
         ),
       ],
@@ -46,7 +55,7 @@ class ProjectDetails extends StatelessWidget {
             children: [
               Text('Flutter', style: TextStyles.body1),
               const HSpace(size: Insets.m),
-              Text('Project Name', style: TextStyles.h1),
+              Text("Crack'd", style: TextStyles.h1),
               const HSpace(size: Insets.l),
               Text(
                 'Águias Cookie é uma marca de cookies brasileira, de São Paulo. A empresa pretende investir na extroversão e na criatividade para atrair clientes das mais diversas...',
