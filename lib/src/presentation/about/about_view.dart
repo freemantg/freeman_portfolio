@@ -6,12 +6,11 @@ import 'package:freeman_portfolio/src/presentation/shared/animated_color_icon_bu
 import 'package:freeman_portfolio/src/shared/app_router.gr.dart';
 import 'package:freeman_portfolio/src/shared/providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../shared/styles.dart';
 
-const String apolloShopify = '';
-const String apolloInstagram = '';
+const String apolloShopify = 'https://apolloipsum.co.uk/';
+const String apolloInstagram = 'https://www.instagram.com/apolloipsum/?hl=en';
 
 class AboutView extends StatelessWidget {
   const AboutView({super.key});
@@ -94,16 +93,14 @@ class DismissibleContainer extends HookWidget {
                       ),
                       const HSpace(size: Insets.m),
                       Row(
-                        children: [
-                          AnimatedColorIconButton(
+                        children: const [
+                          AnimatedUrlIconButton(
                             iconData: FontAwesomeIcons.link,
-                            onPressed: () async =>
-                                await _launchSocialUrl(apolloShopify),
+                            url: apolloShopify,
                           ),
-                          AnimatedColorIconButton(
+                          AnimatedUrlIconButton(
                             iconData: FontAwesomeIcons.instagram,
-                            onPressed: () async =>
-                                await _launchSocialUrl(apolloInstagram),
+                            url: apolloInstagram,
                           )
                         ],
                       ),
@@ -147,11 +144,5 @@ class ContactButton extends ConsumerWidget {
         ),
       ),
     );
-  }
-}
-
-Future<void> _launchSocialUrl(String uri) async {
-  if (!await launchUrl(Uri.parse(uri))) {
-    throw 'Could not launch $uri';
   }
 }

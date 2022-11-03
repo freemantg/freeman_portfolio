@@ -1,51 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:freeman_portfolio/src/presentation/shared/animated_color_icon_button.dart';
-import 'package:url_launcher/url_launcher.dart';
+
+const String gitHubUrl = 'https://github.com/freemantg';
+const String linkedInUrl = '';
+const String instagramUrl = 'https://www.instagram.com/freeman_tg/';
 
 class SocialMediaBar extends StatelessWidget {
-  static const String _gitHubUrl = 'https://github.com/freemantg';
-  static const String _linkedInUrl = '';
-  static const String _instagramUrl = 'https://www.instagram.com/freeman_tg/';
-
   const SocialMediaBar({
     Key? key,
   }) : super(key: key);
-
-  Widget _buildSocialMediaIcon({
-    required IconData iconData,
-    required String url,
-  }) {
-    return AnimatedColorIconButton(
-      onPressed: () async => await _launchSocialUrl(url),
-      iconData: iconData,
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        _buildSocialMediaIcon(
+      children: const [
+        AnimatedUrlIconButton(
           iconData: FontAwesomeIcons.github,
-          url: _gitHubUrl,
+          url: gitHubUrl,
         ),
-        _buildSocialMediaIcon(
+        AnimatedUrlIconButton(
           iconData: FontAwesomeIcons.linkedin,
-          url: _linkedInUrl,
+          url: linkedInUrl,
         ),
-        _buildSocialMediaIcon(
+        AnimatedUrlIconButton(
           iconData: FontAwesomeIcons.instagram,
-          url: _instagramUrl,
+          url: instagramUrl,
         )
       ],
     );
-  }
-
-  Future<void> _launchSocialUrl(String uri) async {
-    if (!await launchUrl(Uri.parse(uri))) {
-      throw 'Could not launch $uri';
-    }
   }
 }
