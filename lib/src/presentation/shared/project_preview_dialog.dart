@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:freeman_portfolio/src/domain/project.dart';
 import 'package:freeman_portfolio/src/presentation/project/project_view.dart';
 import 'package:freeman_portfolio/src/shared/app_router.gr.dart';
 import 'package:freeman_portfolio/src/shared/providers.dart';
@@ -11,7 +12,10 @@ import 'animated_color_icon_button.dart';
 import 'view_project_button.dart';
 
 class ProjectPreviewDialog extends StatelessWidget {
-  const ProjectPreviewDialog({
+  final ProjectType projectType;
+
+  const ProjectPreviewDialog(
+    this.projectType, {
     Key? key,
   }) : super(key: key);
 
@@ -23,15 +27,11 @@ class ProjectPreviewDialog extends StatelessWidget {
         children: [
           Flexible(
             flex: 5,
-            child: Stack(
-              children: const [
-                ProjectImageCarousel(),
-              ],
-            ),
+            child: ProjectImageCarousel(projectType),
           ),
-          const Flexible(
+          Flexible(
             flex: 3,
-            child: ProjectPreviewDetails(),
+            child: ProjectPreviewDetails(projectType),
           ),
         ],
       ),
@@ -40,9 +40,12 @@ class ProjectPreviewDialog extends StatelessWidget {
 }
 
 class ProjectPreviewDetails extends ConsumerWidget {
-  const ProjectPreviewDetails({
+  const ProjectPreviewDetails(
+    this.projectType, {
     Key? key,
   }) : super(key: key);
+
+  final ProjectType projectType;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -80,12 +83,12 @@ class ProjectPreviewDetails extends ConsumerWidget {
               ),
               const HSpace(size: Insets.m),
               Text(
-                'Project Name',
+                projectType.title,
                 style: TextStyles.h2,
               ),
               const HSpace(size: Insets.l),
               Text(
-                'Águias Cookie é uma marca de cookies brasileira, de São Paulo. A empresa pretende investir na extroversão e na criatividade para atrair clientes das mais diversas...',
+                projectType.description,
                 style: TextStyles.body1.copyWith(color: Colors.white),
                 softWrap: true,
               ),
@@ -96,7 +99,7 @@ class ProjectPreviewDetails extends ConsumerWidget {
                 onPressed: () {
                   ref.read(appRouterProvider).popAndPush(
                         PortfolioLayoutPageRoute(
-                          centerView: const ProjectView(),
+                          centerView: ProjectView(projectType),
                         ),
                       );
                 },
@@ -110,20 +113,28 @@ class ProjectPreviewDetails extends ConsumerWidget {
 }
 
 class ProjectImageCarousel extends HookWidget {
-  const ProjectImageCarousel({
+  const ProjectImageCarousel(
+    this.projectType, {
     Key? key,
   }) : super(key: key);
+
+  final ProjectType projectType;
 
   @override
   Widget build(BuildContext context) {
     final scrollController = useScrollController();
     return Stack(
       children: [
-        ListView.builder(
-          controller: scrollController,
-          itemCount: 5,
-          itemBuilder: (context, index) => Image(
-            image: AssetImage('projects/inky/inky_$index.png'),
+        FutureBuilder(
+          future: projectType.assetLength(),
+          builder: (context, snapshot) => ListView.builder(
+            controller: scrollController,
+            itemCount: (snapshot.hasData) ? snapshot.data as int : 0,
+            itemBuilder: (context, index) => Image(
+              image: AssetImage(
+                'projects/${projectType.name}/${projectType.name}_$index.png',
+              ),
+            ),
           ),
         ),
         Padding(
@@ -149,7 +160,6 @@ class ProjectImageCarousel extends HookWidget {
                 ),
                 const Spacer(),
                 AnimatedColorIconButton(
-                  
                   key: UniqueKey(),
                   inverseColor: true,
                   onPressed: () => scrollController.animateTo(

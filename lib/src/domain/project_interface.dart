@@ -16,6 +16,6 @@ class ProjectRepository implements _ProjectInterface {
   @override
   Future<List<Project>> fetchProjects() async {
     var projectData = jsonDecode(await getJson());
-    return (projectData as List).map((e) => Project.fromJson(e)).toList();
+    return [];
   }
 }

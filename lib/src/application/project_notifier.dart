@@ -26,6 +26,5 @@ class ProjectsNotifier extends StateNotifier<ProjectsState> {
     state = const ProjectsState.loadInProgress();
     final projects = await _projectRepository.fetchProjects();
     state = ProjectsState.loadSuccess(projects: projects);
-    print(state);
   }
 }

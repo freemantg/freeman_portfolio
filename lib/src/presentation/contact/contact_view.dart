@@ -27,7 +27,7 @@ class ContactView extends StatelessWidget {
           ),
           const HSpace(size: Insets.m),
           SelectableText(
-            ContactDetails.personalEmail,
+            ContactDetails.personalEmail, 
             style: TextStyles.body1.copyWith(fontWeight: FontWeight.w600),
             textAlign: TextAlign.center,
           ),

@@ -14,6 +14,7 @@
 import 'package:auto_route/auto_route.dart' as _i3;
 import 'package:flutter/material.dart' as _i4;
 
+import '../domain/project.dart' as _i5;
 import '../presentation/portfolio_layout_page.dart' as _i1;
 import '../presentation/project/project_view.dart' as _i2;
 
@@ -38,9 +39,13 @@ class AppRouter extends _i3.RootStackRouter {
       );
     },
     ProjectViewRoute.name: (routeData) {
+      final args = routeData.argsAs<ProjectViewRouteArgs>();
       return _i3.CustomPage<dynamic>(
         routeData: routeData,
-        child: const _i2.ProjectView(),
+        child: _i2.ProjectView(
+          args.projectType,
+          key: args.key,
+        ),
         transitionsBuilder: _i3.TransitionsBuilders.fadeIn,
         opaque: true,
         barrierDismissible: false,
@@ -104,12 +109,34 @@ class PortfolioLayoutPageRouteArgs {
 
 /// generated route for
 /// [_i2.ProjectView]
-class ProjectViewRoute extends _i3.PageRouteInfo<void> {
-  const ProjectViewRoute()
-      : super(
+class ProjectViewRoute extends _i3.PageRouteInfo<ProjectViewRouteArgs> {
+  ProjectViewRoute({
+    required _i5.ProjectType projectType,
+    _i4.Key? key,
+  }) : super(
           ProjectViewRoute.name,
           path: '/project',
+          args: ProjectViewRouteArgs(
+            projectType: projectType,
+            key: key,
+          ),
         );
 
   static const String name = 'ProjectViewRoute';
+}
+
+class ProjectViewRouteArgs {
+  const ProjectViewRouteArgs({
+    required this.projectType,
+    this.key,
+  });
+
+  final _i5.ProjectType projectType;
+
+  final _i4.Key? key;
+
+  @override
+  String toString() {
+    return 'ProjectViewRouteArgs{projectType: $projectType, key: $key}';
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:freeman_portfolio/src/domain/project.dart';
 import 'package:freeman_portfolio/src/shared/extensions.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -42,6 +43,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
               flex: 100,
               child: CustomAnimatedProjectTile(
                 constraints: constraints,
+                projectType: ProjectType.inky,
               ),
             ),
             const VSpace(size: 40),
@@ -49,6 +51,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
               flex: 47,
               child: CustomAnimatedProjectTile(
                 constraints: constraints,
+                projectType: ProjectType.githubOAuth,
               ),
             ),
           ],
@@ -59,18 +62,21 @@ class _HomeViewState extends ConsumerState<HomeView> {
             Expanded(
               child: CustomAnimatedProjectTile(
                 constraints: constraints,
+                projectType: ProjectType.crackd,
               ),
             ),
             const VSpace(size: 40),
             Expanded(
               child: CustomAnimatedProjectTile(
                 constraints: constraints,
+                projectType: ProjectType.crackd,
               ),
             ),
             const VSpace(size: 40),
             Expanded(
               child: CustomAnimatedProjectTile(
                 constraints: constraints,
+                projectType: ProjectType.crackd,
               ),
             ),
           ],
@@ -86,7 +92,11 @@ class _HomeViewState extends ConsumerState<HomeView> {
           5,
           (index) => Padding(
             padding: const EdgeInsets.only(bottom: 40.0),
-            child: CustomAnimatedProjectTile(constraints: constraints),
+            //TODO:
+            child: CustomAnimatedProjectTile(
+              constraints: constraints,
+              projectType: ProjectType.inky,
+            ),
           ),
         )
       ],
@@ -101,8 +111,6 @@ class _AnimatedHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context).colorScheme;
-
     return Column(
       children: [
         Text(

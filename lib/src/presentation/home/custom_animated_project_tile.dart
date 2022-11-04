@@ -5,14 +5,20 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:freeman_portfolio/src/presentation/project/project_view.dart';
 
+import '../../domain/project.dart';
 import '../../shared/app_router.gr.dart';
 import '../../shared/styles.dart';
 import '../shared/project_preview_dialog.dart';
 
 class CustomAnimatedProjectTile extends HookWidget {
-  const CustomAnimatedProjectTile({Key? key, required this.constraints})
-      : super(key: key);
+  const CustomAnimatedProjectTile({
+    Key? key,
+    required this.constraints,
+    required this.projectType,
+  }) : super(key: key);
+
   final BoxConstraints constraints;
+  final ProjectType projectType;
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +36,8 @@ class CustomAnimatedProjectTile extends HookWidget {
               height: constraints.biggest.height,
               constraints: const BoxConstraints(minWidth: 394, maxHeight: 465),
               decoration: BoxDecoration(
-                image: const DecorationImage(
-                  image:
-                      AssetImage("projects/github_oauth2/github_oauth2_0.png"),
+                image: DecorationImage(
+                  image: AssetImage("${projectType.assetPath}/cover.png"),
                   fit: BoxFit.cover,
                 ),
                 borderRadius: BorderRadius.circular(Insets.sm),
@@ -55,12 +60,15 @@ class CustomAnimatedProjectTile extends HookWidget {
                           ? IconButton(
                               icon: const FaIcon(FontAwesomeIcons.expand),
                               color: Colors.white,
-                              onPressed: () => _showAnimatedDialog(context),
+                              onPressed: () => _showAnimatedDialog(
+                                context,
+                                projectType,
+                              ),
                             )
                           : null,
                     ),
                     const Spacer(),
-                    Text('Indigo', style: TextStyles.h3),
+                    Text(projectType.title, style: TextStyles.h3),
                     const HSpace(size: Insets.m),
                     AnimatedSwitcher(
                       switchInCurve: Curves.easeIn,
@@ -82,10 +90,12 @@ class CustomAnimatedProjectTile extends HookWidget {
                             ),
                           )),
                       child: hoverController.value
-                          ? const ViewProjectButton()
+                          //TODO:
+                          ? const ViewProjectButton(ProjectType.crackd)
                           : Text(
                               key: UniqueKey(),
-                              'Description',
+                              projectType.shortDescription,
+                              maxLines: 1,
                               style: TextStyles.body1.copyWith(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w100,
@@ -102,7 +112,10 @@ class CustomAnimatedProjectTile extends HookWidget {
     );
   }
 
-  Future<Dialog?> _showAnimatedDialog(BuildContext context) {
+  Future<Dialog?> _showAnimatedDialog(
+    BuildContext context,
+    ProjectType projectType,
+  ) {
     return showGeneralDialog(
       context: context,
       transitionDuration: kThemeAnimationDuration * 2,
@@ -118,14 +131,16 @@ class CustomAnimatedProjectTile extends HookWidget {
         );
       },
       pageBuilder: (context, animation, secondaryAnimation) {
-        return const ProjectPreviewDialog();
+        return ProjectPreviewDialog(projectType);
       },
     );
   }
 }
 
 class ViewProjectButton extends HookWidget {
-  const ViewProjectButton({super.key});
+  final ProjectType projectType;
+
+  const ViewProjectButton(this.projectType, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -137,7 +152,7 @@ class ViewProjectButton extends HookWidget {
       onExit: (_) => hoverController.value = false,
       child: GestureDetector(
         onTap: () => AutoRouter.of(context).push(
-          PortfolioLayoutPageRoute(centerView: const ProjectView()),
+          PortfolioLayoutPageRoute(centerView: ProjectView(projectType)),
         ),
         child: Text(
           key: UniqueKey(),
