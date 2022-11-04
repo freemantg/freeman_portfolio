@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:freeman_portfolio/src/presentation/shared/animated_color_icon_button.dart';
-import 'package:freeman_portfolio/src/presentation/shared/social_media_bar.dart';
 import 'package:freeman_portfolio/src/shared/constants.dart';
 import 'package:freeman_portfolio/src/shared/styles.dart';
 
@@ -27,7 +26,7 @@ class ContactView extends StatelessWidget {
           ),
           const HSpace(size: Insets.m),
           SelectableText(
-            ContactDetails.personalEmail, 
+            ContactDetails.personalEmail,
             style: TextStyles.body1.copyWith(fontWeight: FontWeight.w600),
             textAlign: TextAlign.center,
           ),
@@ -42,14 +41,14 @@ class ContactView extends StatelessWidget {
                 onPressed: () {},
               ),
               const VSpace(size: Insets.m),
-              const AnimatedUrlIconButton(
+              AnimatedColorIconButton(
                 iconData: FontAwesomeIcons.linkedinIn,
-                url: linkedInUrl,
+                onPressed: () {},
               ),
               const VSpace(size: Insets.m),
-              const AnimatedUrlIconButton(
+              AnimatedColorIconButton(
                 iconData: FontAwesomeIcons.github,
-                url: gitHubUrl,
+                onPressed: () {},
               ),
             ],
           ),
