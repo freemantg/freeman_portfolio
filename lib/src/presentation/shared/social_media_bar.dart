@@ -1,32 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:freeman_portfolio/src/presentation/shared/animated_color_icon_button.dart';
-
-const String gitHubUrl = 'https://github.com/freemantg';
-const String linkedInUrl = '';
-const String instagramUrl = 'https://www.instagram.com/freeman_tg/';
 
 class SocialMediaBar extends StatelessWidget {
   const SocialMediaBar({
     Key? key,
   }) : super(key: key);
 
+  IconButton _buildSocialMediaIcon({
+    required IconData iconData,
+    required VoidCallback onPressed,
+  }) {
+    return IconButton(
+      onPressed: onPressed,
+      icon: FaIcon(iconData),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: const [
-        AnimatedUrlIconButton(
+      children: [
+        _buildSocialMediaIcon(
           iconData: FontAwesomeIcons.github,
-          url: gitHubUrl,
+          onPressed: () {},
         ),
-        AnimatedUrlIconButton(
+        _buildSocialMediaIcon(
           iconData: FontAwesomeIcons.linkedin,
-          url: linkedInUrl,
+          onPressed: () {},
         ),
-        AnimatedUrlIconButton(
+        _buildSocialMediaIcon(
           iconData: FontAwesomeIcons.instagram,
-          url: instagramUrl,
+          onPressed: () {},
         )
       ],
     );

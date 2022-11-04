@@ -1,46 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:freeman_portfolio/src/presentation/shared/view_project_button.dart';
 
-import '../../domain/project.dart';
 import '../../shared/styles.dart';
 
 class ProjectView extends StatelessWidget {
-  final ProjectType projectType;
-
-  const ProjectView(this.projectType, {super.key});
+  const ProjectView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return ListView(
+      shrinkWrap: true,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 80.0),
-          child: ProjectDetails(projectType),
+        const Padding(
+          padding: EdgeInsets.symmetric(vertical: 80.0),
+          child: ProjectDetails(),
         ),
-        FutureBuilder(
-          future: projectType.assetLength(),
-          builder: (context, snapshot) => ListView.builder(
-            shrinkWrap: true,
-            itemCount: snapshot.hasData ? snapshot.data as int : 0,
-            itemBuilder: (context, index) {
-              return Image(
-                image: AssetImage(
-                  'projects/${projectType.name}/${projectType.name}_$index.png',
-                ),
-              );
-            },
-          ),
-        )
+        Column(
+          children: [
+            AspectRatio(
+              aspectRatio: 16 / 9,
+              child: Container(
+                decoration: const BoxDecoration(color: Colors.red),
+              ),
+            )
+          ],
+        ),
       ],
     );
   }
 }
 
 class ProjectDetails extends StatelessWidget {
-  final ProjectType projectType;
-
-  const ProjectDetails(
-    this.projectType, {
+  const ProjectDetails({
     Key? key,
   }) : super(key: key);
 
@@ -55,10 +46,10 @@ class ProjectDetails extends StatelessWidget {
             children: [
               Text('Flutter', style: TextStyles.body1),
               const HSpace(size: Insets.m),
-              Text(projectType.title, style: TextStyles.h1),
+              Text('Project Name', style: TextStyles.h1),
               const HSpace(size: Insets.l),
               Text(
-                projectType.description,
+                'Águias Cookie é uma marca de cookies brasileira, de São Paulo. A empresa pretende investir na extroversão e na criatividade para atrair clientes das mais diversas...',
                 style: TextStyles.body1,
                 softWrap: true,
               ),
@@ -71,12 +62,12 @@ class ProjectDetails extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Description',
+                'Subtitle',
                 style: TextStyles.body1.copyWith(fontWeight: FontWeight.w600),
               ),
               const HSpace(size: Insets.m),
               Text(
-                projectType.architectureDescription,
+                'Essa identidade visual foi desenvolvido em parceria com outros designers dentro de um projeto chamado Design, por favor. Criado por nós mesmos, visando ajudar pequenos empreendedores MEI, em meio a pandemia de 2020.',
                 style: TextStyles.body1.copyWith(fontWeight: FontWeight.w600),
               ),
               const HSpace(size: Insets.xl),

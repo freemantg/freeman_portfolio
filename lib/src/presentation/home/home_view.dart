@@ -1,23 +1,12 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:freeman_portfolio/src/domain/project.dart';
 import 'package:freeman_portfolio/src/shared/extensions.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../shared/styles.dart';
 import 'custom_animated_project_tile.dart';
 
-class HomeView extends ConsumerStatefulWidget {
+class HomeView extends StatelessWidget {
   const HomeView({super.key});
-
-  @override
-  ConsumerState<HomeView> createState() => _HomeViewState();
-}
-
-class _HomeViewState extends ConsumerState<HomeView> {
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +14,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
       builder: (context, constraints) => Column(
         children: [
           const _AnimatedHeader(),
-          const SizedBox(height: 100),
+          const SizedBox(height: 150),
           (constraints.isDesktop)
               ? _buildDesktopLayout(constraints)
               : _buildTabletLayout(constraints),
@@ -43,7 +32,6 @@ class _HomeViewState extends ConsumerState<HomeView> {
               flex: 100,
               child: CustomAnimatedProjectTile(
                 constraints: constraints,
-                projectType: ProjectType.inky,
               ),
             ),
             const VSpace(size: 40),
@@ -51,7 +39,6 @@ class _HomeViewState extends ConsumerState<HomeView> {
               flex: 47,
               child: CustomAnimatedProjectTile(
                 constraints: constraints,
-                projectType: ProjectType.githubOAuth,
               ),
             ),
           ],
@@ -62,21 +49,18 @@ class _HomeViewState extends ConsumerState<HomeView> {
             Expanded(
               child: CustomAnimatedProjectTile(
                 constraints: constraints,
-                projectType: ProjectType.crackd,
               ),
             ),
             const VSpace(size: 40),
             Expanded(
               child: CustomAnimatedProjectTile(
                 constraints: constraints,
-                projectType: ProjectType.crackd,
               ),
             ),
             const VSpace(size: 40),
             Expanded(
               child: CustomAnimatedProjectTile(
                 constraints: constraints,
-                projectType: ProjectType.crackd,
               ),
             ),
           ],
@@ -92,11 +76,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
           5,
           (index) => Padding(
             padding: const EdgeInsets.only(bottom: 40.0),
-            //TODO:
-            child: CustomAnimatedProjectTile(
-              constraints: constraints,
-              projectType: ProjectType.inky,
-            ),
+            child: CustomAnimatedProjectTile(constraints: constraints),
           ),
         )
       ],
@@ -111,17 +91,28 @@ class _AnimatedHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).colorScheme;
     return Column(
       children: [
         Text(
-          "Freeman.",
+          "I'm Freeman.\nthis is my flutter",
           textAlign: TextAlign.center,
           style: TextStyles.h1,
         ),
-        Text(
-          "Flutter Developer Portfolio",
-          textAlign: TextAlign.center,
-          style: TextStyles.title2,
+        DefaultTextStyle(
+          style: TextStyles.h1.copyWith(color: theme.onBackground),
+          child: AnimatedTextKit(
+            pause: const Duration(milliseconds: 1000),
+            repeatForever: true,
+            animatedTexts: [
+              TypewriterAnimatedText(
+                'journey.',
+                cursor: '|',
+                speed: kThemeAnimationDuration,
+                curve: Curves.linear,
+              )
+            ],
+          ),
         ),
       ],
     );
