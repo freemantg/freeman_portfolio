@@ -28,7 +28,7 @@ class LightDarkToggleSwitch extends ConsumerWidget {
             child: GestureDetector(
               onTap: () => ref.read(themeProvider.notifier).toggleTheme(),
               child: AnimatedContainer(
-                height: 24,
+                height: 16,
                 width: 54,
                 duration: animationDuration,
                 decoration: BoxDecoration(
