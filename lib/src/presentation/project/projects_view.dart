@@ -7,7 +7,7 @@ import 'package:freeman_portfolio/src/shared/extensions.dart';
 import 'package:freeman_portfolio/src/shared/providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-
+import '../../domain/project.dart';
 import '../../shared/styles.dart';
 
 class ProjectsView extends StatelessWidget {
@@ -20,58 +20,23 @@ class ProjectsView extends StatelessWidget {
         ...ProjectType.values.map(
           (project) => AnimatedProjectTitle(projectType: project),
         ),
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
-        AnimatedProjectTitle(
-          title: 'Be:Mind',
-          subtitle: 'Flutter',
-          projectNumber: '01',
-        ),
-        HSpace(size: Insets.xl),
-        AnimatedProjectTitle(
-          title: 'Indigo',
-          subtitle: 'Flutter',
-          projectNumber: '02',
-        ),
-        HSpace(size: Insets.xl),
-        AnimatedProjectTitle(
-          title: 'Pomodoro',
-          subtitle: 'Flutter',
-          projectNumber: '03',
-        ),
-        HSpace(size: Insets.xl),
-        AnimatedProjectTitle(
-          title: 'Github Viewer',
-          subtitle: 'Flutter',
-          projectNumber: '04',
-        ),
-        HSpace(size: Insets.xl),
-        AnimatedProjectTitle(
-          title: 'Squigado',
-          subtitle: 'Flutter',
-          projectNumber: '05',
-        ),
-        HSpace(size: Insets.xl),
-        Divider()
       ],
     );
   }
 }
 
-class AnimatedProjectTitle extends HookWidget {
+class AnimatedProjectTitle extends HookConsumerWidget {
   const AnimatedProjectTitle({
     Key? key,
-    required this.title,
-    required this.subtitle,
-    required this.projectNumber,
+    required this.projectType,
   }) : super(key: key);
 
-  final String title;
-  final String? subtitle;
-  final String projectNumber;
+  final ProjectType projectType;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final project = projects[projectType];
+
     final theme = Theme.of(context).colorScheme;
     final hoverController = useState(false);
 
@@ -133,45 +98,6 @@ class AnimatedProjectTitle extends HookWidget {
               ],
             ),
           ),
-
-    return MouseRegion(
-      onEnter: (_) => hoverController.value = true,
-      onExit: (_) => hoverController.value = false,
-      child: Expanded(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            AnimatedSwitcher(
-              duration: kThemeAnimationDuration,
-              transitionBuilder: (child, animation) => FadeTransition(
-                opacity: animation,
-                child: child,
-              ),
-              child: Text(
-                title,
-                key: UniqueKey(),
-                style: hoverController.value
-                    ? TextStyles.projectTitle.copyWith(
-                        foreground: Paint()
-                          ..style = PaintingStyle.stroke
-                          ..strokeWidth = 1
-                          ..color = theme.primary,
-                      )
-                    : TextStyles.projectTitle,
-              ),
-            ),
-            const VSpace(size: Insets.m),
-            CustomAnimationSlider(
-              hoverController: hoverController,
-              child: Text(
-                hoverController.value ? '/ $subtitle' : projectNumber,
-                key: UniqueKey(),
-                style: TextStyles.title1.copyWith(fontWeight: FontWeight.w600),
-              ),
-            ),
-          ],
         ),
       ),
     );
