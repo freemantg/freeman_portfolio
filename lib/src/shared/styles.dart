@@ -33,6 +33,9 @@ class TextStyles {
   static TextStyle get projectTitle =>
       codecPro.copyWith(fontSize: 115, fontWeight: FontWeight.w600);
 
+  static TextStyle get projectTitleMobile =>
+      codecPro.copyWith(fontSize: 82, fontWeight: FontWeight.w600);
+
   static TextStyle get title1 =>
       codecPro.copyWith(fontSize: 17, fontWeight: FontWeight.w600);
   static TextStyle get title2 =>

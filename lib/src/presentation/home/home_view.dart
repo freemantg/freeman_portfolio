@@ -86,20 +86,14 @@ class _HomeViewState extends ConsumerState<HomeView> {
   }
 
   Widget _buildTabletLayout(BoxConstraints constraints) {
-    return Column(
-      children: [
-        ...List.generate(
-          5,
-          (index) => Padding(
-            padding: const EdgeInsets.only(bottom: 40.0),
-            //TODO:
-            child: CustomAnimatedProjectTile(
-              constraints: constraints,
-              projectType: ProjectType.inky,
-            ),
-          ),
-        )
-      ],
+    return ListView.separated(
+      separatorBuilder: (_, __) => const SizedBox(height: Insets.l),
+      shrinkWrap: true,
+      itemCount: ProjectType.values.length,
+      itemBuilder: (context, index) => CustomAnimatedProjectTile(
+        constraints: constraints,
+        projectType: ProjectType.values[index],
+      ),
     );
   }
 }
