@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:freeman_portfolio/src/domain/project.dart';
 import 'package:freeman_portfolio/src/presentation/project/project_view.dart';
 import 'package:freeman_portfolio/src/shared/app_router.gr.dart';
 import 'package:freeman_portfolio/src/shared/extensions.dart';
@@ -13,10 +11,7 @@ import 'animated_color_icon_button.dart';
 import 'view_project_button.dart';
 
 class ProjectPreviewDialog extends StatelessWidget {
-  final ProjectType projectType;
-
-  const ProjectPreviewDialog(
-    this.projectType, {
+  const ProjectPreviewDialog({
     Key? key,
   }) : super(key: key);
 
@@ -41,6 +36,21 @@ class ProjectPreviewDialog extends StatelessWidget {
             ),
           ],
         ),
+      child: Row(
+        children: [
+          Flexible(
+            flex: 5,
+            child: Stack(
+              children: const [
+                ProjectImageCarousel(),
+              ],
+            ),
+          ),
+          const Flexible(
+            flex: 3,
+            child: ProjectPreviewDetails(),
+          ),
+        ],
       ),
     );
   }
@@ -55,6 +65,11 @@ class ProjectPreviewDetails extends ConsumerWidget {
 
   final ProjectType projectType;
   final BoxConstraints constraints;
+
+
+  const ProjectPreviewDetails({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -119,6 +134,37 @@ class ProjectPreviewDetails extends ConsumerWidget {
                     },
                   ),
                 ],
+
+                    children: [
+                      TextSpan(
+                        text: ' •',
+                        style: TextStyles.body1.copyWith(color: Colors.red),
+                      ),
+                    ]),
+              ),
+              const HSpace(size: Insets.m),
+              Text(
+                'Project Name',
+                style: TextStyles.h2,
+              ),
+              const HSpace(size: Insets.l),
+              Text(
+                'Águias Cookie é uma marca de cookies brasileira, de São Paulo. A empresa pretende investir na extroversão e na criatividade para atrair clientes das mais diversas...',
+                style: TextStyles.body1.copyWith(color: Colors.white),
+                softWrap: true,
+              ),
+              const HSpace(size: Insets.xl),
+              ViewProjectButton(
+                inverseColor: true,
+                title: 'View Project',
+                onPressed: () {
+                  ref.read(appRouterProvider).popAndPush(
+                        PortfolioLayoutPageRoute(
+                          centerView: const ProjectView(),
+                        ),
+                      );
+                },
+ 
               ),
             ),
           ),
@@ -128,69 +174,41 @@ class ProjectPreviewDetails extends ConsumerWidget {
   }
 }
 
-class ProjectImageCarousel extends HookWidget {
-  const ProjectImageCarousel(
-    this.projectType, {
+//TODO: FIX COLOR OF TEXTBUTTON TO DYNAMIC
+class ProjectImageCarousel extends StatelessWidget {
+  const ProjectImageCarousel({
     Key? key,
   }) : super(key: key);
 
-  final ProjectType projectType;
-
   @override
   Widget build(BuildContext context) {
-    final scrollController = useScrollController();
-    return Stack(
-      children: [
-        FutureBuilder(
-          future: projectType.assetLength(),
-          builder: (context, snapshot) => ListView.builder(
-            controller: scrollController,
-            itemCount: (snapshot.hasData) ? snapshot.data as int : 0,
-            itemBuilder: (context, index) => Image(
-              image: AssetImage(
-                'projects/${projectType.name}/${projectType.name}_$index.png',
-              ),
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        vertical: 42.0,
+        horizontal: 50.0,
+      ),
+      color: Colors.blue,
+      child: Align(
+        alignment: Alignment.bottomRight,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            AnimatedColorIconButton(
+              inverseColor: true,
+              onPressed: () {},
+              key: UniqueKey(),
+              iconData: Icons.arrow_back,
             ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: 42.0,
-            horizontal: 50.0,
-          ),
-          child: Align(
-            alignment: Alignment.bottomRight,
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                AnimatedColorIconButton(
-                  key: UniqueKey(),
-                  inverseColor: true,
-                  onPressed: () => scrollController.animateTo(
-                    scrollController.position.pixels -
-                        scrollController.position.maxScrollExtent / 4,
-                    duration: const Duration(seconds: 1),
-                    curve: Curves.easeInOut,
-                  ),
-                  iconData: Icons.arrow_upward,
-                ),
-                const Spacer(),
-                AnimatedColorIconButton(
-                  key: UniqueKey(),
-                  inverseColor: true,
-                  onPressed: () => scrollController.animateTo(
-                    scrollController.position.pixels +
-                        scrollController.position.maxScrollExtent / 4,
-                    duration: const Duration(seconds: 1),
-                    curve: Curves.easeInOut,
-                  ),
-                  iconData: Icons.arrow_downward,
-                ),
-              ],
+            const VSpace(size: Insets.m),
+            AnimatedColorIconButton(
+              inverseColor: true,
+              onPressed: () {},
+              key: UniqueKey(),
+              iconData: Icons.arrow_forward,
             ),
-          ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }

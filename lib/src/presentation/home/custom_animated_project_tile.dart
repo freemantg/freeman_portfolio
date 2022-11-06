@@ -1,28 +1,19 @@
 import 'package:animations/animations.dart';
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:freeman_portfolio/src/presentation/project/project_view.dart';
+import 'dart:math' as math;
 
-import '../../domain/project.dart';
-import '../../shared/app_router.gr.dart';
 import '../../shared/styles.dart';
 import '../shared/project_preview_dialog.dart';
 
 class CustomAnimatedProjectTile extends HookWidget {
-  const CustomAnimatedProjectTile({
-    Key? key,
-    required this.constraints,
-    required this.projectType,
-  }) : super(key: key);
-
+  const CustomAnimatedProjectTile({Key? key, required this.constraints})
+      : super(key: key);
   final BoxConstraints constraints;
-  final ProjectType projectType;
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context).colorScheme;
     var hoverController = useState(false);
 
     return MouseRegion(
@@ -36,11 +27,9 @@ class CustomAnimatedProjectTile extends HookWidget {
               height: constraints.biggest.height,
               constraints: const BoxConstraints(minWidth: 394, maxHeight: 465),
               decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("${projectType.assetPath}/cover.png"),
-                  fit: BoxFit.cover,
-                ),
                 borderRadius: BorderRadius.circular(Insets.sm),
+                color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
+                    .withOpacity(1.0),
               ),
               child: Padding(
                 padding: const EdgeInsets.all(32.0),
@@ -60,15 +49,12 @@ class CustomAnimatedProjectTile extends HookWidget {
                           ? IconButton(
                               icon: const FaIcon(FontAwesomeIcons.expand),
                               color: Colors.white,
-                              onPressed: () => _showAnimatedDialog(
-                                context,
-                                projectType,
-                              ),
+                              onPressed: () => _showAnimatedDialog(context),
                             )
                           : null,
                     ),
                     const Spacer(),
-                    Text(projectType.title, style: TextStyles.h3),
+                    Text('Indigo', style: TextStyles.h3),
                     const HSpace(size: Insets.m),
                     AnimatedSwitcher(
                       switchInCurve: Curves.easeIn,
@@ -90,12 +76,16 @@ class CustomAnimatedProjectTile extends HookWidget {
                             ),
                           )),
                       child: hoverController.value
-                          //TODO:
-                          ? const ViewProjectButton(ProjectType.crackd)
+                          ? Text(
+                              key: UniqueKey(),
+                              'View Project___',
+                              style: TextStyles.body1.copyWith(
+                                color: Colors.white,
+                              ),
+                            )
                           : Text(
                               key: UniqueKey(),
-                              projectType.shortDescription,
-                              maxLines: 1,
+                              'Description',
                               style: TextStyles.body1.copyWith(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w100,
@@ -112,10 +102,7 @@ class CustomAnimatedProjectTile extends HookWidget {
     );
   }
 
-  Future<Dialog?> _showAnimatedDialog(
-    BuildContext context,
-    ProjectType projectType,
-  ) {
+  Future<Dialog?> _showAnimatedDialog(BuildContext context) {
     return showGeneralDialog(
       context: context,
       transitionDuration: kThemeAnimationDuration * 2,
@@ -131,40 +118,8 @@ class CustomAnimatedProjectTile extends HookWidget {
         );
       },
       pageBuilder: (context, animation, secondaryAnimation) {
-        return ProjectPreviewDialog(projectType);
+        return const ProjectPreviewDialog();
       },
-    );
-  }
-}
-
-class ViewProjectButton extends HookWidget {
-  final ProjectType projectType;
-
-  const ViewProjectButton(this.projectType, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    var hoverController = useState(false);
-    return MouseRegion(
-      onEnter: (_) => hoverController.value = true,
-      onExit: (_) => hoverController.value = false,
-      child: GestureDetector(
-        onTap: () => AutoRouter.of(context).push(
-          PortfolioLayoutPageRoute(centerView: ProjectView(projectType)),
-        ),
-        child: Text(
-          key: UniqueKey(),
-          'View Project___',
-          style: TextStyles.body1.copyWith(
-            color: (hoverController.value)
-                ? theme.colorScheme.secondary
-                : Colors.white,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ),
     );
   }
 }

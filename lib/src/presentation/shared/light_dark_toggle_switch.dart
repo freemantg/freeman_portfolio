@@ -73,6 +73,32 @@ class _AnimatedSlider extends ConsumerWidget {
               duration: animationDuration,
               alignment: !constraints.isMobile
                   ? themeState.isDark
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const Opacity(
+          opacity: 0.8,
+          child: Icon(Icons.wb_sunny_outlined),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: Insets.sm),
+          child: RotatedBox(
+            quarterTurns: 3,
+            child: GestureDetector(
+              onTap: () => ref.read(themeProvider.notifier).toggleTheme(),
+              child: AnimatedContainer(
+                height: 24,
+                width: 54,
+                duration: animationDuration,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  color: themeState.isDark
+                      ? theme.secondary
+                      : theme.onBackground.withOpacity(0.1),
+                ),
+                child: AnimatedAlign(
+                  duration: animationDuration,
+                  alignment: themeState.isDark
                       ? Alignment.centerLeft
                       : Alignment.centerRight
                   : themeState.isDark

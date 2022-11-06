@@ -10,9 +10,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../shared/styles.dart';
 
-const String apolloShopify = 'https://apolloipsum.co.uk/';
-const String apolloInstagram = 'https://www.instagram.com/apolloipsum/?hl=en';
-
 class AboutView extends StatelessWidget {
   const AboutView({super.key});
 
@@ -61,6 +58,10 @@ class AboutView extends StatelessWidget {
           const VSpace(size: Insets.xl),
         ],
       ),
+        ),
+        const VSpace(size: Insets.l),
+        const DismissibleContainer(),
+      ],
     );
   }
 }
@@ -74,7 +75,6 @@ class DismissibleContainer extends HookWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
     var isVisible = useState(true);
-
     return isVisible.value
         ? Container(
             padding: const EdgeInsets.all(Insets.l),
@@ -103,14 +103,14 @@ class DismissibleContainer extends HookWidget {
                       ),
                       const HSpace(size: Insets.m),
                       Row(
-                        children: const [
-                          AnimatedUrlIconButton(
+                        children: [
+                          AnimatedColorIconButton(
                             iconData: FontAwesomeIcons.link,
-                            url: apolloShopify,
+                            onPressed: () {},
                           ),
-                          AnimatedUrlIconButton(
+                          AnimatedColorIconButton(
                             iconData: FontAwesomeIcons.instagram,
-                            url: apolloInstagram,
+                            onPressed: () {},
                           )
                         ],
                       ),
