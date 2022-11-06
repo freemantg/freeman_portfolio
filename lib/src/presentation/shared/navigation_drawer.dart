@@ -1,4 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:freeman_portfolio/src/presentation/about/about_view.dart';
+import 'package:freeman_portfolio/src/presentation/contact/contact_view.dart';
+import 'package:freeman_portfolio/src/presentation/home/home_view.dart';
+import 'package:freeman_portfolio/src/presentation/project/projects_view.dart';
+import 'package:freeman_portfolio/src/presentation/shared/light_dark_toggle_switch.dart';
+import 'package:freeman_portfolio/src/shared/app_router.gr.dart';
+import 'package:freeman_portfolio/src/shared/providers.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../shared/styles.dart';
 import 'social_media_bar.dart';
@@ -13,31 +21,48 @@ class NavigationDrawer extends StatelessWidget {
     return Row(
       children: [
         Drawer(
-          child: ListView(
+          backgroundColor: Theme.of(context).backgroundColor,
+          child: Column(
             children: [
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Builder(
-                  builder: (context) {
-                    return IconButton(
-                      onPressed: () => Scaffold.of(context).closeDrawer(),
-                      icon: const Icon(Icons.close),
-                    );
-                  },
+              Padding(
+                padding: const EdgeInsets.fromLTRB(
+                  Insets.l,
+                  Insets.l,
+                  Insets.l,
+                  0,
+                ),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Builder(
+                    builder: (context) {
+                      return IconButton(
+                        onPressed: () => Scaffold.of(context).closeDrawer(),
+                        icon: const Icon(Icons.close),
+                      );
+                    },
+                  ),
                 ),
               ),
-              NavigationDrawerItem(
-                title: 'ABOUT',
-                onTap: () {},
+              const HSpace(size: Insets.l),
+              const NavigationDrawerItem(
+                title: 'HOME',
+                centerView: HomeView(),
               ),
-              NavigationDrawerItem(
+              const NavigationDrawerItem(
                 title: 'PROJECTS',
-                onTap: () {},
+                centerView: ProjectsView(),
               ),
-              NavigationDrawerItem(
+              const NavigationDrawerItem(
                 title: 'CONTACT',
-                onTap: () {},
+                centerView: ContactView(),
               ),
+              const NavigationDrawerItem(
+                title: 'ABOUT',
+                centerView: AboutView(),
+              ),
+              const Spacer(),
+              const Center(child: LightDarkToggleSwitch()),
+              const HSpace(size: Insets.l),
             ],
           ),
         ),
@@ -47,24 +72,27 @@ class NavigationDrawer extends StatelessWidget {
   }
 }
 
-class NavigationDrawerItem extends StatelessWidget {
+class NavigationDrawerItem extends ConsumerWidget {
   const NavigationDrawerItem({
     Key? key,
     required this.title,
-    required this.onTap,
+    required this.centerView,
   }) : super(key: key);
 
   final String title;
-  final VoidCallback onTap;
+  final Widget centerView;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return ListTile(
       title: Text(
         title,
-        style: TextStyles.title1,
+        style: TextStyles.title2,
       ),
-      onTap: onTap,
+      onTap: () => ref.read(appRouterProvider).pushAndPopUntil(
+            PortfolioLayoutPageRoute(centerView: centerView),
+            predicate: (_) => false,
+          ),
     );
   }
 }

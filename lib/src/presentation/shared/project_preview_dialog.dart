@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:freeman_portfolio/src/presentation/project/project_view.dart';
 import 'package:freeman_portfolio/src/shared/app_router.gr.dart';
+import 'package:freeman_portfolio/src/shared/extensions.dart';
 import 'package:freeman_portfolio/src/shared/providers.dart';
 import 'package:freeman_portfolio/src/shared/styles.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -18,6 +19,23 @@ class ProjectPreviewDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dialog(
       insetPadding: const EdgeInsets.all(0.0),
+      child: LayoutBuilder(
+        builder: (context, constraints) => Flex(
+          direction: constraints.isMobile ? Axis.vertical : Axis.horizontal,
+          children: [
+            Expanded(
+              flex: 5,
+              child: ProjectImageCarousel(projectType),
+            ),
+            Expanded(
+              flex: 3,
+              child: ProjectPreviewDetails(
+                projectType,
+                constraints: constraints,
+              ),
+            ),
+          ],
+        ),
       child: Row(
         children: [
           Flexible(
@@ -39,6 +57,16 @@ class ProjectPreviewDialog extends StatelessWidget {
 }
 
 class ProjectPreviewDetails extends ConsumerWidget {
+  const ProjectPreviewDetails(
+    this.projectType, {
+    required this.constraints,
+    Key? key,
+  }) : super(key: key);
+
+  final ProjectType projectType;
+  final BoxConstraints constraints;
+
+
   const ProjectPreviewDetails({
     Key? key,
   }) : super(key: key);
@@ -61,15 +89,52 @@ class ProjectPreviewDetails extends ConsumerWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 93.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              RichText(
-                text: TextSpan(
-                    text: 'Flutter',
+          padding: EdgeInsets.symmetric(
+            horizontal: constraints.isMobile ? Insets.l : 93.0,
+          ),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  RichText(
+                    text: TextSpan(
+                        text: 'Flutter',
+                        style: TextStyles.body1.copyWith(color: Colors.white),
+                        children: [
+                          TextSpan(
+                            text: ' •',
+                            style: TextStyles.body1.copyWith(color: Colors.red),
+                          ),
+                        ]),
+                  ),
+                  const HSpace(size: Insets.m),
+                  Text(
+                    projectType.title,
+                    style: TextStyles.h2,
+                  ),
+                  const HSpace(size: Insets.l),
+                  Text(
+                    projectType.description,
                     style: TextStyles.body1.copyWith(color: Colors.white),
+                    softWrap: true,
+                  ),
+                  const HSpace(size: Insets.xl),
+                  ViewProjectButton(
+                    inverseColor: true,
+                    title: 'View Project',
+                    onPressed: () {
+                      ref.read(appRouterProvider).popAndPush(
+                            PortfolioLayoutPageRoute(
+                              centerView: ProjectView(projectType),
+                            ),
+                          );
+                    },
+                  ),
+                ],
+
                     children: [
                       TextSpan(
                         text: ' •',
@@ -99,10 +164,11 @@ class ProjectPreviewDetails extends ConsumerWidget {
                         ),
                       );
                 },
+ 
               ),
-            ],
+            ),
           ),
-        ),
+        )
       ],
     );
   }

@@ -70,6 +70,14 @@ class HomeView extends StatelessWidget {
   }
 
   Widget _buildTabletLayout(BoxConstraints constraints) {
+    return ListView.separated(
+      separatorBuilder: (_, __) => const SizedBox(height: Insets.l),
+      shrinkWrap: true,
+      itemCount: ProjectType.values.length,
+      itemBuilder: (context, index) => CustomAnimatedProjectTile(
+        constraints: constraints,
+        projectType: ProjectType.values[index],
+      ),
     return Column(
       children: [
         ...List.generate(

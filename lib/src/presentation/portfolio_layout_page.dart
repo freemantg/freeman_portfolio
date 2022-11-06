@@ -1,17 +1,15 @@
 import 'package:adaptive_components/adaptive_components.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:freeman_portfolio/src/shared/constants.dart';
 import 'package:freeman_portfolio/src/shared/extensions.dart';
 
 import '../shared/styles.dart';
 import 'home/home_view.dart';
-import 'shared/information_tile.dart';
 import 'shared/centered_view.dart';
 import 'shared/light_dark_toggle_switch.dart';
 import 'shared/navigation_drawer.dart';
 import 'shared/navigation_menu_bar.dart';
 import 'shared/social_media_bar.dart';
+import 'shared/styled_footer.dart';
 
 class PortfolioLayoutPage extends StatelessWidget {
   const PortfolioLayoutPage({
@@ -26,7 +24,7 @@ class PortfolioLayoutPage extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         if (constraints.isMobile) {
-          return const _MobileScaffold();
+          return _MobileScaffold(centerView: centerView);
         }
         return Scaffold(
           body: Stack(
@@ -46,7 +44,7 @@ class PortfolioLayoutPage extends StatelessWidget {
                           child: Column(
                             children: [
                               centerView ?? const HomeView(),
-                              _buildFooter(),
+                              const StyledWebFooter()
                             ],
                           ),
                         ),
@@ -75,59 +73,15 @@ class PortfolioLayoutPage extends StatelessWidget {
       },
     );
   }
-
-  Widget _buildFooter() {
-    return Column(
-      children: [
-        const HSpace(size: 120),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const [
-            Flexible(
-              child: InformationTile(
-                header: 'Location',
-                title: 'I work remotely,\nbased in London',
-              ),
-            ),
-            Spacer(),
-            Flexible(
-              child: InformationTile(
-                header: 'Contact',
-                title: 'Let\'s get in touch',
-                subtitle: ContactDetails.personalEmail,
-              ),
-            ),
-            Spacer(),
-          ],
-        ),
-        const HSpace(size: 80),
-        const Divider(),
-        const HSpace(size: Insets.l),
-        Row(
-          children: [
-            Flexible(
-              child: Text(
-                "© 2022, FREEMAN. This portfolio is made from Flutter . ",
-                style: TextStyles.body1,
-              ),
-            ),
-            const Icon(FontAwesomeIcons.githubAlt),
-            const Spacer(),
-            Text(
-              'All rights reserved.',
-              style: TextStyles.body1,
-            )
-          ],
-        ),
-      ],
-    );
-  }
 }
 
 class _MobileScaffold extends StatelessWidget {
   const _MobileScaffold({
     Key? key,
+    this.centerView,
   }) : super(key: key);
+
+  final Widget? centerView;
 
   @override
   Widget build(BuildContext context) {
@@ -135,22 +89,31 @@ class _MobileScaffold extends StatelessWidget {
 
     return Scaffold(
       drawer: const NavigationDrawer(),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Builder(
-              builder: (context) => Container(
-                decoration: BoxDecoration(
-                  color: theme.primary.withOpacity(0.1),
-                  shape: BoxShape.circle,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(Insets.l, Insets.l, Insets.l, 0),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Builder(
+                  builder: (context) => Container(
+                    decoration: BoxDecoration(
+                      color: theme.primary.withOpacity(0.1),
+                      shape: BoxShape.circle,
+                    ),
+                    child: IconButton(
+                      onPressed: () => Scaffold.of(context).openDrawer(),
+                      icon: const Icon(Icons.menu),
+                    ),
+                  ),
                 ),
-                child: IconButton(
-                  onPressed: () => Scaffold.of(context).openDrawer(),
-                  icon: const Icon(Icons.menu),
-                ),
-              ),
-            )
-          ],
+                const HSpace(size: 80.0),
+                centerView ?? const HomeView(),
+                const StyledMobileFooter(),
+              ],
+            ),
+          ),
         ),
       ),
     );
