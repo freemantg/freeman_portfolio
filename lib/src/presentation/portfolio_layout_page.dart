@@ -1,5 +1,6 @@
 import 'package:adaptive_components/adaptive_components.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:freeman_portfolio/src/shared/extensions.dart';
 
 import '../shared/styles.dart';
@@ -88,7 +89,7 @@ class _MobileScaffold extends StatelessWidget {
     final theme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      drawer: const NavigationDrawer(),
+      drawer: const StyledNavigationDrawer(),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(Insets.l, Insets.l, Insets.l, 0),
@@ -116,6 +117,49 @@ class _MobileScaffold extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class FollowMouseContainer extends HookWidget {
+  const FollowMouseContainer({
+    Key? key,
+    required this.child,
+  }) : super(key: key);
+
+  final Widget child;
+  @override
+  Widget build(BuildContext context) {
+    final mousePosition = useState<Offset>(Offset.zero);
+
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        return MouseRegion(
+          onHover: (event) {
+            mousePosition.value = event.localPosition;
+          },
+          onExit: (event) {
+            mousePosition.value = Offset.zero;
+          },
+          child: Transform(
+            transform: Matrix4.identity()
+              ..setEntry(3, 2, 0.001) // perspective
+              // Only apply rotation if mouse is not at default position
+              ..rotateX(mousePosition.value == Offset.zero
+                  ? 0
+                  : (constraints.maxHeight / 2 - mousePosition.value.dy) /
+                      constraints.maxHeight /
+                      3)
+              ..rotateY(mousePosition.value == Offset.zero
+                  ? 0
+                  : -(constraints.maxWidth / 2 - mousePosition.value.dx) /
+                      constraints.maxWidth /
+                      3),
+            alignment: FractionalOffset.center,
+            child: child,
+          ),
+        );
+      },
     );
   }
 }

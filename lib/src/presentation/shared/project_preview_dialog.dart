@@ -148,7 +148,7 @@ class ProjectImageCarousel extends HookWidget {
             itemCount: (snapshot.hasData) ? snapshot.data as int : 0,
             itemBuilder: (context, index) => Image(
               image: AssetImage(
-                'projects/${projectType.name}/${projectType.name}_$index.png',
+                'assets/projects/${projectType.name}/${projectType.name}_$index.png',
               ),
             ),
           ),
@@ -194,3 +194,7 @@ class ProjectImageCarousel extends HookWidget {
     );
   }
 }
+
+//TODO: CLOSE BUTTON FOR PROJECT PREVIEW
+//TODO: CLOSE BUTTON FOR IMAGE VIEWER ZOOM
+//TODO: PROJECT_VIEWS TITLES ARE TOO BIG

@@ -11,8 +11,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../shared/styles.dart';
 import 'social_media_bar.dart';
 
-class NavigationDrawer extends StatelessWidget {
-  const NavigationDrawer({
+class StyledNavigationDrawer extends StatelessWidget {
+  const StyledNavigationDrawer({
     Key? key,
   }) : super(key: key);
 

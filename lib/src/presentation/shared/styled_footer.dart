@@ -15,9 +15,9 @@ class StyledWebFooter extends StatelessWidget {
     return Column(
       children: [
         const HSpace(size: 120),
-        Row(
+        const Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const [
+          children: [
             Flexible(
               child: InformationTile(
                 header: 'Location',
@@ -49,7 +49,7 @@ class StyledWebFooter extends StatelessWidget {
             const Icon(FontAwesomeIcons.githubAlt),
             const Spacer(),
             Text(
-              '© 2022, FREEMAN. All rights reserved.',
+              '© 2023, FREEMAN. All rights reserved.',
               style: TextStyles.body1,
             )
           ],

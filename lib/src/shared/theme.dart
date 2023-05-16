@@ -28,6 +28,7 @@ class AppTheme {
   ThemeData get themeData {
     var t = ThemeData.from(colorScheme: colorScheme);
     return t.copyWith(
+      useMaterial3: true,
       canvasColor: Colors.transparent,
       textSelectionTheme:
           TextSelectionThemeData(selectionColor: colorScheme.secondary),

@@ -19,12 +19,35 @@ class ProjectView extends StatelessWidget {
         FutureBuilder(
           future: projectType.assetLength(),
           builder: (context, snapshot) => ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemCount: snapshot.hasData ? snapshot.data as int : 0,
             itemBuilder: (context, index) {
-              return Image(
-                image: AssetImage(
-                  'projects/${projectType.name}/${projectType.name}_$index.png',
+              return GestureDetector(
+                onTap: () => showDialog(
+                  context: context,
+                  builder: (context) {
+                    return SingleChildScrollView(
+                      child: Hero(
+                        tag: '${projectType.name}_$index',
+                        child: InteractiveViewer(
+                          child: Image(
+                            image: AssetImage(
+                              'assets/projects/${projectType.name}/${projectType.name}_$index.png',
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                child: Hero(
+                  tag: '${projectType.name}_$index',
+                  child: Image(
+                    image: AssetImage(
+                      'assets/projects/${projectType.name}/${projectType.name}_$index.png',
+                    ),
+                  ),
                 ),
               );
             },

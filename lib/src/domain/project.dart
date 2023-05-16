@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 
 enum ProjectType {
+  glum,
   inky,
   githubOAuth,
   crackd,
@@ -65,6 +66,15 @@ A flexible and easy-to-use Pomodoro technique productivity app designed for your
     architectureDescription: 'Stack information',
     gitHubUrl: 'www.youtube.com',
   ),
+  ProjectType.glum: Project(
+    title: 'Glum',
+    shortDescription: 'Dark moods, Bright insights',
+    description: '''
+A flexible and easy-to-use Pomodoro technique productivity app designed for your work and study
+        ''',
+    architectureDescription: 'Stack information',
+    gitHubUrl: 'www.youtube.com',
+  ),
 };
 
 extension ProjectTypeX on ProjectType {
@@ -84,8 +94,6 @@ extension ProjectTypeX on ProjectType {
         .where((String key) => key.contains('projects/$name/'))
         // .where((String key) => key.contains('.png'))
         .toList();
-
-    print(imagePaths.length);
     //-1 as we're not including the cover image in the Image wheel.
     return imagePaths.length - 1;
   }

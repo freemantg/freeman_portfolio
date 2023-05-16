@@ -35,7 +35,6 @@ dependency_overrides:
   flutter_test:
     sdk: flutter
 
-
 flutter:
   uses-material-design: true
   assets:
@@ -43,6 +42,7 @@ flutter:
     - assets/projects/crackd/
     - assets/projects/githubOAuth/
     - assets/projects/inky/
+    - assets/projects/glum/
 
   fonts:
     - family: Codec Pro
