@@ -11,57 +11,46 @@ class CustomAnimatedProjectTile extends HookWidget {
   const CustomAnimatedProjectTile({
     Key? key,
     required this.projectType,
-    required this.onHover,
-    required this.onHoverMove,
-    required this.stackKey,
   }) : super(key: key);
 
   final ProjectType projectType;
-  final Function(ProjectType?) onHover;
-  final Function(Offset) onHoverMove;
-  final GlobalKey stackKey;
 
   @override
   Widget build(BuildContext context) {
     final isMobile = MediaQuery.of(context).size.width < 600;
-    final hoverController = useState(false);
+    final isHovered = useState(false);
 
     return isMobile
         ? GestureDetector(
-            onTap: () => onHover,
-            child: _buildProjectTileContents(hoverController.value),
+            onTap: () {},
+            child: _buildProjectTileContents(isHovered.value),
           )
         : MouseRegion(
             onEnter: (_) {
-              onHover(projectType);
-              hoverController.value = true;
+              isHovered.value = true;
             },
             onExit: (_) {
-              onHover(null);
-              hoverController.value = false;
+              isHovered.value = false;
             },
-            onHover: (event) {
-              final RenderBox stackRenderBox =
-                  stackKey.currentContext!.findRenderObject() as RenderBox;
-              onHoverMove(stackRenderBox.globalToLocal(event.position));
-            },
-            child: _buildProjectTileContents(hoverController.value),
+            onHover: (event) {},
+            child: _buildProjectTileContents(isHovered.value),
           );
   }
 
-  Widget _buildProjectTileContents(bool isHovered) {
+  Widget _buildProjectTileContents(
+    bool isHovered,
+  ) {
     return LayoutBuilder(
       builder: (context, constraints) {
         const containerConstraints =
-            BoxConstraints(minWidth: 394, maxHeight: 465);
+            BoxConstraints(maxWidth: 826, maxHeight: 394);
 
         return Container(
           constraints: containerConstraints,
           child: Stack(
-            fit: StackFit.expand,
             children: [
               ScaledImage(
-                assetPath: "assets/${projectType.assetPath}/cover.png",
+                assetPath: "${projectType.assetPath}/cover.png",
                 borderRadius: BorderRadius.circular(Insets.sm),
                 isHovered: isHovered,
               ),
@@ -76,16 +65,7 @@ class CustomAnimatedProjectTile extends HookWidget {
   Padding _buildContent(BuildContext context, bool isHovered) {
     return Padding(
       padding: const EdgeInsets.all(32.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildIconButton(context, isHovered),
-          // const Spacer(),
-          // Text(projectType.title, style: TextStyles.h3),
-          // const HSpace(size: Insets.m),
-          // _buildSwitcher(isHovered),
-        ],
-      ),
+      child: _buildIconButton(context, isHovered),
     );
   }
 
@@ -100,12 +80,22 @@ class CustomAnimatedProjectTile extends HookWidget {
         child: FadeTransition(opacity: animation, child: child),
       ),
       child: isHovered
-          ? IconButton(
-              icon: const FaIcon(FontAwesomeIcons.expand),
-              color: Colors.white,
-              onPressed: () => _showAnimatedDialog(context, projectType),
+          ? Align(
+              alignment: Alignment.topLeft,
+              child: IconButton(
+                key: const ValueKey(
+                  'hoveredIcon',
+                ), // Added key for AnimatedSwitcher
+                icon: const FaIcon(FontAwesomeIcons.expand),
+                color: Colors.white,
+                onPressed: () => _showAnimatedDialog(context, projectType),
+              ),
             )
-          : null,
+          : Container(
+              key: const ValueKey(
+                'emptyContainer',
+              ), // Added key for AnimatedSwitcher
+            ),
     );
   }
 
@@ -132,118 +122,35 @@ class CustomAnimatedProjectTile extends HookWidget {
   }
 }
 
-//   Widget _buildSwitcher(bool isHovered) {
-//     return AnimatedSwitcher(
-//       switchInCurve: Curves.easeIn,
-//       switchOutCurve: Curves.easeOut,
-//       duration: kThemeAnimationDuration * 1.5,
-//       transitionBuilder: ((child, animation) => SlideTransition(
-//             position: Tween<Offset>(
-//               begin: animation.isCompleted
-//                   ? const Offset(0, -0.5)
-//                   : const Offset(0, 0.5),
-//               end: Offset.zero,
-//             ).animate(animation),
-//             child: FadeTransition(
-//               opacity: animation,
-//               child: Align(
-//                 alignment: Alignment.bottomLeft,
-//                 child: child,
-//               ),
-//             ),
-//           )),
-//       child: isHovered
-//           ? ViewProjectButton(projectType)
-//           : Text(
-//               key: UniqueKey(),
-//               projectType.shortDescription,
-//               maxLines: 1,
-//               style: TextStyles.body1.copyWith(
-//                 color: Colors.white,
-//                 fontWeight: FontWeight.w100,
-//               ),
-//             ),
-//     );
-//   }
-// }
-
-class ScaledImage extends HookWidget {
+class ScaledImage extends StatelessWidget {
   final String assetPath;
   final BorderRadius borderRadius;
   final bool isHovered;
 
   const ScaledImage({
-    super.key,
+    Key? key,
     required this.assetPath,
     required this.borderRadius,
     required this.isHovered,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final scaleController =
-        useAnimationController(duration: kThemeAnimationDuration * 1.5);
-    final scale =
-        useAnimation(Tween(begin: 1.0, end: 1.1).animate(scaleController));
-
-    useEffect(() {
-      if (isHovered) {
-        scaleController.forward();
-      } else {
-        scaleController.reverse();
-      }
-      return null;
-    }, [isHovered]);
-
     return ClipRRect(
       borderRadius: borderRadius,
-      child: Transform.scale(
-        scale: scale,
+      child: AnimatedScale(
+        scale: isHovered ? 1.05 : 1.0,
+        duration: const Duration(milliseconds: 200),
         child: Container(
           decoration: BoxDecoration(
+            borderRadius: borderRadius,
             image: DecorationImage(
               image: AssetImage(assetPath),
               fit: BoxFit.cover,
             ),
-            borderRadius: borderRadius,
           ),
         ),
       ),
     );
   }
 }
-
-// class ViewProjectButton extends HookWidget {
-//   final ProjectType projectType;
-
-//   const ViewProjectButton(
-//     this.projectType, {
-//     Key? key,
-//   }) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final theme = Theme.of(context);
-//     var hoverController = useState(false);
-
-//     return MouseRegion(
-//       onEnter: (_) => hoverController.value = true,
-//       onExit: (_) => hoverController.value = false,
-//       child: GestureDetector(
-//         onTap: () => AutoRouter.of(context).push(
-//           PortfolioLayoutPageRoute(centerView: ProjectView(projectType)),
-//         ),
-//         child: Text(
-//           key: UniqueKey(),
-//           'View Project___',
-//           style: TextStyles.body1.copyWith(
-//             color: hoverController.value
-//                 ? theme.colorScheme.secondary
-//                 : Colors.white,
-//             fontWeight: FontWeight.w500,
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }

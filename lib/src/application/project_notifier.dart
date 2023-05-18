@@ -10,8 +10,8 @@ class ProjectsState with _$ProjectsState {
   const ProjectsState._();
   const factory ProjectsState.initial() = _Initial;
   const factory ProjectsState.loadInProgress() = _LoadInProgress;
-  const factory ProjectsState.loadSuccess({required List<Project> projects}) =
-      _LoadSuccess;
+  const factory ProjectsState.loadSuccess(
+      {required Map<ProjectType, Project> projects}) = _LoadSuccess;
   const factory ProjectsState.loadFailure() = _LoadFailure;
 }
 

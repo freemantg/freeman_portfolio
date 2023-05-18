@@ -89,7 +89,7 @@ class _MobileScaffold extends StatelessWidget {
     final theme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      drawer: const StyledNavigationDrawer(),
+      drawer: const StyledMobileNavigationDrawer(),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(Insets.l, Insets.l, Insets.l, 0),

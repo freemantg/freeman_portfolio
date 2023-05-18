@@ -102,8 +102,8 @@ class DismissibleContainer extends HookWidget {
                             .copyWith(fontWeight: FontWeight.w600),
                       ),
                       const HSpace(size: Insets.m),
-                      Row(
-                        children: const [
+                      const Row(
+                        children: [
                           AnimatedUrlIconButton(
                             iconData: FontAwesomeIcons.link,
                             url: apolloShopify,
@@ -139,9 +139,21 @@ class ContactButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        disabledBackgroundColor: Colors.red,
+        foregroundColor: colorScheme.onPrimary,
+        backgroundColor: colorScheme.primary,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(6.0),
+        ),
+      ),
       onPressed: () => ref.read(appRouterProvider).push(
-            PortfolioLayoutPageRoute(centerView: const ContactView()),
+            PortfolioLayoutPageRoute(
+              centerView: const ContactView(),
+            ),
           ),
       child: Padding(
         padding: const EdgeInsets.symmetric(

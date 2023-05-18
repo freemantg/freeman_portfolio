@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:freeman_portfolio/src/shared/styled_divider.dart';
 
 import '../../shared/constants.dart';
 import '../../shared/styles.dart';
 import 'information_tile.dart';
+import 'logo.dart';
 
 class StyledWebFooter extends StatelessWidget {
   const StyledWebFooter({
@@ -17,39 +19,35 @@ class StyledWebFooter extends StatelessWidget {
         const HSpace(size: 120),
         const Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Flexible(
-              child: InformationTile(
-                header: 'Location',
-                title: 'Remote,\nbased in London',
-              ),
+            Logo(),
+            Spacer(),
+            InformationTile(
+              header: 'Location',
+              title: 'Based in London\nUNITED KINGDOM',
             ),
             Spacer(),
-            Flexible(
-              child: InformationTile(
-                header: 'Contact',
-                title: 'Let\'s get in touch',
-                subtitle: ContactDetails.personalEmail,
-              ),
+            InformationTile(
+              header: 'Contact',
+              title: 'Let\'s get in touch',
+              subtitle: ContactDetails.personalEmail,
             ),
-            Spacer(),
           ],
         ),
         const HSpace(size: 80),
-        const Divider(),
+        const StyledDivider(),
         const HSpace(size: Insets.l),
         Row(
           children: [
-            Flexible(
-              child: Text(
-                "This portfolio is made from Flutter.  ",
-                style: TextStyles.body1,
-              ),
+            Text(
+              "This portfolio is made from Flutter.  ",
+              style: TextStyles.body1,
             ),
             const Icon(FontAwesomeIcons.githubAlt),
             const Spacer(),
             Text(
-              '© 2023, FREEMAN. All rights reserved.',
+              '© ${ContactDetails.reservedYear}, FREEMAN. All rights reserved.',
               style: TextStyles.body1,
             )
           ],
@@ -67,7 +65,8 @@ class StyledMobileFooter extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const HSpace(size: Insets.xl),
+        const Align(alignment: Alignment.centerLeft, child: Logo()),
+        const HSpace(size: Insets.xl * 2),
         const InformationTile(
           header: 'Location',
           title: 'Remote, based in London',
@@ -79,13 +78,13 @@ class StyledMobileFooter extends StatelessWidget {
           subtitle: ContactDetails.personalEmail,
         ),
         const HSpace(size: Insets.l),
-        const Divider(),
+        const StyledDivider(),
         const HSpace(size: Insets.l),
         Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              '© 2022, FREEMAN. All rights reserved.',
+              '© ${ContactDetails.reservedYear}, FREEMAN. All rights reserved.',
               style: TextStyles.body1,
             ),
             Text(

@@ -11,8 +11,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../shared/styles.dart';
 import 'social_media_bar.dart';
 
-class StyledNavigationDrawer extends StatelessWidget {
-  const StyledNavigationDrawer({
+class StyledMobileNavigationDrawer extends StatelessWidget {
+  const StyledMobileNavigationDrawer({
     Key? key,
   }) : super(key: key);
 
@@ -21,7 +21,7 @@ class StyledNavigationDrawer extends StatelessWidget {
     return Row(
       children: [
         Drawer(
-          backgroundColor: Theme.of(context).backgroundColor,
+          backgroundColor: Theme.of(context).colorScheme.background,
           child: Column(
             children: [
               Padding(

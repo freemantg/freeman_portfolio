@@ -1,12 +1,37 @@
-[
-  {
-    "title": "Crack'd",
-    "description": "Timer app that helps boost your productivity",
-    "architectureDescription": "Build with BLoC"
+{
+  "ricedrop": {
+    "title": "Rice Drop",
+    "shortDescription": "Branding & Self Service POS",
+    "description": "A flexible and easy-to-use Pomodoro technique productivity app designed for your work and study.",
+    "architectureDescription": "Stack information",
+    "gitHubUrl": "www.youtube.com"
   },
-  {
+  "glum": {
+    "title": "Glum",
+    "shortDescription": "Dark moods, Bright insights",
+    "description": "A flexible and easy-to-use Pomodoro technique productivity app designed for your work and study.",
+    "architectureDescription": "Stack information",
+    "gitHubUrl": "www.youtube.com"
+  },
+  "inky": {
+    "title": "Inky",
+    "shortDescription": "Inspiration archiving app",
+    "description": "A flexible and easy-to-use Pomodoro technique productivity app designed for your work and study.",
+    "architectureDescription": "Stack information",
+    "gitHubUrl": "www.youtube.com"
+  },
+  "githubOAuth": {
+    "title": "OAuth 2.0",
+    "shortDescription": "GitHub's OAuth 2.0 implementation",
+    "description": "A flexible and easy-to-use Pomodoro technique productivity app designed for your work and study.",
+    "architectureDescription": "Stack information",
+    "gitHubUrl": "www.youtube.com"
+  },
+  "crackd": {
     "title": "Crack'd",
-    "description": "Timer app that helps boost your productivity",
-    "architectureDescription": "Build with BLoC"
+    "shortDescription": "A easy-to-use Pomodoro",
+    "description": "A flexible and easy-to-use Pomodoro technique productivity app designed for your work and study.",
+    "architectureDescription": "Stack information",
+    "gitHubUrl": "www.youtube.com"
   }
-]
+}

@@ -3,8 +3,10 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:freeman_portfolio/src/presentation/about/about_view.dart';
 import 'package:freeman_portfolio/src/presentation/contact/contact_view.dart';
 import 'package:freeman_portfolio/src/presentation/project/projects_view.dart';
+import 'package:freeman_portfolio/src/presentation/shared/logo.dart';
 import 'package:freeman_portfolio/src/shared/app_router.gr.dart';
 import 'package:freeman_portfolio/src/shared/providers.dart';
+import 'package:freeman_portfolio/src/shared/styled_divider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../shared/styles.dart';
@@ -16,11 +18,13 @@ class NavigationMenuBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: const [
-        CustomAnimatedOpacity(child: FlutterLogo(size: 80)),
-        Spacer(),
+    return const Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        CustomAnimatedOpacity(child: Logo()),
+        StyledDivider(
+          padding: EdgeInsets.symmetric(vertical: Insets.l),
+        ),
         NavigationWebMenu(
           menuItems: [
             NavigationBarItem(
@@ -62,6 +66,7 @@ class NavigationWebMenu extends HookWidget {
       onEnter: (_) => hoverController.value = true,
       onExit: (_) => hoverController.value = false,
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
           ...menuItems
               .map(
@@ -104,7 +109,9 @@ class NavigationBarItem extends ConsumerWidget {
               if (states.contains(MaterialState.hovered)) {
                 return theme.secondary;
               }
-              return isHovered ? theme.primary.withOpacity(0.5) : theme.primary;
+              return isHovered
+                  ? theme.secondary.withOpacity(0.5)
+                  : theme.secondary;
             },
           ),
         ),

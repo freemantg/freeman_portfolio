@@ -148,7 +148,7 @@ class ProjectImageCarousel extends HookWidget {
             itemCount: (snapshot.hasData) ? snapshot.data as int : 0,
             itemBuilder: (context, index) => Image(
               image: AssetImage(
-                'assets/projects/${projectType.name}/${projectType.name}_$index.png',
+                'projects/${projectType.name}/${projectType.name}_$index.png',
               ),
             ),
           ),

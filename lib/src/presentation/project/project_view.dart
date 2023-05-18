@@ -33,7 +33,7 @@ class ProjectView extends StatelessWidget {
                         child: InteractiveViewer(
                           child: Image(
                             image: AssetImage(
-                              'assets/projects/${projectType.name}/${projectType.name}_$index.png',
+                              'projects/${projectType.name}/${projectType.name}_$index.png',
                             ),
                           ),
                         ),
@@ -45,7 +45,7 @@ class ProjectView extends StatelessWidget {
                   tag: '${projectType.name}_$index',
                   child: Image(
                     image: AssetImage(
-                      'assets/projects/${projectType.name}/${projectType.name}_$index.png',
+                      'projects/${projectType.name}/${projectType.name}_$index.png',
                     ),
                   ),
                 ),

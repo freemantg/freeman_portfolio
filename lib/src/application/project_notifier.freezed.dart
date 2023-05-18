@@ -20,7 +20,7 @@ mixin _$ProjectsState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loadInProgress,
-    required TResult Function(List<Project> projects) loadSuccess,
+    required TResult Function(Map<ProjectType, Project> projects) loadSuccess,
     required TResult Function() loadFailure,
   }) =>
       throw _privateConstructorUsedError;
@@ -28,7 +28,7 @@ mixin _$ProjectsState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loadInProgress,
-    TResult? Function(List<Project> projects)? loadSuccess,
+    TResult? Function(Map<ProjectType, Project> projects)? loadSuccess,
     TResult? Function()? loadFailure,
   }) =>
       throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ mixin _$ProjectsState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadInProgress,
-    TResult Function(List<Project> projects)? loadSuccess,
+    TResult Function(Map<ProjectType, Project> projects)? loadSuccess,
     TResult Function()? loadFailure,
     required TResult orElse(),
   }) =>
@@ -125,7 +125,7 @@ class _$_Initial extends _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loadInProgress,
-    required TResult Function(List<Project> projects) loadSuccess,
+    required TResult Function(Map<ProjectType, Project> projects) loadSuccess,
     required TResult Function() loadFailure,
   }) {
     return initial();
@@ -136,7 +136,7 @@ class _$_Initial extends _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loadInProgress,
-    TResult? Function(List<Project> projects)? loadSuccess,
+    TResult? Function(Map<ProjectType, Project> projects)? loadSuccess,
     TResult? Function()? loadFailure,
   }) {
     return initial?.call();
@@ -147,7 +147,7 @@ class _$_Initial extends _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadInProgress,
-    TResult Function(List<Project> projects)? loadSuccess,
+    TResult Function(Map<ProjectType, Project> projects)? loadSuccess,
     TResult Function()? loadFailure,
     required TResult orElse(),
   }) {
@@ -240,7 +240,7 @@ class _$_LoadInProgress extends _LoadInProgress {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loadInProgress,
-    required TResult Function(List<Project> projects) loadSuccess,
+    required TResult Function(Map<ProjectType, Project> projects) loadSuccess,
     required TResult Function() loadFailure,
   }) {
     return loadInProgress();
@@ -251,7 +251,7 @@ class _$_LoadInProgress extends _LoadInProgress {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loadInProgress,
-    TResult? Function(List<Project> projects)? loadSuccess,
+    TResult? Function(Map<ProjectType, Project> projects)? loadSuccess,
     TResult? Function()? loadFailure,
   }) {
     return loadInProgress?.call();
@@ -262,7 +262,7 @@ class _$_LoadInProgress extends _LoadInProgress {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadInProgress,
-    TResult Function(List<Project> projects)? loadSuccess,
+    TResult Function(Map<ProjectType, Project> projects)? loadSuccess,
     TResult Function()? loadFailure,
     required TResult orElse(),
   }) {
@@ -321,7 +321,7 @@ abstract class _$$_LoadSuccessCopyWith<$Res> {
           _$_LoadSuccess value, $Res Function(_$_LoadSuccess) then) =
       __$$_LoadSuccessCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<Project> projects});
+  $Res call({Map<ProjectType, Project> projects});
 }
 
 /// @nodoc
@@ -341,7 +341,7 @@ class __$$_LoadSuccessCopyWithImpl<$Res>
       projects: null == projects
           ? _value._projects
           : projects // ignore: cast_nullable_to_non_nullable
-              as List<Project>,
+              as Map<ProjectType, Project>,
     ));
   }
 }
@@ -349,16 +349,16 @@ class __$$_LoadSuccessCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_LoadSuccess extends _LoadSuccess {
-  const _$_LoadSuccess({required final List<Project> projects})
+  const _$_LoadSuccess({required final Map<ProjectType, Project> projects})
       : _projects = projects,
         super._();
 
-  final List<Project> _projects;
+  final Map<ProjectType, Project> _projects;
   @override
-  List<Project> get projects {
-    if (_projects is EqualUnmodifiableListView) return _projects;
+  Map<ProjectType, Project> get projects {
+    if (_projects is EqualUnmodifiableMapView) return _projects;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_projects);
+    return EqualUnmodifiableMapView(_projects);
   }
 
   @override
@@ -389,7 +389,7 @@ class _$_LoadSuccess extends _LoadSuccess {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loadInProgress,
-    required TResult Function(List<Project> projects) loadSuccess,
+    required TResult Function(Map<ProjectType, Project> projects) loadSuccess,
     required TResult Function() loadFailure,
   }) {
     return loadSuccess(projects);
@@ -400,7 +400,7 @@ class _$_LoadSuccess extends _LoadSuccess {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loadInProgress,
-    TResult? Function(List<Project> projects)? loadSuccess,
+    TResult? Function(Map<ProjectType, Project> projects)? loadSuccess,
     TResult? Function()? loadFailure,
   }) {
     return loadSuccess?.call(projects);
@@ -411,7 +411,7 @@ class _$_LoadSuccess extends _LoadSuccess {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadInProgress,
-    TResult Function(List<Project> projects)? loadSuccess,
+    TResult Function(Map<ProjectType, Project> projects)? loadSuccess,
     TResult Function()? loadFailure,
     required TResult orElse(),
   }) {
@@ -460,11 +460,11 @@ class _$_LoadSuccess extends _LoadSuccess {
 }
 
 abstract class _LoadSuccess extends ProjectsState {
-  const factory _LoadSuccess({required final List<Project> projects}) =
-      _$_LoadSuccess;
+  const factory _LoadSuccess(
+      {required final Map<ProjectType, Project> projects}) = _$_LoadSuccess;
   const _LoadSuccess._() : super._();
 
-  List<Project> get projects;
+  Map<ProjectType, Project> get projects;
   @JsonKey(ignore: true)
   _$$_LoadSuccessCopyWith<_$_LoadSuccess> get copyWith =>
       throw _privateConstructorUsedError;
@@ -510,7 +510,7 @@ class _$_LoadFailure extends _LoadFailure {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loadInProgress,
-    required TResult Function(List<Project> projects) loadSuccess,
+    required TResult Function(Map<ProjectType, Project> projects) loadSuccess,
     required TResult Function() loadFailure,
   }) {
     return loadFailure();
@@ -521,7 +521,7 @@ class _$_LoadFailure extends _LoadFailure {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loadInProgress,
-    TResult? Function(List<Project> projects)? loadSuccess,
+    TResult? Function(Map<ProjectType, Project> projects)? loadSuccess,
     TResult? Function()? loadFailure,
   }) {
     return loadFailure?.call();
@@ -532,7 +532,7 @@ class _$_LoadFailure extends _LoadFailure {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loadInProgress,
-    TResult Function(List<Project> projects)? loadSuccess,
+    TResult Function(Map<ProjectType, Project> projects)? loadSuccess,
     TResult Function()? loadFailure,
     required TResult orElse(),
   }) {

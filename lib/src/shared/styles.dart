@@ -26,9 +26,8 @@ class TextStyles {
 
   static TextStyle get h1 => codecPro.copyWith(
       fontWeight: FontWeight.w600, fontSize: 75, letterSpacing: -3, height: 1);
-  static TextStyle get h2 =>
-      h1.copyWith(fontSize: 52, color: Colors.white, height: 1.2);
-  static TextStyle get h3 => h1.copyWith(fontSize: 30, color: Colors.white);
+  static TextStyle get h2 => h1.copyWith(fontSize: 52, height: 1.2);
+  static TextStyle get h3 => h1.copyWith(fontSize: 30);
   static TextStyle get h4 => h1.copyWith(fontSize: 16);
   static TextStyle get projectTitle =>
       codecPro.copyWith(fontSize: 115, fontWeight: FontWeight.w600);
