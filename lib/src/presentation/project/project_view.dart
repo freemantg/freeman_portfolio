@@ -6,52 +6,51 @@ import '../../domain/project.dart';
 import '../../shared/styles.dart';
 
 class ProjectView extends StatelessWidget {
-  final ProjectType projectType;
+  final Project project;
 
-  const ProjectView(this.projectType, {super.key});
+  const ProjectView(this.project, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ProjectDetails(projectType),
+        ProjectDetails(project),
         const HSpace(size: Insets.l),
-        FutureBuilder(
-          future: projectType.assetLength(),
-          builder: (context, snapshot) => ListView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: snapshot.hasData ? snapshot.data as int : 0,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () => showDialog(
+        ListView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: project.assetLength,
+          itemBuilder: (context, index) {
+            return GestureDetector(
+              onTap: () {
+                showDialog(
                   context: context,
                   builder: (context) {
                     return SingleChildScrollView(
                       child: Hero(
-                        tag: '${projectType.name}_$index',
+                        tag: '${project.title}_$index',
                         child: InteractiveViewer(
                           child: Image(
                             image: AssetImage(
-                              'projects/${projectType.name}/${projectType.name}_$index.png',
+                              'projects/${project.folderName}/${project.folderName}_$index.png',
                             ),
                           ),
                         ),
                       ),
                     );
                   },
-                ),
-                child: Hero(
-                  tag: '${projectType.name}_$index',
-                  child: Image(
-                    image: AssetImage(
-                      'projects/${projectType.name}/${projectType.name}_$index.png',
-                    ),
+                );
+              },
+              child: Hero(
+                tag: '${project.title}_$index',
+                child: Image(
+                  image: AssetImage(
+                    'projects/${project.folderName}/${project.folderName}_$index.png',
                   ),
                 ),
-              );
-            },
-          ),
+              ),
+            );
+          },
         )
       ],
     );
@@ -59,10 +58,10 @@ class ProjectView extends StatelessWidget {
 }
 
 class ProjectDetails extends StatelessWidget {
-  final ProjectType projectType;
+  final Project project;
 
   const ProjectDetails(
-    this.projectType, {
+    this.project, {
     Key? key,
   }) : super(key: key);
 
@@ -80,10 +79,10 @@ class ProjectDetails extends StatelessWidget {
               children: [
                 Text('Flutter', style: TextStyles.body1),
                 const HSpace(size: Insets.m),
-                Text(projectType.title, style: TextStyles.h1),
+                Text(project.title, style: TextStyles.h1),
                 const HSpace(size: Insets.l),
                 Text(
-                  projectType.description,
+                  project.description,
                   style: TextStyles.body1,
                   softWrap: true,
                 ),
@@ -102,7 +101,7 @@ class ProjectDetails extends StatelessWidget {
                 ),
                 const HSpace(size: Insets.m),
                 Text(
-                  projectType.architectureDescription,
+                  project.architectureDescription,
                   style: TextStyles.body1.copyWith(fontWeight: FontWeight.w600),
                 ),
                 const HSpace(size: Insets.xl),

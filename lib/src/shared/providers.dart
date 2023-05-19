@@ -13,6 +13,5 @@ final themeProvider = StateNotifierProvider<ThemeNotifier, AppTheme>(
 );
 
 final projectRepositoryProvider = Provider((ref) => ProjectRepository());
-
 final projectsProvider = StateNotifierProvider<ProjectsNotifier, ProjectsState>(
     (ref) => ProjectsNotifier(ref.watch(projectRepositoryProvider)));

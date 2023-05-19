@@ -1,7 +1,3 @@
-import 'dart:convert';
-
-import 'package:flutter/services.dart';
-
 enum ProjectType {
   ricedrop,
   glum,
@@ -16,6 +12,7 @@ class Project {
   final String description;
   final String architectureDescription;
   final String gitHubUrl;
+  final int assetLength;
 
   Project({
     required this.title,
@@ -23,19 +20,42 @@ class Project {
     required this.description,
     required this.architectureDescription,
     required this.gitHubUrl,
+    required this.assetLength,
   });
+
+  factory Project.empty() {
+    return Project(
+      title: '',
+      shortDescription: '',
+      description: '',
+      architectureDescription: '',
+      gitHubUrl: '',
+      assetLength: 0,
+    );
+  }
 }
 
 extension ProjectTypeX on ProjectType {
-  Future<int> assetLength() async {
-    final manifestContent = await rootBundle.loadString('AssetManifest.json');
-    final Map<String, dynamic> manifestMap = json.decode(manifestContent);
+  String get folderName {
+    switch (this) {
+      case ProjectType.ricedrop:
+        return "ricedrop";
+      case ProjectType.glum:
+        return "glum";
+      case ProjectType.inky:
+        return "inky";
+      case ProjectType.githubOAuth:
+        return "oauth2.0";
+      case ProjectType.crackd:
+        return "crack'd";
+      default:
+        throw Exception('Unknown project type');
+    }
+  }
+}
 
-    final imagePaths = manifestMap.keys
-        .where((String key) => key.contains('projects/$name/'))
-        // .where((String key) => key.contains('.png'))
-        .toList();
-    //-1 as we're not including the cover image in the Image wheel.
-    return imagePaths.length - 1;
+extension ProjectX on Project {
+  String get folderName {
+    return title.replaceAll(' ', '');
   }
 }

@@ -27,6 +27,8 @@ class TextStyles {
   static TextStyle get h1 => codecPro.copyWith(
       fontWeight: FontWeight.w600, fontSize: 75, letterSpacing: -3, height: 1);
   static TextStyle get h2 => h1.copyWith(fontSize: 52, height: 1.2);
+  static TextStyle get h2White => h2.copyWith(color: Colors.white);
+
   static TextStyle get h3 => h1.copyWith(fontSize: 30);
   static TextStyle get h4 => h1.copyWith(fontSize: 16);
   static TextStyle get projectTitle =>
@@ -41,6 +43,7 @@ class TextStyles {
       title1.copyWith(fontSize: 15, fontWeight: FontWeight.normal);
   static TextStyle get body1 =>
       codecPro.copyWith(fontWeight: FontWeight.w100, fontSize: 16, height: 1.5);
+  static TextStyle get body1White => body1.copyWith(color: Colors.white);
   static TextStyle get body2 => body1.copyWith(fontSize: 12);
   static TextStyle get caption =>
       codecPro.copyWith(fontWeight: FontWeight.w500, fontSize: 11);

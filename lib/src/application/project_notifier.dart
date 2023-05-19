@@ -20,9 +20,11 @@ class ProjectsNotifier extends StateNotifier<ProjectsState> {
 
   ProjectsNotifier(ProjectRepository repository)
       : _projectRepository = repository,
-        super(const ProjectsState.initial());
+        super(const ProjectsState.initial()) {
+    _fetchProjects();
+  }
 
-  Future<void> fetchProjects() async {
+  Future<void> _fetchProjects() async {
     state = const ProjectsState.loadInProgress();
     final projects = await _projectRepository.fetchProjects();
     state = ProjectsState.loadSuccess(projects: projects);

@@ -40,6 +40,11 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+    - assets/projects/crack'd/
+    - assets/projects/ricedrop/
+    - assets/projects/glum/
+    - assets/projects/inky/
+    - assets/projects/oauth2.0/
     - assets/projects/projects.json
 
   fonts:

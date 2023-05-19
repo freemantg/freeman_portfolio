@@ -29,7 +29,10 @@ class AboutView extends StatelessWidget {
         direction: !constraints.isDesktop ? Axis.vertical : Axis.horizontal,
         children: [
           ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 490),
+            constraints: BoxConstraints(
+              maxWidth: 490,
+              maxHeight: MediaQuery.of(context).size.height / 2,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -80,7 +83,7 @@ class DismissibleContainer extends HookWidget {
             padding: const EdgeInsets.all(Insets.l),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(Insets.m),
-              color: theme.tertiary,
+              color: theme.secondary,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -143,7 +146,6 @@ class ContactButton extends ConsumerWidget {
 
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        disabledBackgroundColor: Colors.red,
         foregroundColor: colorScheme.onPrimary,
         backgroundColor: colorScheme.primary,
         shape: RoundedRectangleBorder(

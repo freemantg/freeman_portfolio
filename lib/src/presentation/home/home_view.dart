@@ -4,22 +4,34 @@ import 'package:freeman_portfolio/src/domain/project.dart';
 import 'package:freeman_portfolio/src/shared/extensions.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../shared/providers.dart';
 import '../../shared/styles.dart';
+import '../shared/styled_circle_progress_indicator.dart';
 import 'custom_animated_project_tile.dart';
 
-class HomeView extends HookConsumerWidget {
+class HomeView extends HookWidget {
   const HomeView({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       return Column(
         children: [
           const _AnimatedHeader(),
           const SizedBox(height: 100),
-          (constraints.isDesktop)
-              ? _buildDesktopLayout(context)
-              : _buildTabletLayout(),
+          Consumer(
+            builder: (context, ref, child) {
+              final projectState = ref.watch(projectsProvider);
+              return projectState.maybeWhen(
+                loadSuccess: (projects) {
+                  return (constraints.isDesktop)
+                      ? _buildDesktopLayout(context, projects)
+                      : _buildTabletLayout(projects);
+                },
+                orElse: () => const StyledCircleProgressIndicator(),
+              );
+            },
+          ),
         ],
       );
     });
@@ -27,9 +39,9 @@ class HomeView extends HookConsumerWidget {
 
   Widget _buildDesktopLayout(
     BuildContext context,
+    Map<ProjectType, Project> projects,
   ) {
-    return const Stack(
-      clipBehavior: Clip.none,
+    return Stack(
       children: [
         Column(
           children: [
@@ -38,54 +50,55 @@ class HomeView extends HookConsumerWidget {
                 Flexible(
                   flex: 100,
                   child: CustomAnimatedProjectTile(
-                    projectType: ProjectType.ricedrop,
+                    project: projects[ProjectType.ricedrop] ?? Project.empty(),
                   ),
                 ),
-                VSpace(size: 40),
+                const VSpace(size: 40),
                 Flexible(
                   flex: 47,
                   child: CustomAnimatedProjectTile(
-                    projectType: ProjectType.glum,
+                    project: projects[ProjectType.glum] ?? Project.empty(),
                   ),
                 ),
               ],
             ),
-            HSpace(size: 40),
+            const HSpace(size: 40),
             Row(
               children: [
                 Flexible(
                   flex: 100,
                   child: CustomAnimatedProjectTile(
-                    projectType: ProjectType.inky,
+                    project: projects[ProjectType.inky] ?? Project.empty(),
                   ),
                 ),
-                VSpace(size: 40),
+                const VSpace(size: 40),
                 Flexible(
                   flex: 47,
                   child: CustomAnimatedProjectTile(
-                    projectType: ProjectType.githubOAuth,
+                    project:
+                        projects[ProjectType.githubOAuth] ?? Project.empty(),
                   ),
                 ),
               ],
             ),
-            HSpace(size: 40),
+            const HSpace(size: 40),
             Row(
               children: [
                 Expanded(
                   child: CustomAnimatedProjectTile(
-                    projectType: ProjectType.inky,
+                    project: projects[ProjectType.inky] ?? Project.empty(),
                   ),
                 ),
-                VSpace(size: 40),
+                const VSpace(size: 40),
                 Expanded(
                   child: CustomAnimatedProjectTile(
-                    projectType: ProjectType.glum,
+                    project: projects[ProjectType.glum] ?? Project.empty(),
                   ),
                 ),
-                VSpace(size: 40),
+                const VSpace(size: 40),
                 Expanded(
                   child: CustomAnimatedProjectTile(
-                    projectType: ProjectType.crackd,
+                    project: projects[ProjectType.crackd] ?? Project.empty(),
                   ),
                 ),
               ],
@@ -95,47 +108,47 @@ class HomeView extends HookConsumerWidget {
       ],
     );
   }
+}
 
-  Widget _buildFloatingProjectDescription(
-    BuildContext context,
-    ProjectType projectType,
-    ValueNotifier<Offset> mouseRegionPos,
-  ) {
-    return Positioned(
-      left: mouseRegionPos.value.dx - 25,
-      top: mouseRegionPos.value.dy + 25,
-      child: Container(
-        padding: const EdgeInsets.all(10.0),
-        color: Colors.black.withOpacity(0.5),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              projectType.title,
-              style: TextStyles.h3.copyWith(color: Colors.white),
-            ),
-            Text(
-              projectType.shortDescription,
-              style: TextStyles.title1.copyWith(color: Colors.white),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+// Widget _buildFloatingProjectDescription(
+//   BuildContext context,
+//   ProjectType projectType,
+//   ValueNotifier<Offset> mouseRegionPos,
+// ) {
+//   return Positioned(
+//     left: mouseRegionPos.value.dx - 25,
+//     top: mouseRegionPos.value.dy + 25,
+//     child: Container(
+//       padding: const EdgeInsets.all(10.0),
+//       color: Colors.black.withOpacity(0.5),
+//       child: Column(
+//         mainAxisSize: MainAxisSize.min,
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Text(
+//             projectType.title,
+//             style: TextStyles.h3.copyWith(color: Colors.white),
+//           ),
+//           Text(
+//             projectType.shortDescription,
+//             style: TextStyles.title1.copyWith(color: Colors.white),
+//           ),
+//         ],
+//       ),
+//     ),
+//   );
+// }
 
-  Widget _buildTabletLayout() {
-    return ListView.separated(
-      physics: const NeverScrollableScrollPhysics(),
-      separatorBuilder: (_, __) => const SizedBox(height: Insets.l),
-      shrinkWrap: true,
-      itemCount: ProjectType.values.length,
-      itemBuilder: (context, index) => CustomAnimatedProjectTile(
-        projectType: ProjectType.values[index],
-      ),
-    );
-  }
+Widget _buildTabletLayout(Map<ProjectType, Project> projects) {
+  return ListView.separated(
+    physics: const NeverScrollableScrollPhysics(),
+    separatorBuilder: (_, __) => const SizedBox(height: Insets.l),
+    shrinkWrap: true,
+    itemCount: ProjectType.values.length,
+    itemBuilder: (context, index) => CustomAnimatedProjectTile(
+      project: projects[ProjectType.values[index]] ?? Project.empty(),
+    ),
+  );
 }
 
 class _AnimatedHeader extends HookWidget {
@@ -146,10 +159,6 @@ class _AnimatedHeader extends HookWidget {
     final animationController = useAnimationController(
       duration: const Duration(milliseconds: 500),
     )..repeat(reverse: true);
-
-    useEffect(() {
-      return animationController.dispose;
-    }, const []);
 
     return FractionallySizedBox(
       widthFactor: 0.5,

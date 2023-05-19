@@ -43,7 +43,7 @@ class AppRouter extends _i3.RootStackRouter {
       return _i3.CustomPage<dynamic>(
         routeData: routeData,
         child: _i2.ProjectView(
-          args.projectType,
+          args.project,
           key: args.key,
         ),
         transitionsBuilder: _i3.TransitionsBuilders.fadeIn,
@@ -111,13 +111,13 @@ class PortfolioLayoutPageRouteArgs {
 /// [_i2.ProjectView]
 class ProjectViewRoute extends _i3.PageRouteInfo<ProjectViewRouteArgs> {
   ProjectViewRoute({
-    required _i5.ProjectType projectType,
+    required _i5.Project project,
     _i4.Key? key,
   }) : super(
           ProjectViewRoute.name,
           path: '/project',
           args: ProjectViewRouteArgs(
-            projectType: projectType,
+            project: project,
             key: key,
           ),
         );
@@ -127,16 +127,16 @@ class ProjectViewRoute extends _i3.PageRouteInfo<ProjectViewRouteArgs> {
 
 class ProjectViewRouteArgs {
   const ProjectViewRouteArgs({
-    required this.projectType,
+    required this.project,
     this.key,
   });
 
-  final _i5.ProjectType projectType;
+  final _i5.Project project;
 
   final _i4.Key? key;
 
   @override
   String toString() {
-    return 'ProjectViewRouteArgs{projectType: $projectType, key: $key}';
+    return 'ProjectViewRouteArgs{project: $project, key: $key}';
   }
 }

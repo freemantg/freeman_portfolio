@@ -1,4 +1,4 @@
 class ContactDetails {
-  static const String personalEmail = 'freeman.khe.tang@gmail.com';
+  static const String personalEmail = 'hello@freemantang.dev';
   static String reservedYear = DateTime.now().year.toString();
 }
