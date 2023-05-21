@@ -4,14 +4,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:freeman_portfolio/src/presentation/contact/contact_view.dart';
 import 'package:freeman_portfolio/src/presentation/shared/animated_color_icon_button.dart';
 import 'package:freeman_portfolio/src/shared/app_router.gr.dart';
+import 'package:freeman_portfolio/src/shared/constants.dart';
 import 'package:freeman_portfolio/src/shared/extensions.dart';
 import 'package:freeman_portfolio/src/shared/providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../shared/styles.dart';
-
-const String apolloShopify = 'https://apolloipsum.co.uk/';
-const String apolloInstagram = 'https://www.instagram.com/apolloipsum/?hl=en';
 
 class AboutView extends StatelessWidget {
   const AboutView({super.key});
@@ -29,26 +27,27 @@ class AboutView extends StatelessWidget {
         direction: !constraints.isDesktop ? Axis.vertical : Axis.horizontal,
         children: [
           ConstrainedBox(
-            constraints: BoxConstraints(
-              maxWidth: 490,
-              maxHeight: MediaQuery.of(context).size.height / 2,
-            ),
+            constraints: const BoxConstraints(maxWidth: 490),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Hello! ...',
-                  style: TextStyles.h1.copyWith(color: theme.secondary),
-                ),
-                const HSpace(size: Insets.xl),
-                Text(
-                  'About me',
-                  style: TextStyles.h3.copyWith(color: theme.primary),
-                ),
-                const HSpace(size: Insets.l),
-                Text(
-                  "I'm Freeman and I've been working with Flutter & Dart for 2 years.\n\nI have a joints Bachelor's Degree in Economics and Japanese (SOAS University, London | Hitotsubashi University, Tokyo).\n\nToday my focus is entirely on the development of applications that tell stories and stand out for their originality.",
-                  style: TextStyles.body1,
+                RichText(
+                  text: TextSpan(
+                    style: DefaultTextStyle.of(context).style,
+                    children: <TextSpan>[
+                      TextSpan(
+                          text: 'Hello! ...',
+                          style:
+                              TextStyles.h1.copyWith(color: theme.secondary)),
+                      TextSpan(
+                          text: '\n\n\nAbout me',
+                          style: TextStyles.h3.copyWith(color: theme.primary)),
+                      TextSpan(
+                          text:
+                              "\n\nI'm Freeman and I've been working with Flutter & Dart for 3 years.\n\nI have a joints Bachelor's Degree in Economics and Japanese (SOAS University, London | Hitotsubashi University, Tokyo).\n\nToday my focus is entirely on the development of applications that tell stories and stand out for their originality.",
+                          style: TextStyles.body1),
+                    ],
+                  ),
                 ),
                 const HSpace(size: Insets.l),
                 const ContactButton()
@@ -94,26 +93,31 @@ class DismissibleContainer extends HookWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'When I\'m not writing code, I spend my time running an alchemy themed vegan soy candle studio in London.',
-                        style: TextStyles.body1,
+                      RichText(
+                        text: TextSpan(
+                          style: DefaultTextStyle.of(context).style,
+                          children: <TextSpan>[
+                            TextSpan(
+                                text:
+                                    'When I\'m not writing code, I spend my time running an alchemy themed vegan soy candle studio in London.',
+                                style: TextStyles.body1),
+                            TextSpan(
+                                text: '\n\n- Apollo Ipsum🕯️',
+                                style: TextStyles.body1
+                                    .copyWith(fontWeight: FontWeight.w600)),
+                          ],
+                        ),
                       ),
                       const HSpace(size: Insets.m),
-                      Text(
-                        '- Apollo Ipsum🕯️',
-                        style: TextStyles.body1
-                            .copyWith(fontWeight: FontWeight.w600),
-                      ),
-                      const HSpace(size: Insets.m),
-                      const Row(
+                      Row(
                         children: [
                           AnimatedUrlIconButton(
                             iconData: FontAwesomeIcons.link,
-                            url: apolloShopify,
+                            url: ContactDetails.apolloShopify,
                           ),
                           AnimatedUrlIconButton(
                             iconData: FontAwesomeIcons.instagram,
-                            url: apolloInstagram,
+                            url: ContactDetails.apolloInstagram,
                           )
                         ],
                       ),

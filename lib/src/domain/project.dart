@@ -13,6 +13,7 @@ class Project {
   final String architectureDescription;
   final String gitHubUrl;
   final int assetLength;
+  final String basePath;
 
   Project({
     required this.title,
@@ -21,6 +22,7 @@ class Project {
     required this.architectureDescription,
     required this.gitHubUrl,
     required this.assetLength,
+    required this.basePath,
   });
 
   factory Project.empty() {
@@ -31,6 +33,7 @@ class Project {
       architectureDescription: '',
       gitHubUrl: '',
       assetLength: 0,
+      basePath: '',
     );
   }
 }

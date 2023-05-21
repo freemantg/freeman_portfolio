@@ -95,14 +95,60 @@ class ProjectDetails extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Description',
-                  style: TextStyles.body1.copyWith(fontWeight: FontWeight.w600),
-                ),
-                const HSpace(size: Insets.m),
-                Text(
-                  project.architectureDescription,
-                  style: TextStyles.body1.copyWith(fontWeight: FontWeight.w600),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.only(bottom: 12.0),
+                            child: FractionallySizedBox(
+                              widthFactor: 0.5,
+                              child: Divider(thickness: 0.5),
+                            ),
+                          ),
+                          Text(
+                            'Tech Stack',
+                            style: TextStyles.body1
+                                .copyWith(fontWeight: FontWeight.w600),
+                          ),
+                          const HSpace(size: Insets.m),
+                          Text(
+                            project.architectureDescription,
+                            style: TextStyles.body1
+                                .copyWith(fontWeight: FontWeight.w600),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const VSpace(size: Insets.sm),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.only(bottom: 12.0),
+                            child: FractionallySizedBox(
+                              widthFactor: 0.5,
+                              child: Divider(thickness: 0.5),
+                            ),
+                          ),
+                          Text(
+                            'Tech Stack',
+                            style: TextStyles.body1
+                                .copyWith(fontWeight: FontWeight.w600),
+                          ),
+                          const HSpace(size: Insets.m),
+                          Text(
+                            project.architectureDescription,
+                            style: TextStyles.body1
+                                .copyWith(fontWeight: FontWeight.w600),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
                 const HSpace(size: Insets.xl),
                 ViewProjectButton(title: 'View on Github', onPressed: () {}),

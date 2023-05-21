@@ -51,9 +51,8 @@ class CustomAnimatedProjectTile extends HookConsumerWidget {
               child: Stack(
                 children: [
                   ScaledImage(
-                    assetPath:
-                        "projects/${project.title.replaceAll(' ', '')}/cover.png",
-                    borderRadius: BorderRadius.circular(Insets.sm),
+                    basePath: project.basePath,
+                    borderRadius: BorderRadius.circular(Insets.m),
                     isHovered: isHovered,
                   ),
                   _buildContent(context, isHovered, project),
@@ -67,35 +66,25 @@ class CustomAnimatedProjectTile extends HookConsumerWidget {
   }
 }
 
-Padding _buildContent(BuildContext context, bool isHovered, Project project) {
-  return Padding(
-    padding: const EdgeInsets.all(32.0),
-    child: AnimatedSwitcher(
-      duration: kThemeAnimationDuration * 1.5,
-      transitionBuilder: (child, animation) {
-        return SlideTransition(
-          position: Tween<Offset>(
-            begin: const Offset(0, -1),
-            end: Offset.zero,
-          ).animate(animation),
-          child: FadeTransition(opacity: animation, child: child),
-        );
-      },
-      child: isHovered
-          ? Align(
-              alignment: Alignment.topLeft,
-              child: IconButton(
-                key: const ValueKey(
-                  'hoveredIcon',
-                ), // Added key for AnimatedSwitcher
-                icon: const FaIcon(FontAwesomeIcons.expand),
-                color: Colors.white,
-                onPressed: () => _showAnimatedDialog(context, project),
-              ),
-            )
-          : const SizedBox.shrink(),
-    ),
-  );
+Widget _buildContent(BuildContext context, bool isHovered, Project project) {
+  if (isHovered) {
+    return Padding(
+      padding: const EdgeInsets.all(32.0),
+      child: Align(
+        alignment: Alignment.topLeft,
+        child: IconButton(
+          key: const ValueKey(
+            'hoveredIcon',
+          ), // Added key for AnimatedSwitcher
+          icon: const FaIcon(FontAwesomeIcons.expand),
+          color: Colors.white,
+          onPressed: () => _showAnimatedDialog(context, project),
+        ),
+      ),
+    );
+  } else {
+    return const SizedBox.shrink();
+  }
 }
 
 Future<Dialog?> _showAnimatedDialog(BuildContext context, Project project) {
@@ -120,13 +109,13 @@ Future<Dialog?> _showAnimatedDialog(BuildContext context, Project project) {
 }
 
 class ScaledImage extends StatelessWidget {
-  final String assetPath;
+  final String basePath;
   final BorderRadius borderRadius;
   final bool isHovered;
 
   const ScaledImage({
     Key? key,
-    required this.assetPath,
+    required this.basePath,
     required this.borderRadius,
     required this.isHovered,
   }) : super(key: key);
@@ -137,12 +126,12 @@ class ScaledImage extends StatelessWidget {
       borderRadius: borderRadius,
       child: AnimatedScale(
         scale: isHovered ? 1.05 : 1.0,
-        duration: const Duration(milliseconds: 200),
+        duration: kThemeAnimationDuration,
         child: Container(
           decoration: BoxDecoration(
             borderRadius: borderRadius,
             image: DecorationImage(
-              image: AssetImage(assetPath),
+              image: AssetImage(basePath),
               fit: BoxFit.cover,
             ),
           ),

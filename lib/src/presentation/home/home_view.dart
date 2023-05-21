@@ -19,6 +19,11 @@ class HomeView extends HookWidget {
         children: [
           const _AnimatedHeader(),
           const SizedBox(height: 100),
+          Image.asset(
+            "header.png",
+            height: MediaQuery.of(context).size.height / 2,
+          ),
+          const SizedBox(height: 100),
           Consumer(
             builder: (context, ref, child) {
               final projectState = ref.watch(projectsProvider);
@@ -41,70 +46,52 @@ class HomeView extends HookWidget {
     BuildContext context,
     Map<ProjectType, Project> projects,
   ) {
-    return Stack(
+    return ListView(
+      shrinkWrap: true,
       children: [
-        Column(
+        Row(
           children: [
-            Row(
-              children: [
-                Flexible(
-                  flex: 100,
-                  child: CustomAnimatedProjectTile(
-                    project: projects[ProjectType.ricedrop] ?? Project.empty(),
-                  ),
-                ),
-                const VSpace(size: 40),
-                Flexible(
-                  flex: 47,
-                  child: CustomAnimatedProjectTile(
-                    project: projects[ProjectType.glum] ?? Project.empty(),
-                  ),
-                ),
-              ],
+            Flexible(
+              flex: 100,
+              child: CustomAnimatedProjectTile(
+                project: projects[ProjectType.ricedrop] ?? Project.empty(),
+              ),
             ),
-            const HSpace(size: 40),
-            Row(
-              children: [
-                Flexible(
-                  flex: 100,
-                  child: CustomAnimatedProjectTile(
-                    project: projects[ProjectType.inky] ?? Project.empty(),
-                  ),
-                ),
-                const VSpace(size: 40),
-                Flexible(
-                  flex: 47,
-                  child: CustomAnimatedProjectTile(
-                    project:
-                        projects[ProjectType.githubOAuth] ?? Project.empty(),
-                  ),
-                ),
-              ],
+            const VSpace(size: 40),
+            Flexible(
+              flex: 47,
+              child: CustomAnimatedProjectTile(
+                project: projects[ProjectType.glum] ?? Project.empty(),
+              ),
             ),
-            const HSpace(size: 40),
-            Row(
-              children: [
-                Expanded(
-                  child: CustomAnimatedProjectTile(
-                    project: projects[ProjectType.inky] ?? Project.empty(),
-                  ),
-                ),
-                const VSpace(size: 40),
-                Expanded(
-                  child: CustomAnimatedProjectTile(
-                    project: projects[ProjectType.glum] ?? Project.empty(),
-                  ),
-                ),
-                const VSpace(size: 40),
-                Expanded(
-                  child: CustomAnimatedProjectTile(
-                    project: projects[ProjectType.crackd] ?? Project.empty(),
-                  ),
-                ),
-              ],
-            )
           ],
         ),
+        const HSpace(size: 40),
+        Row(
+          children: [
+            Flexible(
+              flex: 100,
+              child: CustomAnimatedProjectTile(
+                project: projects[ProjectType.inky] ?? Project.empty(),
+              ),
+            ),
+            const VSpace(size: 40),
+            Flexible(
+              flex: 47,
+              child: CustomAnimatedProjectTile(
+                project: projects[ProjectType.githubOAuth] ?? Project.empty(),
+              ),
+            ),
+          ],
+        ),
+        const HSpace(size: 40),
+        Row(
+          children: [
+            CustomAnimatedProjectTile(
+              project: projects[ProjectType.crackd] ?? Project.empty(),
+            ),
+          ],
+        )
       ],
     );
   }
@@ -168,7 +155,7 @@ class _AnimatedHeader extends HookWidget {
           style: DefaultTextStyle.of(context).style,
           children: [
             TextSpan(
-              text: "Transforming Concepts into Crafted Apps. ",
+              text: "Transforming Concepts\ninto Crafted Apps. ",
               style: TextStyles.h2,
             ),
             WidgetSpan(

@@ -24,6 +24,7 @@ class ProjectRepository implements _ProjectInterface {
           .firstWhere((e) => e.toString().split('.').last == entry.key);
       final projectData = entry.value;
       final assetLength = await getAssetLength(projectType);
+      final basePath = await getbasePath(projectType);
 
       projects[projectType] = Project(
         title: projectData['title'],
@@ -32,9 +33,22 @@ class ProjectRepository implements _ProjectInterface {
         architectureDescription: projectData['architectureDescription'],
         gitHubUrl: projectData['gitHubUrl'],
         assetLength: assetLength,
+        basePath: basePath,
       );
     }
     return projects;
+  }
+
+  Future<String> getbasePath(ProjectType projectType) async {
+    final String gifPath = 'projects/${projectType.folderName}/cover.gif';
+    final String pngPath = 'projects/${projectType.folderName}/cover.png';
+
+    try {
+      await rootBundle.load(pngPath);
+      return pngPath;
+    } catch (e) {
+      return gifPath;
+    }
   }
 
   Future<int> getAssetLength(ProjectType projectType) async {
