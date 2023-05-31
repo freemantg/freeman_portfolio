@@ -28,9 +28,10 @@ class ProjectRepository implements _ProjectInterface {
 
       projects[projectType] = Project(
         title: projectData['title'],
-        shortDescription: projectData['shortDescription'],
         description: projectData['description'],
-        architectureDescription: projectData['architectureDescription'],
+        shortDescription: projectData['shortDescription'],
+        technicalDescription: projectData['technicalDescription'],
+        shortTechnicalDescription: projectData['shortTechnicalDescription'],
         gitHubUrl: projectData['gitHubUrl'],
         assetLength: assetLength,
         basePath: basePath,

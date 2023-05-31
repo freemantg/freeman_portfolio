@@ -39,6 +39,8 @@ class TextStyles {
 
   static TextStyle get title1 =>
       codecPro.copyWith(fontSize: 17, fontWeight: FontWeight.w600);
+  static TextStyle get title1White => codecPro.copyWith(
+      fontSize: 17, fontWeight: FontWeight.w600, color: Colors.white);
   static TextStyle get title2 =>
       title1.copyWith(fontSize: 15, fontWeight: FontWeight.normal);
   static TextStyle get body1 =>

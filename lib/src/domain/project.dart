@@ -10,7 +10,8 @@ class Project {
   final String title;
   final String shortDescription;
   final String description;
-  final String architectureDescription;
+  final String technicalDescription;
+  final String shortTechnicalDescription;
   final String gitHubUrl;
   final int assetLength;
   final String basePath;
@@ -19,7 +20,8 @@ class Project {
     required this.title,
     required this.shortDescription,
     required this.description,
-    required this.architectureDescription,
+    required this.technicalDescription,
+    required this.shortTechnicalDescription,
     required this.gitHubUrl,
     required this.assetLength,
     required this.basePath,
@@ -30,7 +32,8 @@ class Project {
       title: '',
       shortDescription: '',
       description: '',
-      architectureDescription: '',
+      technicalDescription: '',
+      shortTechnicalDescription: '',
       gitHubUrl: '',
       assetLength: 0,
       basePath: '',

@@ -27,6 +27,7 @@ dependencies:
   json_serializable: ^6.3.2
   riverpod: ^1.0.3
   url_launcher: ^6.1.4
+  video_player: ^2.6.1
 
 dev_dependencies:
   auto_route_generator: ^5.0.2

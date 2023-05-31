@@ -3,35 +3,40 @@
     "title": "Rice Drop",
     "shortDescription": "Branding & Self Service POS",
     "description": "A flexible and easy-to-use Pomodoro technique productivity app designed for your work and study.",
-    "architectureDescription": "Stack information",
+    "technicalDescription": "Stack information",
+    "shortTechnicalDescription": "Testing the short",
     "gitHubUrl": "www.youtube.com"
   },
   "glum": {
     "title": "Glum",
     "shortDescription": "Dark moods, Bright insights",
     "description": "A flexible and easy-to-use Pomodoro technique productivity app designed for your work and study.",
-    "architectureDescription": "Stack information",
+    "technicalDescription": "Stack information",
+    "shortTechnicalDescription": "Testing the short",
     "gitHubUrl": "www.youtube.com"
   },
   "inky": {
     "title": "Inky",
     "shortDescription": "Inspiration archiving app",
     "description": "A flexible and easy-to-use Pomodoro technique productivity app designed for your work and study.",
-    "architectureDescription": "Stack information",
+    "technicalDescription": "Stack information",
+    "shortTechnicalDescription": "Testing the short",
     "gitHubUrl": "www.youtube.com"
   },
   "githubOAuth": {
     "title": "OAuth 2.0",
-    "shortDescription": "GitHub's OAuth 2.0 implementation",
-    "description": "A flexible and easy-to-use Pomodoro technique productivity app designed for your work and study.",
-    "architectureDescription": "Stack information",
-    "gitHubUrl": "www.youtube.com"
+    "shortDescription": "GitHub's OAuth 2.0 implementation for Flutter",
+    "description": "Repo Viewer is a robust GitHub client app developed with Flutter, offering features:\n\nOAuth2 for authentication, securely persisting tokens for a seamless user experience.\n\nEfficient fetching, caching, and displaying of paginated data from GitHub.\n\nEmployment of HTTP caching and ETags for enhanced performance.\n\nA search functionality to explore GitHub repositories.\n\nIntegration of WebView to render README files within the app interface.",
+    "technicalDescription": "The architecture leverages:\n\n- Riverpod for state management.\n- Dio for making HTTP requests.\n- Bloc pattern for code organization.\n- Sembast for local persistence.\n- OAuth2 for secure user authentication.\n- REST APIs for data fetching, including pagination for efficiency.\n- Effective code duplication removal techniques for a clean and DRY codebase.",
+    "shortTechnicalDescription": "Testing the short",
+    "gitHubUrl": "https://github.com/freemantg/oauth2_flutter"
   },
   "crackd": {
     "title": "Crack'd",
-    "shortDescription": "A easy-to-use Pomodoro",
-    "description": "A flexible and easy-to-use Pomodoro technique productivity app designed for your work and study.",
-    "architectureDescription": "Stack information",
-    "gitHubUrl": "www.youtube.com"
+    "shortDescription": "Minimalist Pomodoro Timer",
+    "description": "Crack'd is a minimalist pomodoro timer designed to motivate us to stay focused and get things done - one yolk at a time.\n\nWith its egg-cellent features, such as customizable timers, break alerts, task management, productivity stats, goal setting, visual themes, and emoji customization, Crack'd encourages a productive workflow, cracking tasks one yolk at a time.\n\nIts user-friendly interface and personalized touches make it a charming companion for enhancing productivity and achieving goals.",
+    "technicalDescription": "\nThe following technologies and principles are utilised:\n\n- BLoC Pattern: Implements the BLoC pattern for state management.\n- Dartz: Handling errors and results.\n- Riverpod: Dependency injection.\n- Sembast: For local data persistence.\n- DDD and Clean Architecture: Adheres to DDD and Clean Architecture principles for modular and maintainable code.",
+    "shortTechnicalDescription": "Utilises BLoC pattern, Dartz, Riverpod DI, and Sembast for local data persistence. Implements DDD and Clean Architecture principles.",
+    "gitHubUrl": "https://github.com/freemantg/crackd_timer"
   }
 }

@@ -22,6 +22,7 @@ class ProjectPreviewDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
+      backgroundColor: Colors.black,
       insetPadding: EdgeInsets.zero,
       child: LayoutBuilder(builder: (context, constraints) {
         return Flex(
@@ -103,6 +104,26 @@ class ProjectPreviewDetails extends StatelessWidget {
                     project.description,
                     style: TextStyles.body1White,
                     softWrap: true,
+                    maxLines: 4,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const HSpace(size: Insets.xl),
+                  const FractionallySizedBox(
+                    widthFactor: 0.5,
+                    child: Divider(color: Colors.white, thickness: 0.5),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: Text(
+                      'Framework & Architecture',
+                      style: TextStyles.title1White,
+                    ),
+                  ),
+                  Text(
+                    project.shortTechnicalDescription,
+                    style: TextStyles.body1.copyWith(color: Colors.grey),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 3,
                   ),
                   const HSpace(size: Insets.xl),
                   ViewProjectButton(

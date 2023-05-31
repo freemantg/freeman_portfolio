@@ -15,7 +15,7 @@ class ProjectView extends StatelessWidget {
     return Column(
       children: [
         ProjectDetails(project),
-        const HSpace(size: Insets.l),
+        const HSpace(size: 80.0),
         ListView.builder(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
@@ -95,61 +95,26 @@ class ProjectDetails extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.only(bottom: 12.0),
-                            child: FractionallySizedBox(
-                              widthFactor: 0.5,
-                              child: Divider(thickness: 0.5),
-                            ),
-                          ),
-                          Text(
-                            'Tech Stack',
-                            style: TextStyles.body1
-                                .copyWith(fontWeight: FontWeight.w600),
-                          ),
-                          const HSpace(size: Insets.m),
-                          Text(
-                            project.architectureDescription,
-                            style: TextStyles.body1
-                                .copyWith(fontWeight: FontWeight.w600),
-                          ),
-                        ],
+                    const Padding(
+                      padding: EdgeInsets.only(bottom: 12.0),
+                      child: FractionallySizedBox(
+                        widthFactor: 0.20,
+                        child: Divider(thickness: 0.5),
                       ),
                     ),
-                    const VSpace(size: Insets.sm),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.only(bottom: 12.0),
-                            child: FractionallySizedBox(
-                              widthFactor: 0.5,
-                              child: Divider(thickness: 0.5),
-                            ),
-                          ),
-                          Text(
-                            'Tech Stack',
-                            style: TextStyles.body1
-                                .copyWith(fontWeight: FontWeight.w600),
-                          ),
-                          const HSpace(size: Insets.m),
-                          Text(
-                            project.architectureDescription,
-                            style: TextStyles.body1
-                                .copyWith(fontWeight: FontWeight.w600),
-                          ),
-                        ],
-                      ),
+                    Text(
+                      'Tech Stack',
+                      style: TextStyles.body1
+                          .copyWith(fontWeight: FontWeight.w600),
                     ),
+                    const HSpace(size: Insets.m),
+                    Text(project.technicalDescription, style: TextStyles.body1),
                   ],
                 ),
+                const VSpace(size: Insets.sm),
                 const HSpace(size: Insets.xl),
                 ViewProjectButton(title: 'View on Github', onPressed: () {}),
                 const HSpace(size: Insets.xl),
