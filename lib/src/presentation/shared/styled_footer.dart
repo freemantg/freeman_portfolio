@@ -33,6 +33,7 @@ class StyledWebFooter extends StatelessWidget {
               title: 'Let\'s get in touch',
               subtitle: ContactDetails.personalEmail,
             ),
+            Spacer(),
           ],
         ),
         const HSpace(size: 80),

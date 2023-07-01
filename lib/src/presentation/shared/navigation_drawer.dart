@@ -3,7 +3,6 @@ import 'package:freeman_portfolio/src/presentation/about/about_view.dart';
 import 'package:freeman_portfolio/src/presentation/contact/contact_view.dart';
 import 'package:freeman_portfolio/src/presentation/home/home_view.dart';
 import 'package:freeman_portfolio/src/presentation/project/projects_view.dart';
-import 'package:freeman_portfolio/src/presentation/shared/light_dark_toggle_switch.dart';
 import 'package:freeman_portfolio/src/shared/app_router.gr.dart';
 import 'package:freeman_portfolio/src/shared/providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -61,7 +60,7 @@ class StyledMobileNavigationDrawer extends StatelessWidget {
                 centerView: AboutView(),
               ),
               const Spacer(),
-              const Center(child: LightDarkToggleSwitch()),
+              // const Center(child: LightDarkToggleSwitch()),
               const HSpace(size: Insets.l),
             ],
           ),

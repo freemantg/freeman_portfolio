@@ -1,27 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:freeman_portfolio/src/shared/extensions.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../shared/providers.dart';
 import '../../shared/styles.dart';
+import 'scroll_to_top_widget.dart';
 
 class LightDarkToggleSwitch extends StatelessWidget {
-  const LightDarkToggleSwitch({Key? key}) : super(key: key);
+  const LightDarkToggleSwitch({
+    Key? key,
+    required this.scrollController,
+  }) : super(key: key);
+  final ScrollController scrollController;
 
   @override
   Widget build(BuildContext context) {
     buildToggleSwitchWidgets(BoxConstraints constraints) {
       return [
-        const Opacity(
-          opacity: 0.8,
-          child: Icon(Icons.wb_sunny_outlined),
-        ),
         _AnimatedSlider(constraints),
-        const Opacity(
-          opacity: 0.8,
-          child: FaIcon(FontAwesomeIcons.moon),
-        ),
+        const SizedBox(height: Insets.m),
+        ScrollToTopWidget(scrollController: scrollController),
       ];
     }
 
@@ -60,14 +58,14 @@ class _AnimatedSlider extends ConsumerWidget {
         child: GestureDetector(
           onTap: () => ref.read(themeProvider.notifier).toggleTheme(),
           child: AnimatedContainer(
-            height: 18,
-            width: 54,
+            height: 24,
+            width: 92,
             duration: animationDuration,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30),
               color: themeState.isDark
-                  ? theme.secondary
-                  : theme.onBackground.withOpacity(0.1),
+                  ? const Color(0xFF4A4653)
+                  : theme.onBackground.withOpacity(0.4),
             ),
             child: AnimatedAlign(
               duration: animationDuration,
@@ -78,16 +76,22 @@ class _AnimatedSlider extends ConsumerWidget {
                   : themeState.isDark
                       ? Alignment.centerRight
                       : Alignment.centerLeft,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 2),
-                child: Container(
-                  height: 24,
-                  width: 24,
-                  decoration: BoxDecoration(
-                    color: themeState.isDark
-                        ? theme.onBackground.withOpacity(0.5)
-                        : theme.onBackground,
-                    borderRadius: BorderRadius.circular(Insets.m),
+              child: Container(
+                height: 25,
+                width: 64,
+                decoration: BoxDecoration(
+                  color: themeState.isDark
+                      ? Colors.white.withOpacity(0.1)
+                      : Colors.white,
+                  borderRadius: BorderRadius.circular(Insets.m),
+                ),
+                child: Center(
+                  child: Text(
+                    themeState.isDark ? 'Dark 🌙' : ' Light 🔅',
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color:
+                              themeState.isDark ? Colors.white : Colors.black,
+                        ),
                   ),
                 ),
               ),

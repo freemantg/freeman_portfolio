@@ -10,32 +10,33 @@
   "glum": {
     "title": "Glum",
     "shortDescription": "Dark moods, Bright insights",
-    "description": "A flexible and easy-to-use Pomodoro technique productivity app designed for your work and study.",
-    "technicalDescription": "Stack information",
-    "shortTechnicalDescription": "Testing the short",
-    "gitHubUrl": "www.youtube.com"
+    "description": "In the sombre world of Glum,  there is a collection of features, designed to illuminate your path to self-awareness:\n\n- Card-Based Mood Entries: Transform your emotions into a unique card, either using text or a picture to encapsulate your feelings.\n- Multiple Entries per Day: Mood fluctuations are a part of life; Glum allows you to record multiple mood entries per day.\n- Customizable Card Design: Add a personal touch to each mood card using photos or from a selection of dark-hued colours.\n- Calendar View: A beautifully gloomy calendar view of your mood entries.\n- Rich Media Support: Accompany your mood entries with photos and videos for a deeper emotional context.\n- Emotion and Weather Tags: Add an extra layer of depth to your entries with emotion and weather tags, capturing the environment of your sentiments.\n- Location and Custom Tags: Track the impact of your location on your mood and create custom tags for easy categorization and recall.\n- Favorites: Highlight the mood entries that resonate with you the most.",
+    "technicalDescription": "Glum incorporates the following technologies and methodologies:\n\n- Flutter: A versatile UI toolkit for cross-platform app development.\n- Flutter Hooks: Efficient state management utilities.\n- Riverpod: Global state management and dependency injection.\n- Auto Route: Simplified navigation with auto-generated routing setup.\n- Freezed: Code generation and pattern matching.\n- SQLite with Drift: Robust database engine with reactive persistence operations.\n- Dartz: Functional programming library for improved error handling.\n- Mockito: Dart library for creating mock objects during testing.\n- Principles of DDD and Clean Architecture: Structuring the app for modularity and maintainability.",
+    "shortTechnicalDescription": "Glum utilizes Flutter, Riverpod for efficient global state management and dependency injection, Freezed, SQLite with Drift for robust persistence, Dartz for enhanced error handling, and Mockito for testing. It follows principles of DDD and Clean Architecture for modularity and maintainability.",
+    "gitHubUrl": "https://github.com/freemantg/glum"
+
   },
   "inky": {
     "title": "Inky",
     "shortDescription": "Inspiration archiving app",
-    "description": "A flexible and easy-to-use Pomodoro technique productivity app designed for your work and study.",
-    "technicalDescription": "Stack information",
-    "shortTechnicalDescription": "Testing the short",
-    "gitHubUrl": "www.youtube.com"
+    "description": "Inky is the ultimate companion for capturing and archiving your moments of inspiration.\n\nWith Inky, you can effortlessly collect and store your creative inklings in one centralized place. Snap photos, save screenshots, jot down thoughts, and bookmark web links - all within the app.\n\nWith intuitive organization features like tags, you can easily search and retrieve your inspirations whenever you need a spark of creativity.\n\nEmbrace the limitless possibilities that await within your personalized inspiration archive.",
+    "technicalDescription": "Inky incorporates these technologies and methodologies:\n\n- Hooks: Manages local state for reusable, readable components.\n- Riverpod: Handles global state and dependency injection.\n- Hive: Provides local data persistence.\n- Principles of DDD and Clean Architecture: Structuring the app for modularity and maintainability.\n- Auto Route: Simplifies navigation with an auto-generated routing setup.",
+    "shortTechnicalDescription": "Utilizing Dartz for error handling, Riverpod for state management, and Hive for local data persistence. Built with DDD and Clean Architecture principles.",
+    "gitHubUrl": "https://github.com/freemantg/inky"
   },
   "githubOAuth": {
     "title": "OAuth 2.0",
     "shortDescription": "GitHub's OAuth 2.0 implementation for Flutter",
-    "description": "Repo Viewer is a robust GitHub client app developed with Flutter, offering features:\n\nOAuth2 for authentication, securely persisting tokens for a seamless user experience.\n\nEfficient fetching, caching, and displaying of paginated data from GitHub.\n\nEmployment of HTTP caching and ETags for enhanced performance.\n\nA search functionality to explore GitHub repositories.\n\nIntegration of WebView to render README files within the app interface.",
-    "technicalDescription": "The architecture leverages:\n\n- Riverpod for state management.\n- Dio for making HTTP requests.\n- Bloc pattern for code organization.\n- Sembast for local persistence.\n- OAuth2 for secure user authentication.\n- REST APIs for data fetching, including pagination for efficiency.\n- Effective code duplication removal techniques for a clean and DRY codebase.",
-    "shortTechnicalDescription": "Testing the short",
+    "description": "Repo Viewer is a robust GitHub client app developed with Flutter. It offers the following features:\n- OAuth2 for authentication, securely persisting tokens for a seamless user experience.\n- Efficient fetching, caching, and displaying of paginated data from GitHub.\n- Employment of HTTP caching and ETags for enhanced performance.\n- A search functionality to explore GitHub repositories.\n- Integration of WebView to render README files within the app interface.",
+    "technicalDescription": "The architecture leverages:\n\n- Bloc for state management.\n- Dio for making HTTP requests.\n- Sembast for local persistence.\n- OAuth2 for secure user authentication.\n- REST APIs for data fetching, including pagination for efficiency.\n- Effective code duplication removal techniques for a clean and DRY codebase.",
+    "shortTechnicalDescription": "Bloc for state management, Dio for HTTP requests. The backend utilizes Sembast for data persistence and Auto Route for efficient routing, while Dartz handles states and results following functional programming principles.",
     "gitHubUrl": "https://github.com/freemantg/oauth2_flutter"
   },
   "crackd": {
     "title": "Crack'd",
     "shortDescription": "Minimalist Pomodoro Timer",
     "description": "Crack'd is a minimalist pomodoro timer designed to motivate us to stay focused and get things done - one yolk at a time.\n\nWith its egg-cellent features, such as customizable timers, break alerts, task management, productivity stats, goal setting, visual themes, and emoji customization, Crack'd encourages a productive workflow, cracking tasks one yolk at a time.\n\nIts user-friendly interface and personalized touches make it a charming companion for enhancing productivity and achieving goals.",
-    "technicalDescription": "\nThe following technologies and principles are utilised:\n\n- BLoC Pattern: Implements the BLoC pattern for state management.\n- Dartz: Handling errors and results.\n- Riverpod: Dependency injection.\n- Sembast: For local data persistence.\n- DDD and Clean Architecture: Adheres to DDD and Clean Architecture principles for modular and maintainable code.",
+    "technicalDescription": "The following technologies and principles are utilised:\n\n- BLoC Pattern: Implements the BLoC pattern for state management.\n- Dartz: Handling errors and results.\n- Riverpod: Dependency injection.\n- Sembast: For local data persistence.\n- DDD and Clean Architecture: Adheres to DDD and Clean Architecture principles for modular and maintainable code.",
     "shortTechnicalDescription": "Utilises BLoC pattern, Dartz, Riverpod DI, and Sembast for local data persistence. Implements DDD and Clean Architecture principles.",
     "gitHubUrl": "https://github.com/freemantg/crackd_timer"
   }

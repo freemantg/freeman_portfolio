@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:freeman_portfolio/src/domain/project.dart';
+import 'package:freeman_portfolio/src/presentation/home/next_page_widget.dart';
 import 'package:freeman_portfolio/src/shared/extensions.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -17,13 +18,14 @@ class HomeView extends HookWidget {
     return LayoutBuilder(builder: (context, constraints) {
       return Column(
         children: [
+          Text(constraints.maxHeight.toString()),
+          const SizedBox(height: 100),
           const _AnimatedHeader(),
-          const SizedBox(height: 100),
+          const SizedBox(height: 50),
           Image.asset(
-            "header.png",
-            height: MediaQuery.of(context).size.height / 2,
+            'assets/header.png',
+            height: constraints.isDesktop ? 400 : 200,
           ),
-          const SizedBox(height: 100),
           Consumer(
             builder: (context, ref, child) {
               final projectState = ref.watch(projectsProvider);
@@ -37,6 +39,8 @@ class HomeView extends HookWidget {
               );
             },
           ),
+          const SizedBox(height: 50),
+          const NextPageWidget()
         ],
       );
     });
@@ -61,7 +65,7 @@ class HomeView extends HookWidget {
             Flexible(
               flex: 47,
               child: CustomAnimatedProjectTile(
-                project: projects[ProjectType.glum] ?? Project.empty(),
+                project: projects[ProjectType.githubOAuth] ?? Project.empty(),
               ),
             ),
           ],
@@ -79,7 +83,7 @@ class HomeView extends HookWidget {
             Flexible(
               flex: 47,
               child: CustomAnimatedProjectTile(
-                project: projects[ProjectType.githubOAuth] ?? Project.empty(),
+                project: projects[ProjectType.glum] ?? Project.empty(),
               ),
             ),
           ],
@@ -148,14 +152,14 @@ class _AnimatedHeader extends HookWidget {
     )..repeat(reverse: true);
 
     return FractionallySizedBox(
-      widthFactor: 0.5,
+      widthFactor: 0.6,
       child: RichText(
         textAlign: TextAlign.center,
         text: TextSpan(
           style: DefaultTextStyle.of(context).style,
           children: [
             TextSpan(
-              text: "Transforming Concepts\ninto Crafted Apps. ",
+              text: "Transforming Concepts into Crafted Apps. ",
               style: TextStyles.h2,
             ),
             WidgetSpan(
