@@ -6,10 +6,16 @@ import 'package:freeman_portfolio/src/presentation/project/project_view.dart';
   replaceInRouteName: 'Page',
   routes: [
     CustomRoute(
-      page: PortfolioLayoutPage,
+      page: HomeLayoutPage,
       initial: true,
       transitionsBuilder: TransitionsBuilders.fadeIn,
       path: '/home',
+    ),
+    CustomRoute(
+      page: PortfolioLayoutPage,
+      initial: true,
+      transitionsBuilder: TransitionsBuilders.fadeIn,
+      path: '/portfolio',
     ),
     CustomRoute(
       page: ProjectView,

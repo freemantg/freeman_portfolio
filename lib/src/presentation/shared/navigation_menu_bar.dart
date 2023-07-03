@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:freeman_portfolio/src/presentation/about/about_view.dart';
 import 'package:freeman_portfolio/src/presentation/contact/contact_view.dart';
+import 'package:freeman_portfolio/src/presentation/home/custom_animated_opacity.dart';
 import 'package:freeman_portfolio/src/presentation/project/projects_view.dart';
 import 'package:freeman_portfolio/src/presentation/shared/logo.dart';
 import 'package:freeman_portfolio/src/shared/app_router.gr.dart';
 import 'package:freeman_portfolio/src/shared/providers.dart';
-import 'package:freeman_portfolio/src/shared/styled_divider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../shared/styled_divider.dart';
 import '../../shared/styles.dart';
-import '../home/custom_animated_opacity.dart';
 import '../home/home_view.dart';
 
 class NavigationMenuBar extends StatelessWidget {
@@ -18,34 +18,51 @@ class NavigationMenuBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        CustomAnimatedOpacity(child: Logo()),
-        StyledDivider(
-          padding: EdgeInsets.symmetric(vertical: Insets.l),
-        ),
-        NavigationWebMenu(
-          menuItems: [
-            NavigationBarItem(
-              'HOME',
-              centerView: HomeView(),
-            ),
-            NavigationBarItem(
-              'PROJECTS',
-              centerView: ProjectsView(),
-            ),
-            NavigationBarItem(
-              'CONTACT',
-              centerView: ContactView(),
-            ),
-            NavigationBarItem(
-              'ABOUT',
-              centerView: AboutView(),
-            ),
-          ],
-        )
-      ],
+    const double maxWidthPercentage = 0.8;
+    double screenWidth = MediaQuery.sizeOf(context).width;
+    double maxWidth = screenWidth * maxWidthPercentage;
+
+    return ConstrainedBox(
+      constraints: BoxConstraints(maxWidth: maxWidth),
+      child: const Stack(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CustomAnimatedOpacity(child: Logo()),
+              StyledDivider(
+                padding: EdgeInsets.symmetric(vertical: Insets.l),
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: FractionallySizedBox(
+                  widthFactor: 0.8,
+                  child: NavigationWebMenu(
+                    menuItems: [
+                      NavigationBarItem(
+                        'HOME',
+                        centerView: HomeView(),
+                      ),
+                      NavigationBarItem(
+                        'PROJECTS',
+                        centerView: ProjectsView(),
+                      ),
+                      NavigationBarItem(
+                        'CONTACT',
+                        centerView: ContactView(),
+                      ),
+                      NavigationBarItem(
+                        'ABOUT',
+                        centerView: AboutView(),
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
@@ -66,7 +83,6 @@ class NavigationWebMenu extends HookWidget {
       onEnter: (_) => hoverController.value = true,
       onExit: (_) => hoverController.value = false,
       child: Row(
-        mainAxisSize: MainAxisSize.min,
         children: [
           ...menuItems
               .map(
@@ -99,28 +115,25 @@ class NavigationBarItem extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context).colorScheme;
 
-    return Padding(
-      padding: const EdgeInsets.only(left: Insets.xl),
-      child: TextButton(
-        style: ButtonStyle(
-          overlayColor: const MaterialStatePropertyAll(Colors.transparent),
-          foregroundColor: MaterialStateProperty.resolveWith<Color>(
-            (states) {
-              if (states.contains(MaterialState.hovered)) {
-                return theme.secondary;
-              }
-              return isHovered
-                  ? theme.secondary.withOpacity(0.5)
-                  : theme.secondary;
-            },
-          ),
+    return TextButton(
+      style: ButtonStyle(
+        overlayColor: const MaterialStatePropertyAll(Colors.transparent),
+        foregroundColor: MaterialStateProperty.resolveWith<Color>(
+          (states) {
+            if (states.contains(MaterialState.hovered)) {
+              return theme.secondary;
+            }
+            return isHovered
+                ? theme.secondary.withOpacity(0.5)
+                : theme.secondary;
+          },
         ),
-        onPressed: () => ref.read(appRouterProvider).pushAndPopUntil(
-              PortfolioLayoutPageRoute(centerView: centerView),
-              predicate: (_) => false,
-            ),
-        child: Text(title, style: TextStyles.title1),
       ),
+      onPressed: () => ref.read(appRouterProvider).pushAndPopUntil(
+            PortfolioLayoutPageRoute(centerView: centerView),
+            predicate: (_) => false,
+          ),
+      child: Text(title, style: TextStyles.title1),
     );
   }
 }

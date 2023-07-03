@@ -16,32 +16,21 @@ class HomeView extends HookWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
-      return Column(
-        children: [
-          Text(constraints.maxHeight.toString()),
-          const SizedBox(height: 100),
-          const _AnimatedHeader(),
-          const SizedBox(height: 50),
-          Image.asset(
-            'assets/header.png',
-            height: constraints.isDesktop ? 400 : 200,
-          ),
-          Consumer(
-            builder: (context, ref, child) {
-              final projectState = ref.watch(projectsProvider);
-              return projectState.maybeWhen(
-                loadSuccess: (projects) {
-                  return (constraints.isDesktop)
-                      ? _buildDesktopLayout(context, projects)
-                      : _buildTabletLayout(projects);
-                },
-                orElse: () => const StyledCircleProgressIndicator(),
-              );
+      return Consumer(
+        builder: (context, ref, child) {
+          final projectState = ref.watch(projectsProvider);
+          return projectState.maybeWhen(
+            loadSuccess: (projects) {
+              return (constraints.isDesktop)
+                  ? _buildDesktopLayout(
+                      context,
+                      projects,
+                    )
+                  : _buildTabletLayout(projects);
             },
-          ),
-          const SizedBox(height: 50),
-          const NextPageWidget()
-        ],
+            orElse: () => const StyledCircleProgressIndicator(),
+          );
+        },
       );
     });
   }
@@ -50,85 +39,57 @@ class HomeView extends HookWidget {
     BuildContext context,
     Map<ProjectType, Project> projects,
   ) {
-    return ListView(
-      shrinkWrap: true,
-      children: [
-        Row(
+    return Align(
+      alignment: Alignment.centerRight,
+      child: FractionallySizedBox(
+        widthFactor: 0.80,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Flexible(
-              flex: 100,
-              child: CustomAnimatedProjectTile(
-                project: projects[ProjectType.ricedrop] ?? Project.empty(),
-              ),
+            const HSpace(size: 50.0),
+            const _AnimatedHeader(),
+            const HSpace(size: 100.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                CustomAnimatedProjectTile(
+                  project: projects[ProjectType.ricedrop] ?? Project.empty(),
+                ),
+                const VSpace(size: 24.0),
+                CustomAnimatedProjectTile(
+                  project: projects[ProjectType.githubOAuth] ?? Project.empty(),
+                ),
+                const VSpace(size: 24.0),
+                CustomAnimatedProjectTile(
+                  project: projects[ProjectType.inky] ?? Project.empty(),
+                ),
+              ],
             ),
-            const VSpace(size: 40),
-            Flexible(
-              flex: 47,
-              child: CustomAnimatedProjectTile(
-                project: projects[ProjectType.githubOAuth] ?? Project.empty(),
-              ),
+            const HSpace(size: 40),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                CustomAnimatedProjectTile(
+                  project: projects[ProjectType.flutterweb] ?? Project.empty(),
+                ),
+                const VSpace(size: 24.0),
+                CustomAnimatedProjectTile(
+                  project: projects[ProjectType.glum] ?? Project.empty(),
+                ),
+                const VSpace(size: 24.0),
+                CustomAnimatedProjectTile(
+                  project: projects[ProjectType.crackd] ?? Project.empty(),
+                ),
+              ],
             ),
+            const SizedBox(height: 50),
+            const NextPageWidget()
           ],
         ),
-        const HSpace(size: 40),
-        Row(
-          children: [
-            Flexible(
-              flex: 100,
-              child: CustomAnimatedProjectTile(
-                project: projects[ProjectType.inky] ?? Project.empty(),
-              ),
-            ),
-            const VSpace(size: 40),
-            Flexible(
-              flex: 47,
-              child: CustomAnimatedProjectTile(
-                project: projects[ProjectType.glum] ?? Project.empty(),
-              ),
-            ),
-          ],
-        ),
-        const HSpace(size: 40),
-        Row(
-          children: [
-            CustomAnimatedProjectTile(
-              project: projects[ProjectType.crackd] ?? Project.empty(),
-            ),
-          ],
-        )
-      ],
+      ),
     );
   }
 }
-
-// Widget _buildFloatingProjectDescription(
-//   BuildContext context,
-//   ProjectType projectType,
-//   ValueNotifier<Offset> mouseRegionPos,
-// ) {
-//   return Positioned(
-//     left: mouseRegionPos.value.dx - 25,
-//     top: mouseRegionPos.value.dy + 25,
-//     child: Container(
-//       padding: const EdgeInsets.all(10.0),
-//       color: Colors.black.withOpacity(0.5),
-//       child: Column(
-//         mainAxisSize: MainAxisSize.min,
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           Text(
-//             projectType.title,
-//             style: TextStyles.h3.copyWith(color: Colors.white),
-//           ),
-//           Text(
-//             projectType.shortDescription,
-//             style: TextStyles.title1.copyWith(color: Colors.white),
-//           ),
-//         ],
-//       ),
-//     ),
-//   );
-// }
 
 Widget _buildTabletLayout(Map<ProjectType, Project> projects) {
   return ListView.separated(
@@ -151,30 +112,27 @@ class _AnimatedHeader extends HookWidget {
       duration: const Duration(milliseconds: 500),
     )..repeat(reverse: true);
 
-    return FractionallySizedBox(
-      widthFactor: 0.6,
-      child: RichText(
-        textAlign: TextAlign.center,
-        text: TextSpan(
-          style: DefaultTextStyle.of(context).style,
-          children: [
-            TextSpan(
-              text: "Transforming Concepts into Crafted Apps. ",
-              style: TextStyles.h2,
-            ),
-            WidgetSpan(
-              alignment: PlaceholderAlignment.baseline,
-              baseline: TextBaseline.alphabetic,
-              child: FadeTransition(
-                opacity: animationController,
-                child: Text(
-                  "|",
-                  style: TextStyles.h2,
-                ),
+    return RichText(
+      textAlign: TextAlign.left,
+      text: TextSpan(
+        style: DefaultTextStyle.of(context).style,
+        children: [
+          TextSpan(
+            text: "Transforming concepts into\ncrafted apps. ",
+            style: TextStyles.h0,
+          ),
+          WidgetSpan(
+            alignment: PlaceholderAlignment.baseline,
+            baseline: TextBaseline.alphabetic,
+            child: FadeTransition(
+              opacity: animationController,
+              child: Text(
+                "|",
+                style: TextStyles.h0,
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

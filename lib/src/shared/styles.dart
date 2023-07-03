@@ -16,6 +16,7 @@ class Insets {
 
 class Fonts {
   static const String codecPro = 'Codec Pro';
+  static const String rilenoSans = 'RilenoSans';
 }
 
 class TextStyles {
@@ -23,6 +24,13 @@ class TextStyles {
     fontFamily: Fonts.codecPro,
     fontWeight: FontWeight.w400,
   );
+  static const TextStyle rilenoSans = TextStyle(
+    fontFamily: Fonts.rilenoSans,
+    fontWeight: FontWeight.w400,
+    fontSize: 55,
+  );
+
+  static TextStyle get h0 => rilenoSans.copyWith(fontWeight: FontWeight.w700);
 
   static TextStyle get h1 => codecPro.copyWith(
       fontWeight: FontWeight.w600, fontSize: 75, letterSpacing: -3, height: 1);
@@ -37,6 +45,8 @@ class TextStyles {
   static TextStyle get projectTitleMobile =>
       codecPro.copyWith(fontSize: 82, fontWeight: FontWeight.w600);
 
+  static TextStyle get projectDescription =>
+      rilenoSans.copyWith(fontSize: 21, fontWeight: FontWeight.w100);
   static TextStyle get title1 =>
       codecPro.copyWith(fontSize: 17, fontWeight: FontWeight.w600);
   static TextStyle get title1White => codecPro.copyWith(

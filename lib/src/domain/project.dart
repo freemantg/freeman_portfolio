@@ -1,10 +1,6 @@
-enum ProjectType {
-  ricedrop,
-  glum,
-  inky,
-  githubOAuth,
-  crackd,
-}
+import 'package:flutter/material.dart';
+
+enum ProjectType { ricedrop, glum, inky, githubOAuth, crackd, flutterweb }
 
 class Project {
   final String title;
@@ -15,6 +11,7 @@ class Project {
   final String gitHubUrl;
   final int assetLength;
   final String basePath;
+  final Color hoverColor;
 
   Project({
     required this.title,
@@ -25,6 +22,7 @@ class Project {
     required this.gitHubUrl,
     required this.assetLength,
     required this.basePath,
+    this.hoverColor = Colors.white,
   });
 
   factory Project.empty() {
@@ -54,6 +52,8 @@ extension ProjectTypeX on ProjectType {
         return "oauth2.0";
       case ProjectType.crackd:
         return "crack'd";
+      case ProjectType.flutterweb:
+        return "flutterweb";
       default:
         throw Exception('Unknown project type');
     }

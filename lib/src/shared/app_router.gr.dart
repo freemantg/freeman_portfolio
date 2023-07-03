@@ -24,9 +24,17 @@ class AppRouter extends _i3.RootStackRouter {
 
   @override
   final Map<String, _i3.PageFactory> pagesMap = {
+    HomeLayoutPageRoute.name: (routeData) {
+      return _i3.CustomPage<dynamic>(
+        routeData: routeData,
+        child: const _i1.HomeLayoutPage(),
+        transitionsBuilder: _i3.TransitionsBuilders.fadeIn,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
     PortfolioLayoutPageRoute.name: (routeData) {
-      final args = routeData.argsAs<PortfolioLayoutPageRouteArgs>(
-          orElse: () => const PortfolioLayoutPageRouteArgs());
+      final args = routeData.argsAs<PortfolioLayoutPageRouteArgs>();
       return _i3.CustomPage<dynamic>(
         routeData: routeData,
         child: _i1.PortfolioLayoutPage(
@@ -62,8 +70,12 @@ class AppRouter extends _i3.RootStackRouter {
           fullMatch: true,
         ),
         _i3.RouteConfig(
-          PortfolioLayoutPageRoute.name,
+          HomeLayoutPageRoute.name,
           path: '/home',
+        ),
+        _i3.RouteConfig(
+          PortfolioLayoutPageRoute.name,
+          path: '/portfolio',
         ),
         _i3.RouteConfig(
           ProjectViewRoute.name,
@@ -73,15 +85,27 @@ class AppRouter extends _i3.RootStackRouter {
 }
 
 /// generated route for
+/// [_i1.HomeLayoutPage]
+class HomeLayoutPageRoute extends _i3.PageRouteInfo<void> {
+  const HomeLayoutPageRoute()
+      : super(
+          HomeLayoutPageRoute.name,
+          path: '/home',
+        );
+
+  static const String name = 'HomeLayoutPageRoute';
+}
+
+/// generated route for
 /// [_i1.PortfolioLayoutPage]
 class PortfolioLayoutPageRoute
     extends _i3.PageRouteInfo<PortfolioLayoutPageRouteArgs> {
   PortfolioLayoutPageRoute({
     _i4.Key? key,
-    _i4.Widget? centerView,
+    required _i4.Widget centerView,
   }) : super(
           PortfolioLayoutPageRoute.name,
-          path: '/home',
+          path: '/portfolio',
           args: PortfolioLayoutPageRouteArgs(
             key: key,
             centerView: centerView,
@@ -94,12 +118,12 @@ class PortfolioLayoutPageRoute
 class PortfolioLayoutPageRouteArgs {
   const PortfolioLayoutPageRouteArgs({
     this.key,
-    this.centerView,
+    required this.centerView,
   });
 
   final _i4.Key? key;
 
-  final _i4.Widget? centerView;
+  final _i4.Widget centerView;
 
   @override
   String toString() {

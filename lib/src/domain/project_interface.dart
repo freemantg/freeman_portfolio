@@ -24,6 +24,7 @@ class ProjectRepository implements _ProjectInterface {
           .firstWhere((e) => e.toString().split('.').last == entry.key);
       final projectData = entry.value;
       final assetLength = await getAssetLength(projectType);
+      final hoverColor = parseColor(projectData['hoverColor']);
       final basePath = await getbasePath(projectType);
 
       projects[projectType] = Project(
@@ -35,20 +36,21 @@ class ProjectRepository implements _ProjectInterface {
         gitHubUrl: projectData['gitHubUrl'],
         assetLength: assetLength,
         basePath: basePath,
+        hoverColor: hoverColor,
       );
     }
     return projects;
   }
 
   Future<String> getbasePath(ProjectType projectType) async {
-    final String gifPath = 'projects/${projectType.folderName}/cover.gif';
+    final String mp4Path = 'projects/${projectType.folderName}/cover.mp4';
     final String pngPath = 'projects/${projectType.folderName}/cover.png';
 
     try {
       await rootBundle.load(pngPath);
       return pngPath;
     } catch (e) {
-      return gifPath;
+      return mp4Path;
     }
   }
 
@@ -60,5 +62,11 @@ class ProjectRepository implements _ProjectInterface {
             (String key) => key.contains('projects/${projectType.folderName}/'))
         .toList();
     return imagePaths.length - 1;
+  }
+
+  Color parseColor(String colorString) {
+    final hexColor = 'FF$colorString';
+    final colorValue = int.parse(hexColor, radix: 16);
+    return Color(colorValue);
   }
 }

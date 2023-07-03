@@ -1,14 +1,12 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:freeman_portfolio/src/shared/styles.dart';
 
 import '../../domain/project.dart';
-import '../../shared/styles.dart';
 import '../shared/project_preview_dialog.dart';
 
-class CustomAnimatedProjectTile extends HookConsumerWidget {
+class CustomAnimatedProjectTile extends HookWidget {
   const CustomAnimatedProjectTile({
     Key? key,
     required this.project,
@@ -17,61 +15,126 @@ class CustomAnimatedProjectTile extends HookConsumerWidget {
   final Project project;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final isMobile = MediaQuery.of(context).size.width < 600;
+  Widget build(BuildContext context) {
     final isHovered = useState(false);
+    final colorScheme = Theme.of(context).colorScheme;
 
-    return GestureDetector(
-      onTap: () {},
+    return Expanded(
       child: MouseRegion(
-        onEnter: (_) {
-          isHovered.value = true;
-        },
-        onExit: (_) {
-          isHovered.value = false;
-        },
-        child: _buildProjectTileContents(context, isHovered.value, project),
+        onEnter: (_) => isHovered.value = true,
+        onExit: (_) => isHovered.value = false,
+        child: GestureDetector(
+          onTap: () => _showAnimatedDialog(context, project),
+          child: _buildProjectTileContents(
+            isHovered.value,
+            project,
+            colorScheme,
+          ),
+        ),
       ),
     );
   }
 
   Widget _buildProjectTileContents(
-      BuildContext context, bool isHovered, Project project) {
-    const containerConstraints = BoxConstraints(maxWidth: 826, maxHeight: 394);
+    bool isHovered,
+    Project project,
+    ColorScheme colorScheme,
+  ) {
+    const aspectRatio = 340.8 / 530.25;
 
-    return Container(
-      constraints: containerConstraints,
-      child: Stack(
-        children: [
-          ScaledImage(
-            basePath: project.basePath,
-            borderRadius: BorderRadius.circular(Insets.m),
-            isHovered: isHovered,
-          ),
-          _buildContent(context, isHovered, project),
-        ],
-      ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final width = constraints.maxWidth;
+        final height = width / aspectRatio;
+
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              curve: Curves.easeInOut,
+              width: width,
+              height: height,
+              decoration: BoxDecoration(
+                color: isHovered ? project.hoverColor : Colors.transparent,
+                image: isHovered
+                    ? null
+                    : DecorationImage(
+                        image: AssetImage(project.basePath),
+                        fit: BoxFit.cover,
+                      ),
+              ),
+              child: AnimatedOpacity(
+                duration: const Duration(milliseconds: 200),
+                curve: Curves.easeInOut,
+                opacity: isHovered ? 1 : 0,
+                child: Padding(
+                  padding: const EdgeInsets.all(Insets.l),
+                  child: Text(
+                    project.technicalDescription,
+                    style: TextStyles.projectDescription,
+                  ),
+                ),
+              ),
+            ),
+            const HSpace(size: Insets.l),
+            ProjectTileTitle(
+              project: project,
+              isHovered: isHovered,
+              colorScheme: colorScheme,
+            ),
+          ],
+        );
+      },
     );
   }
 }
 
-Widget _buildContent(BuildContext context, bool isHovered, Project project) {
-  return isHovered
-      ? Padding(
-          padding: const EdgeInsets.all(32.0),
-          child: Align(
-            alignment: Alignment.topLeft,
-            child: IconButton(
-              key: const ValueKey(
-                'hoveredIcon',
-              ), // Added key for AnimatedSwitcher
-              icon: const FaIcon(FontAwesomeIcons.expand),
-              color: Colors.white,
-              onPressed: () => _showAnimatedDialog(context, project),
+class ProjectTileTitle extends StatelessWidget {
+  final Project project;
+  final bool isHovered;
+  final ColorScheme colorScheme;
+
+  const ProjectTileTitle({
+    super.key,
+    required this.project,
+    required this.isHovered,
+    required this.colorScheme,
+  });
+
+  @override
+  Widget build(
+    BuildContext context,
+  ) {
+    return GestureDetector(
+      onTap: () => _showAnimatedDialog(context, project),
+      child: Row(
+        children: [
+          Text(
+            project.title,
+            style: TextStyles.title1.copyWith(
+              fontSize: 21,
+              decoration: TextDecoration.underline,
+              color: isHovered ? colorScheme.secondary : colorScheme.primary,
             ),
           ),
-        )
-      : const SizedBox.shrink();
+          const VSpace(size: Insets.sm),
+          AnimatedOpacity(
+            duration: const Duration(milliseconds: 200),
+            curve: Curves.easeInOut,
+            opacity: isHovered ? 1 : 0,
+            child: Center(
+              child: Icon(
+                Icons.arrow_forward,
+                color: colorScheme.secondary,
+                size: 18,
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
 }
 
 Future<Dialog?> _showAnimatedDialog(BuildContext context, Project project) {
@@ -93,69 +156,4 @@ Future<Dialog?> _showAnimatedDialog(BuildContext context, Project project) {
       return ProjectPreviewDialog(project);
     },
   );
-}
-
-class ScaledImage extends HookWidget {
-  final String basePath;
-  final BorderRadius borderRadius;
-  final bool isHovered;
-
-  const ScaledImage({
-    Key? key,
-    required this.basePath,
-    required this.borderRadius,
-    required this.isHovered,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final mousePosition = useState<Offset>(Offset.zero);
-
-    return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
-        return Container(
-          clipBehavior: Clip.hardEdge,
-          constraints: constraints,
-          decoration: BoxDecoration(borderRadius: borderRadius),
-          child: MouseRegion(
-            onHover: (event) {
-              mousePosition.value = event.localPosition;
-            },
-            onExit: (event) {
-              mousePosition.value = Offset.zero;
-            },
-            child: AnimatedScale(
-              scale: isHovered ? 1.05 : 1.0,
-              duration: kThemeAnimationDuration,
-              child: Transform(
-                transform: Matrix4.identity()
-                  ..setEntry(3, 2, 0.001) // perspective
-                  // Only apply rotation if mouse is not at default position
-                  ..rotateX(mousePosition.value == Offset.zero
-                      ? 0
-                      : (constraints.maxHeight / 2 - mousePosition.value.dy) /
-                          constraints.maxHeight /
-                          3)
-                  ..rotateY(mousePosition.value == Offset.zero
-                      ? 0
-                      : -(constraints.maxWidth / 2 - mousePosition.value.dx) /
-                          constraints.maxWidth /
-                          3),
-                alignment: FractionalOffset.center,
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: borderRadius,
-                    image: DecorationImage(
-                      image: AssetImage(basePath),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
 }

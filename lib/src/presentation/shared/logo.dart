@@ -22,3 +22,25 @@ class Logo extends StatelessWidget {
     );
   }
 }
+
+class LogoFooter extends StatelessWidget {
+  final String imagePath = 'assets/logoFooter.svg';
+  final double width;
+  final double height;
+
+  const LogoFooter({super.key, this.width = 250, this.height = 150});
+
+  @override
+  Widget build(BuildContext context) {
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        maxWidth: width,
+        maxHeight: height,
+      ),
+      child: SvgPicture.asset(
+        imagePath,
+        width: width,
+      ),
+    );
+  }
+}

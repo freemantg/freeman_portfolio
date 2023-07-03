@@ -14,46 +14,64 @@ class StyledWebFooter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const HSpace(size: 120),
-        const Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Logo(),
-            Spacer(),
-            InformationTile(
-              header: 'Location',
-              title: 'Based in London\nUNITED KINGDOM',
-            ),
-            Spacer(),
-            InformationTile(
-              header: 'Contact',
-              title: 'Let\'s get in touch',
-              subtitle: ContactDetails.personalEmail,
-            ),
-            Spacer(),
-          ],
-        ),
-        const HSpace(size: 80),
-        const StyledDivider(),
-        const HSpace(size: Insets.l),
-        Row(
-          children: [
-            Text(
-              "This portfolio is made from Flutter.  ",
-              style: TextStyles.body1,
-            ),
-            const Icon(FontAwesomeIcons.githubAlt),
-            const Spacer(),
-            Text(
-              '© ${ContactDetails.reservedYear}, FREEMAN. All rights reserved.',
-              style: TextStyles.body1,
-            )
-          ],
-        ),
-      ],
+    const double maxWidthPercentage = 0.8;
+    double screenWidth = MediaQuery.sizeOf(context).width;
+    double maxWidth = screenWidth * maxWidthPercentage;
+
+    return ConstrainedBox(
+      constraints: BoxConstraints(maxWidth: maxWidth),
+      child: Column(
+        children: [
+          const HSpace(size: 120),
+          Stack(
+            children: [
+              const LogoFooter(),
+              Column(
+                children: [
+                  const Align(
+                    alignment: Alignment.centerRight,
+                    child: FractionallySizedBox(
+                      widthFactor: 0.8,
+                      child: Row(
+                        children: [
+                          InformationTile(
+                            header: 'Location',
+                            title: 'Based in London\nUNITED KINGDOM',
+                          ),
+                          Spacer(),
+                          InformationTile(
+                            header: 'Contact',
+                            title: 'Let\'s get in touch',
+                            subtitle: ContactDetails.personalEmail,
+                          ),
+                          Spacer(flex: 2),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const HSpace(size: 80),
+                  const StyledDivider(),
+                  const HSpace(size: Insets.l),
+                  Row(
+                    children: [
+                      Text(
+                        "This portfolio is made from Flutter.  ",
+                        style: TextStyles.body1,
+                      ),
+                      const Icon(FontAwesomeIcons.githubAlt),
+                      const Spacer(),
+                      Text(
+                        '© ${ContactDetails.reservedYear}, FREEMAN. All rights reserved.',
+                        style: TextStyles.body1,
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

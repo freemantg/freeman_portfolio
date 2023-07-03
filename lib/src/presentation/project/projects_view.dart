@@ -21,12 +21,15 @@ class ProjectsView extends ConsumerWidget {
       loadSuccess: (projects) {
         return ListView(
           shrinkWrap: true,
-          children: ProjectType.values.map((projectType) {
-            return AnimatedProjectTitle(
-              project: projects[projectType] ?? Project.empty(),
-              index: projectType.index,
-            );
-          }).toList(),
+          children: [
+            const HSpace(size: Insets.xl),
+            ...ProjectType.values.map((projectType) {
+              return AnimatedProjectTitle(
+                project: projects[projectType] ?? Project.empty(),
+                index: projectType.index,
+              );
+            })
+          ],
         );
       },
       orElse: () => const StyledCircleProgressIndicator(),
