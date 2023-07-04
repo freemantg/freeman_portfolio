@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:freeman_portfolio/src/presentation/shared/logo.dart';
 import 'package:freeman_portfolio/src/shared/extensions.dart';
 
 import '../shared/styles.dart';
@@ -16,7 +17,7 @@ class PortfolioLayoutPage extends StatelessWidget {
     required this.centerView,
   }) : super(key: key);
 
-  final Widget centerView;
+  final Widget? centerView;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +54,7 @@ class _DesktopScaffold extends StatelessWidget {
   });
 
   final ScrollController scrollController;
-  final Widget centerView;
+  final Widget? centerView;
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +68,7 @@ class _DesktopScaffold extends StatelessWidget {
               child: Column(
                 children: [
                   const NavigationMenuBar(),
-                  CenteredView(child: centerView),
+                  CenteredView(child: centerView ?? const HomeView()),
                   const StyledWebFooter()
                 ],
               ),
@@ -99,35 +100,36 @@ class _MobileScaffold extends StatelessWidget {
     required this.centerView,
   }) : super(key: key);
 
-  final Widget centerView;
+  final Widget? centerView;
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context).colorScheme;
-
     return Scaffold(
       drawer: const StyledMobileNavigationDrawer(),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(Insets.l, Insets.l, Insets.l, 0),
+          padding: const EdgeInsets.fromLTRB(Insets.m, Insets.m, Insets.m, 0),
           child: SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Builder(
-                  builder: (context) => Container(
-                    decoration: BoxDecoration(
-                      color: theme.primary.withOpacity(0.1),
-                      shape: BoxShape.circle,
+                Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    const Align(
+                      alignment: Alignment.centerLeft,
+                      child: Logo(width: 150),
                     ),
-                    child: IconButton(
-                      onPressed: () => Scaffold.of(context).openDrawer(),
-                      icon: const Icon(Icons.menu),
+                    Builder(
+                      builder: (context) => IconButton(
+                        onPressed: () => Scaffold.of(context).openDrawer(),
+                        icon: const Icon(Icons.menu),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
                 const HSpace(size: 80.0),
-                centerView,
+                centerView ?? const HomeView(),
                 const StyledMobileFooter(),
               ],
             ),

@@ -70,6 +70,7 @@ class StyledWebFooter extends StatelessWidget {
               ),
             ],
           ),
+          const HSpace(size: 28),
         ],
       ),
     );
@@ -84,8 +85,9 @@ class StyledMobileFooter extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const Align(alignment: Alignment.centerLeft, child: Logo()),
-        const HSpace(size: Insets.xl * 2),
+        const HSpace(size: 50),
+        const Align(alignment: Alignment.centerLeft, child: LogoFooter()),
+        const HSpace(size: Insets.xl),
         const InformationTile(
           header: 'Location',
           title: 'Remote, based in London',

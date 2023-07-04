@@ -9,13 +9,14 @@ import '../shared/project_preview_dialog.dart';
 class CustomAnimatedProjectTile extends HookWidget {
   const CustomAnimatedProjectTile({
     Key? key,
-    required this.project,
+    this.project,
   }) : super(key: key);
 
-  final Project project;
+  final Project? project;
 
   @override
   Widget build(BuildContext context) {
+    final project = this.project ?? Project.empty();
     final isHovered = useState(false);
     final colorScheme = Theme.of(context).colorScheme;
 

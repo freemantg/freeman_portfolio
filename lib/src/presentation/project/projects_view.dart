@@ -25,7 +25,7 @@ class ProjectsView extends ConsumerWidget {
             const HSpace(size: Insets.xl),
             ...ProjectType.values.map((projectType) {
               return AnimatedProjectTitle(
-                project: projects[projectType] ?? Project.empty(),
+                project: projects[projectType],
                 index: projectType.index,
               );
             })
@@ -44,11 +44,12 @@ class AnimatedProjectTitle extends HookConsumerWidget {
     required this.index,
   }) : super(key: key);
 
-  final Project project;
+  final Project? project;
   final int index;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final project = this.project ?? Project.empty();
     final theme = Theme.of(context).colorScheme;
     final hoverController = useState(false);
 

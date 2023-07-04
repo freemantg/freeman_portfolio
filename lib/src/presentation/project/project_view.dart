@@ -12,49 +12,52 @@ class ProjectView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FractionallySizedBox(
-      widthFactor: 0.8,
-      child: Column(
-        children: [
-          ProjectDetails(project),
-          const HSpace(size: 80.0),
-          ListView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: project.assetLength,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return SingleChildScrollView(
-                        child: Hero(
-                          tag: '${project.title}_$index',
-                          child: InteractiveViewer(
-                            child: Image(
-                              image: AssetImage(
-                                'projects/${project.folderName}/${project.folderName}_$index.png',
+    return Align(
+      alignment: Alignment.centerRight,
+      child: FractionallySizedBox(
+        widthFactor: 0.80,
+        child: Column(
+          children: [
+            ProjectDetails(project),
+            const HSpace(size: 80.0),
+            ListView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: project.assetLength,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return SingleChildScrollView(
+                          child: Hero(
+                            tag: '${project.title}_$index',
+                            child: InteractiveViewer(
+                              child: Image(
+                                image: AssetImage(
+                                  'projects/${project.folderName}/${project.folderName}_$index.png',
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      );
-                    },
-                  );
-                },
-                child: Hero(
-                  tag: '${project.title}_$index',
-                  child: Image(
-                    image: AssetImage(
-                      'projects/${project.folderName}/${project.folderName}_$index.png',
+                        );
+                      },
+                    );
+                  },
+                  child: Hero(
+                    tag: '${project.title}_$index',
+                    child: Image(
+                      image: AssetImage(
+                        'projects/${project.folderName}/${project.folderName}_$index.png',
+                      ),
                     ),
                   ),
-                ),
-              );
-            },
-          )
-        ],
+                );
+              },
+            )
+          ],
+        ),
       ),
     );
   }

@@ -30,7 +30,8 @@ class TextStyles {
     fontSize: 55,
   );
 
-  static TextStyle get h0 => rilenoSans.copyWith(fontWeight: FontWeight.w700);
+  static TextStyle get h0 => rilenoSans;
+  static TextStyle get h0Mobile => rilenoSans.copyWith(fontSize: 29, height: 0);
 
   static TextStyle get h1 => codecPro.copyWith(
       fontWeight: FontWeight.w600, fontSize: 75, letterSpacing: -3, height: 1);
