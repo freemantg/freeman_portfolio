@@ -25,15 +25,10 @@ class LightDarkToggleSwitch extends StatelessWidget {
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        return (!constraints.isMobile)
-            ? Column(
-                mainAxisSize: MainAxisSize.min,
-                children: buildToggleSwitchWidgets(constraints),
-              )
-            : Row(
-                mainAxisSize: MainAxisSize.min,
-                children: buildToggleSwitchWidgets(constraints),
-              );
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: buildToggleSwitchWidgets(constraints),
+        );
       },
     );
   }
@@ -54,7 +49,7 @@ class _AnimatedSlider extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.all(Insets.sm),
       child: RotatedBox(
-        quarterTurns: !constraints.isMobile ? 3 : 0,
+        quarterTurns: 3,
         child: GestureDetector(
           onTap: () => ref.read(themeProvider.notifier).toggleTheme(),
           child: AnimatedContainer(
@@ -69,13 +64,9 @@ class _AnimatedSlider extends ConsumerWidget {
             ),
             child: AnimatedAlign(
               duration: animationDuration,
-              alignment: !constraints.isMobile
-                  ? themeState.isDark
-                      ? Alignment.centerLeft
-                      : Alignment.centerRight
-                  : themeState.isDark
-                      ? Alignment.centerRight
-                      : Alignment.centerLeft,
+              alignment: themeState.isDark
+                  ? Alignment.centerLeft
+                  : Alignment.centerRight,
               child: Container(
                 height: 25,
                 width: 64,

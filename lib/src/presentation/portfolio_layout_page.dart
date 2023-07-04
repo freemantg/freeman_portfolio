@@ -14,7 +14,7 @@ import 'shared/styled_footer.dart';
 class PortfolioLayoutPage extends StatelessWidget {
   const PortfolioLayoutPage({
     Key? key,
-    required this.centerView,
+    this.centerView,
   }) : super(key: key);
 
   final Widget? centerView;

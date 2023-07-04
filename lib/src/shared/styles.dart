@@ -44,12 +44,13 @@ class TextStyles {
       codecPro.copyWith(fontSize: 115, fontWeight: FontWeight.w600);
 
   static TextStyle get projectTitleMobile =>
-      codecPro.copyWith(fontSize: 82, fontWeight: FontWeight.w600);
+      codecPro.copyWith(fontSize: 64, fontWeight: FontWeight.w600);
 
   static TextStyle get projectDescription =>
       rilenoSans.copyWith(fontSize: 21, fontWeight: FontWeight.w100);
   static TextStyle get title1 =>
       codecPro.copyWith(fontSize: 17, fontWeight: FontWeight.w600);
+  static TextStyle get title1Mobile => rilenoSans.copyWith(fontSize: 31);
   static TextStyle get title1White => codecPro.copyWith(
       fontSize: 17, fontWeight: FontWeight.w600, color: Colors.white);
   static TextStyle get title2 =>

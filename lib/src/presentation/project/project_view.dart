@@ -12,14 +12,16 @@ class ProjectView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isMobile = context.isMobile;
+
     return Align(
       alignment: Alignment.centerRight,
       child: FractionallySizedBox(
-        widthFactor: 0.80,
+        widthFactor: isMobile ? 1 : 0.80,
         child: Column(
           children: [
             ProjectDetails(project),
-            const HSpace(size: 80.0),
+            HSpace(size: isMobile ? 80.0 : 40),
             ListView.builder(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,

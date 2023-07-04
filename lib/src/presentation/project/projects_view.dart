@@ -19,8 +19,8 @@ class ProjectsView extends ConsumerWidget {
     final projectState = ref.watch(projectsProvider);
     return projectState.maybeWhen(
       loadSuccess: (projects) {
-        return ListView(
-          shrinkWrap: true,
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const HSpace(size: Insets.xl),
             ...ProjectType.values.map((projectType) {
@@ -61,57 +61,62 @@ class AnimatedProjectTitle extends HookConsumerWidget {
             onEnter: (_) => hoverController.value = true,
             onExit: (_) => hoverController.value = false,
             child: GestureDetector(
-              onTap: () => ref.read(appRouterProvider).push(
-                    PortfolioLayoutPageRoute(
-                      centerView: ProjectView(project),
+                onTap: () => ref.read(appRouterProvider).push(
+                      PortfolioLayoutPageRoute(
+                        centerView: ProjectView(project),
+                      ),
                     ),
-                  ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AnimatedSwitcher(
-                    duration: kThemeAnimationDuration,
-                    transitionBuilder: (child, animation) => FadeTransition(
-                      opacity: animation,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AnimatedSwitcher(
+                      duration: kThemeAnimationDuration,
+                      transitionBuilder: (child, animation) => FadeTransition(
+                        opacity: animation,
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: child,
+                        ),
+                      ),
+                      child: Text(
+                        project.title,
+                        key: UniqueKey(),
+                        style: hoverController.value
+                            ? (constraints.isMobile
+                                    ? TextStyles.projectTitleMobile
+                                    : TextStyles.projectTitle)
+                                .copyWith(
+                                foreground: Paint()
+                                  ..style = PaintingStyle.stroke
+                                  ..strokeWidth = 1
+                                  ..color = theme.primary,
+                              )
+                            : constraints.isMobile
+                                ? TextStyles.projectTitleMobile
+                                : TextStyles.projectTitle,
+                      ),
+                    ),
+                    Expanded(
                       child: Align(
                         alignment: Alignment.centerLeft,
-                        child: child,
+                        child: CustomAnimationSlider(
+                          hoverController: hoverController,
+                          child: Text(
+                            hoverController.value
+                                ? '/${project.shortDescription}'
+                                : '0${index + 1}',
+                            key: UniqueKey(),
+                            style: TextStyles.title2.copyWith(
+                              fontWeight: FontWeight.w600,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
                       ),
                     ),
-                    child: Text(
-                      project.title,
-                      key: UniqueKey(),
-                      style: hoverController.value
-                          ? (constraints.isMobile
-                                  ? TextStyles.projectTitleMobile
-                                  : TextStyles.projectTitle)
-                              .copyWith(
-                              foreground: Paint()
-                                ..style = PaintingStyle.stroke
-                                ..strokeWidth = 1
-                                ..color = theme.primary,
-                            )
-                          : constraints.isMobile
-                              ? TextStyles.projectTitleMobile
-                              : TextStyles.projectTitle,
-                    ),
-                  ),
-                  CustomAnimationSlider(
-                    hoverController: hoverController,
-                    child: Text(
-                      hoverController.value
-                          ? '/${project.shortDescription}'
-                          : '0${index + 1}',
-                      key: UniqueKey(),
-                      style: TextStyles.title2.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                  const Spacer(),
-                ],
-              ),
-            ),
+                    const Spacer(),
+                  ],
+                )),
           ),
         );
       },

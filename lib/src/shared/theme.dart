@@ -42,7 +42,7 @@ class AppTheme {
 
 const lightColorScheme = ColorScheme(
   brightness: Brightness.light,
-  primary: Color(0xFF111013),
+  primary: Color(0xFF222222),
   onPrimary: Color(0xFFFFFFFF),
   primaryContainer: Color(0xFFD8E2FF),
   onPrimaryContainer: Color(0xFF001A41),
@@ -75,7 +75,7 @@ const lightColorScheme = ColorScheme(
 const darkColorScheme = ColorScheme(
   brightness: Brightness.dark,
   primary: Color(0xFFFFFFFF),
-  onPrimary: Color(0xFF111013),
+  onPrimary: Color(0xFF222222),
   primaryContainer: Color(0xFF004494),
   onPrimaryContainer: Color(0xFFD8E2FF),
   secondary: Color(0xFFFF9BCD),

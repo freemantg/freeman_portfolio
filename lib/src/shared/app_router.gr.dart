@@ -34,7 +34,8 @@ class AppRouter extends _i3.RootStackRouter {
       );
     },
     PortfolioLayoutPageRoute.name: (routeData) {
-      final args = routeData.argsAs<PortfolioLayoutPageRouteArgs>();
+      final args = routeData.argsAs<PortfolioLayoutPageRouteArgs>(
+          orElse: () => const PortfolioLayoutPageRouteArgs());
       return _i3.CustomPage<dynamic>(
         routeData: routeData,
         child: _i1.PortfolioLayoutPage(
@@ -64,14 +65,8 @@ class AppRouter extends _i3.RootStackRouter {
   @override
   List<_i3.RouteConfig> get routes => [
         _i3.RouteConfig(
-          '/#redirect',
-          path: '/',
-          redirectTo: '/home',
-          fullMatch: true,
-        ),
-        _i3.RouteConfig(
           HomeLayoutPageRoute.name,
-          path: '/home',
+          path: '/',
         ),
         _i3.RouteConfig(
           PortfolioLayoutPageRoute.name,
@@ -90,7 +85,7 @@ class HomeLayoutPageRoute extends _i3.PageRouteInfo<void> {
   const HomeLayoutPageRoute()
       : super(
           HomeLayoutPageRoute.name,
-          path: '/home',
+          path: '/',
         );
 
   static const String name = 'HomeLayoutPageRoute';
@@ -102,7 +97,7 @@ class PortfolioLayoutPageRoute
     extends _i3.PageRouteInfo<PortfolioLayoutPageRouteArgs> {
   PortfolioLayoutPageRoute({
     _i4.Key? key,
-    required _i4.Widget centerView,
+    _i4.Widget? centerView,
   }) : super(
           PortfolioLayoutPageRoute.name,
           path: '/portfolio',
@@ -118,12 +113,12 @@ class PortfolioLayoutPageRoute
 class PortfolioLayoutPageRouteArgs {
   const PortfolioLayoutPageRouteArgs({
     this.key,
-    required this.centerView,
+    this.centerView,
   });
 
   final _i4.Key? key;
 
-  final _i4.Widget centerView;
+  final _i4.Widget? centerView;
 
   @override
   String toString() {

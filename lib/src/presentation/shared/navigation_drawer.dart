@@ -8,7 +8,6 @@ import 'package:freeman_portfolio/src/shared/providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../shared/styles.dart';
-import 'social_media_bar.dart';
 
 class StyledMobileNavigationDrawer extends StatelessWidget {
   const StyledMobileNavigationDrawer({
@@ -17,56 +16,64 @@ class StyledMobileNavigationDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Drawer(
-          backgroundColor: Theme.of(context).colorScheme.background,
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(
-                  Insets.l,
-                  Insets.l,
-                  Insets.l,
-                  0,
-                ),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Builder(
-                    builder: (context) {
-                      return IconButton(
-                        onPressed: () => Scaffold.of(context).closeDrawer(),
-                        icon: const Icon(Icons.close),
-                      );
-                    },
+    final width = MediaQuery.sizeOf(context).width;
+
+    return SizedBox(
+      width: width,
+      child: Drawer(
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+        backgroundColor: Theme.of(context).colorScheme.background,
+        child: Stack(
+          alignment: Alignment.topCenter,
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(
+                Insets.l,
+                Insets.l,
+                Insets.l,
+                0,
+              ),
+              child: Builder(
+                builder: (context) {
+                  return IconButton(
+                    onPressed: () => Scaffold.of(context).closeDrawer(),
+                    icon: const Icon(Icons.close),
+                  );
+                },
+              ),
+            ),
+            const Row(
+              children: [
+                Spacer(),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      NavigationDrawerItem(
+                        title: 'Home',
+                        centerView: HomeView(),
+                      ),
+                      NavigationDrawerItem(
+                        title: 'Projects',
+                        centerView: ProjectsView(),
+                      ),
+                      NavigationDrawerItem(
+                        title: 'Contact',
+                        centerView: ContactView(),
+                      ),
+                      NavigationDrawerItem(
+                        title: 'About',
+                        centerView: AboutView(),
+                      ),
+                    ],
                   ),
                 ),
-              ),
-              const HSpace(size: Insets.l),
-              const NavigationDrawerItem(
-                title: 'HOME',
-                centerView: HomeView(),
-              ),
-              const NavigationDrawerItem(
-                title: 'PROJECTS',
-                centerView: ProjectsView(),
-              ),
-              const NavigationDrawerItem(
-                title: 'CONTACT',
-                centerView: ContactView(),
-              ),
-              const NavigationDrawerItem(
-                title: 'ABOUT',
-                centerView: AboutView(),
-              ),
-              const Spacer(),
-              // const Center(child: LightDarkToggleSwitch()),
-              const HSpace(size: Insets.l),
-            ],
-          ),
+              ],
+            ),
+          ],
         ),
-        const SocialMediaBar(),
-      ],
+      ),
     );
   }
 }
@@ -86,7 +93,7 @@ class NavigationDrawerItem extends ConsumerWidget {
     return ListTile(
       title: Text(
         title,
-        style: TextStyles.title2,
+        style: TextStyles.title1Mobile,
       ),
       onTap: () => ref.read(appRouterProvider).pushAndPopUntil(
             PortfolioLayoutPageRoute(centerView: centerView),
