@@ -23,7 +23,10 @@ class ViewProjectButton extends HookWidget {
 
     return TextButton(
       onHover: (_) => hoverController.value = !hoverController.value,
-      style: TextButton.styleFrom(padding: EdgeInsets.zero),
+      style: TextButton.styleFrom(
+        padding: EdgeInsets.zero,
+        splashFactory: NoSplash.splashFactory,
+      ),
       onPressed: onPressed,
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -36,15 +39,19 @@ class ViewProjectButton extends HookWidget {
             ),
           ),
           const VSpace(size: Insets.m),
-          CustomAnimationSlider(
-            hoverController: hoverController,
-            child: FaIcon(
-              key: UniqueKey(),
-              FontAwesomeIcons.arrowRight,
-              size: 18,
-              color: inverseColor ? Colors.white : null,
+          Align(
+            alignment: Alignment.centerLeft,
+            child: CustomAnimationSlider(
+              hoverController: hoverController,
+              child: FaIcon(
+                key: UniqueKey(),
+                FontAwesomeIcons.arrowRight,
+                size: 18,
+                color: inverseColor ? Colors.white : null,
+              ),
             ),
           ),
+          const Spacer(),
         ],
       ),
     );

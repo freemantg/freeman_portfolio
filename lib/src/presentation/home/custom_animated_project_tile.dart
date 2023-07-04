@@ -1,6 +1,7 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:freeman_portfolio/src/shared/extensions.dart';
 import 'package:freeman_portfolio/src/shared/styles.dart';
 
 import '../../domain/project.dart';
@@ -17,26 +18,31 @@ class CustomAnimatedProjectTile extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final project = this.project ?? Project.empty();
-    final isHovered = useState(false);
     final colorScheme = Theme.of(context).colorScheme;
+    final isHovered = useState(false);
 
     return Expanded(
-      child: MouseRegion(
-        onEnter: (_) => isHovered.value = true,
-        onExit: (_) => isHovered.value = false,
-        child: GestureDetector(
-          onTap: () => _showAnimatedDialog(context, project),
-          child: _buildProjectTileContents(
-            isHovered.value,
-            project,
-            colorScheme,
-          ),
-        ),
-      ),
+      child: (context.isMobile)
+          ? _buildProjectTileContentsMobile(
+              project,
+              colorScheme,
+            )
+          : MouseRegion(
+              onEnter: (_) => isHovered.value = true,
+              onExit: (_) => isHovered.value = false,
+              child: GestureDetector(
+                onTap: () => _showAnimatedDialog(context, project),
+                child: _buildProjectTileContentsDesktop(
+                  isHovered.value,
+                  project,
+                  colorScheme,
+                ),
+              ),
+            ),
     );
   }
 
-  Widget _buildProjectTileContents(
+  Widget _buildProjectTileContentsDesktop(
     bool isHovered,
     Project project,
     ColorScheme colorScheme,
@@ -91,6 +97,47 @@ class CustomAnimatedProjectTile extends HookWidget {
   }
 }
 
+Widget _buildProjectTileContentsMobile(
+  Project project,
+  ColorScheme colorScheme,
+) {
+  const aspectRatio = 340.8 / 530.25;
+
+  return LayoutBuilder(
+    builder: (context, constraints) {
+      final width = constraints.maxWidth;
+      final height = width / aspectRatio;
+
+      return GestureDetector(
+        onTap: () => _showAnimatedDialog(context, project),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              curve: Curves.easeInOut,
+              width: width,
+              height: height,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(project.basePath),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            const HSpace(size: Insets.l),
+            ProjectTileTitle(
+              project: project,
+              isHovered: false,
+              colorScheme: colorScheme,
+            ),
+          ],
+        ),
+      );
+    },
+  );
+}
+
 class ProjectTileTitle extends StatelessWidget {
   final Project project;
   final bool isHovered;
@@ -114,7 +161,7 @@ class ProjectTileTitle extends StatelessWidget {
           Text(
             project.title,
             style: TextStyles.title1.copyWith(
-              fontSize: 21,
+              fontSize: !context.isDesktop ? 15 : 21,
               decoration: TextDecoration.underline,
               color: isHovered ? colorScheme.secondary : colorScheme.primary,
             ),

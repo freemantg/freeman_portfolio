@@ -66,16 +66,6 @@ class ProjectPreviewDetails extends StatelessWidget {
       child: Stack(
         children: [
           Align(
-            alignment: Alignment.topRight,
-            child: IconButton(
-              onPressed: () => Navigator.of(context).pop(),
-              icon: const Icon(
-                FontAwesomeIcons.xmark,
-                color: Colors.white,
-              ),
-            ),
-          ),
-          Align(
             alignment: Alignment.centerLeft,
             child: SingleChildScrollView(
               child: Column(
@@ -140,7 +130,17 @@ class ProjectPreviewDetails extends StatelessWidget {
                 ],
               ),
             ),
-          )
+          ),
+          Align(
+            alignment: Alignment.topRight,
+            child: IconButton(
+              onPressed: () => Navigator.of(context).pop(),
+              icon: const Icon(
+                FontAwesomeIcons.xmark,
+                color: Colors.white,
+              ),
+            ),
+          ),
         ],
       ),
     );
