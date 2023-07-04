@@ -1,11 +1,11 @@
 {
   "ricedrop": {
     "title": "Rice Drop",
-    "shortDescription": "Self Service IOS Kiosk",
+    "shortDescription": "A self-service kiosk Flutter application that seamlessly integrates with Square's Point of Sale (POS) API for Rice Drop. Successfully launched and installed in the Mottingham branch, London.",
     "description": "A flexible and easy-to-use Pomodoro technique productivity app designed for your work and study.",
     "technicalDescription": "Stack information",
-    "shortTechnicalDescription": "Testing the short",
-    "gitHubUrl": "www.youtube.com",
+    "shortTechnicalDescription":"Utilizing Dartz for error handling, Riverpod for state management, and integrating with the Square API for seamless transactions. Built with DDD and Clean Architecture principles.",
+    "gitHubUrl": "https://github.com/freemantg/rice_drop",
     "hoverColor": "00B079"
   },
   "glum": {
