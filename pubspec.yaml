@@ -57,5 +57,7 @@ flutter:
     - family: RilenoSans
       fonts:
         - asset: assets/fonts/RilenoSans-Regular.otf
+        - asset: assets/fonts/RilenoSans-Medium.otf
+          weight: 500
         - asset: assets/fonts/RilenoSans-SemiBold.otf
           weight: 700

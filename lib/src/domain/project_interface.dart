@@ -37,6 +37,7 @@ class ProjectRepository implements _ProjectInterface {
         assetLength: assetLength,
         basePath: basePath,
         hoverColor: hoverColor,
+        hoverDescription: projectData['hoverDescription'],
       );
     }
     return projects;

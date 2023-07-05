@@ -85,8 +85,8 @@ class ProjectDetails extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Flutter', style: TextStyles.body1),
-                const HSpace(size: Insets.m),
+                // Text('Flutter', style: TextStyles.body1),
+                // const HSpace(size: Insets.m),
                 Text(project.title, style: TextStyles.h1),
                 const HSpace(size: Insets.l),
                 Text(

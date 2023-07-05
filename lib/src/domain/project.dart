@@ -12,6 +12,7 @@ class Project {
   final int assetLength;
   final String basePath;
   final Color hoverColor;
+  final String hoverDescription;
 
   Project({
     required this.title,
@@ -23,6 +24,7 @@ class Project {
     required this.assetLength,
     required this.basePath,
     this.hoverColor = Colors.white,
+    required this.hoverDescription,
   });
 
   factory Project.empty() {
@@ -35,6 +37,7 @@ class Project {
       gitHubUrl: '',
       assetLength: 0,
       basePath: '',
+      hoverDescription: '',
     );
   }
 }
