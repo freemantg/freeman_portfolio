@@ -1,5 +1,5 @@
 name: freeman_portfolio
-description: A new Flutter project.
+description: A personal exploration of Flutter Web's capabilities, crafted into this interactive portfolio.
 
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
@@ -46,6 +46,7 @@ flutter:
     - assets/projects/glum/
     - assets/projects/inky/
     - assets/projects/oauth2.0/
+    - assets/projects/flutterweb/
     - assets/projects/projects.json
 
   fonts:

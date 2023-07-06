@@ -20,6 +20,9 @@ class HomeView extends HookWidget {
       builder: (context, ref, child) {
         final projectState = ref.watch(projectsProvider);
         return projectState.maybeWhen(
+          initial: () => const Text('Initial'),
+          loadInProgress: () => const Text('Load in progress'),
+          loadFailure: () => const Text('Load Failed'),
           loadSuccess: (projects) {
             if (screenWidth < 600) {
               return _buildMobileLayout(projects);
@@ -170,7 +173,7 @@ class _AnimatedHeader extends StatelessWidget {
           TextSpan(
             text:
                 // "Transforming concepts into${screenWidth > 600 ? "\ncrafted apps. " : " crafted apps. "}",
-                "Coding it all – Flutter apps, bug fixes, and everything in between.",
+                "Flutter apps, bug fixes, and everything in between.",
             style: screenWidth > 600 ? TextStyles.h0 : TextStyles.h0Mobile,
           ),
         ],

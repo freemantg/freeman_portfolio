@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:freeman_portfolio/src/presentation/shared/view_project_button.dart';
 import 'package:freeman_portfolio/src/shared/extensions.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../domain/project.dart';
+import '../../shared/providers.dart';
 import '../../shared/styles.dart';
 
 class ProjectView extends StatelessWidget {
@@ -124,7 +126,14 @@ class ProjectDetails extends StatelessWidget {
                 ),
                 const VSpace(size: Insets.sm),
                 const HSpace(size: Insets.xl),
-                ViewProjectButton(title: 'View on Github', onPressed: () {}),
+                Consumer(builder: ((context, ref, child) {
+                  return ViewProjectButton(
+                    title: 'View on Github',
+                    onPressed: () async => await ref
+                        .read(urlLauncherServiceProvider)
+                        .launchUrl(project.gitHubUrl),
+                  );
+                })),
                 const HSpace(size: Insets.xl),
               ],
             ),
