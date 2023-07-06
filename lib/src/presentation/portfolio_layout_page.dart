@@ -64,7 +64,7 @@ class _DesktopScaffold extends StatelessWidget {
           SingleChildScrollView(
             controller: scrollController,
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(20, 25, 20, 10),
+              padding: const EdgeInsets.fromLTRB(21, 25, 20, 10),
               child: Column(
                 children: [
                   const NavigationMenuBar(),
