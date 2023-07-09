@@ -44,7 +44,7 @@ class AboutView extends StatelessWidget {
                           style: TextStyles.h3.copyWith(color: theme.primary)),
                       TextSpan(
                           text:
-                              "\n\nI'm Freeman and I've been working with Flutter & Dart for 3 years.\n\nI have a joints Bachelor's Degree in Economics and Japanese (SOAS University, London | Hitotsubashi University, Tokyo).\n\nToday my focus is entirely on the development of applications that tell stories and stand out for their originality.",
+                              "\n\nI'm Freeman and I've been working with Flutter & Dart for 3 years.\n\nAfter a successful stint in People Operations within a start-up environment in London, I decided to take an adventurous leap into the world of software dev. Today my focus is entirely on the development of applications that tell stories and stand out for their originality.\n\n I have a joints Bachelor's Degree in Economics and Japanese (SOAS University, London | Hitotsubashi University, Tokyo).",
                           style: TextStyles.body1),
                     ],
                   ),
