@@ -40,7 +40,7 @@ class ProjectView extends StatelessWidget {
                             child: InteractiveViewer(
                               child: Image(
                                 image: AssetImage(
-                                  'assets/projects/${project.folderName}/${project.folderName}_$index.png',
+                                  project.assetName(index),
                                 ),
                               ),
                             ),
@@ -53,7 +53,7 @@ class ProjectView extends StatelessWidget {
                     tag: '${project.title}_$index',
                     child: Image(
                       image: AssetImage(
-                        'projects/${project.folderName}/${project.folderName}_$index.png',
+                        project.assetName(index),
                       ),
                     ),
                   ),
@@ -87,8 +87,6 @@ class ProjectDetails extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                    "assets/projects/${project.folderName}/${project.folderName}_1.png"),
                 Text(project.title, style: TextStyles.h1),
                 const HSpace(size: Insets.l),
                 Text(

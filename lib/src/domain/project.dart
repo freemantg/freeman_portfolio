@@ -68,6 +68,7 @@ extension ProjectTypeX on ProjectType {
 
 extension ProjectX on Project {
   String get folderName {
-    return title.replaceAll(' ', '');
+    return title.replaceAll(' ', '').toLowerCase();
   }
+
 }

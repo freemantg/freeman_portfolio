@@ -11,6 +11,7 @@ class AppWidget extends ConsumerWidget {
     final theme = ref.watch(themeProvider);
 
     return MaterialApp.router(
+      title: "The Coding Portfolio of Freeman Tang",
       theme: theme.themeData,
       routerDelegate: appRouter.delegate(),
       routeInformationParser: appRouter.defaultRouteParser(),
