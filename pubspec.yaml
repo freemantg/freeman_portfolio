@@ -1,5 +1,6 @@
 name: freeman_portfolio
-description: A personal exploration of Flutter Web's capabilities, crafted into this interactive portfolio.
+description: A personal exploration of Flutter Web's capabilities, crafted into
+  this interactive portfolio.
 
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
@@ -27,6 +28,7 @@ dependencies:
   json_serializable: ^6.3.2
   riverpod: ^1.0.3
   url_launcher: ^6.1.4
+  url_strategy: ^0.2.0
   video_player: ^2.6.1
 
 dev_dependencies:
@@ -40,7 +42,6 @@ dependency_overrides:
 flutter:
   uses-material-design: true
   assets:
-    - assets/
     - assets/projects/crack'd/
     - assets/projects/ricedrop/
     - assets/projects/glum/

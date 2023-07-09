@@ -9,9 +9,7 @@ abstract class _ProjectInterface {
 }
 
 class ProjectRepository implements _ProjectInterface {
-  static const projectJson = 'projects/projects.json';
-
-  Future<String> getJson() => rootBundle.loadString(projectJson);
+  static const projectJson = 'assets/projects/projects.json';
 
   @override
   Future<Map<ProjectType, Project>> fetchProjects() async {
@@ -44,23 +42,17 @@ class ProjectRepository implements _ProjectInterface {
   }
 
   Future<String> getbasePath(ProjectType projectType) async {
-    final String mp4Path = 'projects/${projectType.folderName}/cover.mp4';
-    final String pngPath = 'projects/${projectType.folderName}/cover.png';
-
-    try {
-      await rootBundle.load(pngPath);
-      return pngPath;
-    } catch (e) {
-      return mp4Path;
-    }
+    final String pngPath =
+        'assets/projects/${projectType.folderName}/cover.png';
+    return pngPath;
   }
 
   Future<int> getAssetLength(ProjectType projectType) async {
     final manifestContent = await rootBundle.loadString('AssetManifest.json');
     final Map<String, dynamic> manifestMap = json.decode(manifestContent);
     final imagePaths = manifestMap.keys
-        .where(
-            (String key) => key.contains('projects/${projectType.folderName}/'))
+        .where((String key) =>
+            key.contains('assets/projects/${projectType.folderName}/'))
         .toList();
     return imagePaths.length - 1;
   }

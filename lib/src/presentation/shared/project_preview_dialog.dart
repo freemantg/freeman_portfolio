@@ -167,7 +167,7 @@ class ProjectImageCarousel extends HookWidget {
           itemBuilder: (context, index) {
             return Image(
               image: AssetImage(
-                'projects/${project.folderName}/${project.folderName}_$index.png',
+                project.assetName(index),
               ),
             );
           },

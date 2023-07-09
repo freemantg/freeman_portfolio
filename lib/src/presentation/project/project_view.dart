@@ -40,7 +40,7 @@ class ProjectView extends StatelessWidget {
                             child: InteractiveViewer(
                               child: Image(
                                 image: AssetImage(
-                                  'projects/${project.folderName}/${project.folderName}_$index.png',
+                                  'assets/projects/${project.folderName}/${project.folderName}_$index.png',
                                 ),
                               ),
                             ),
@@ -49,14 +49,6 @@ class ProjectView extends StatelessWidget {
                       },
                     );
                   },
-                  child: Hero(
-                    tag: '${project.title}_$index',
-                    child: Image(
-                      image: AssetImage(
-                        'projects/${project.folderName}/${project.folderName}_$index.png',
-                      ),
-                    ),
-                  ),
                 );
               },
             )

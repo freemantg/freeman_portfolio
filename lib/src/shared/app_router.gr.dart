@@ -70,11 +70,11 @@ class AppRouter extends _i3.RootStackRouter {
         ),
         _i3.RouteConfig(
           PortfolioLayoutPageRoute.name,
-          path: '/portfolio',
+          path: '/',
         ),
         _i3.RouteConfig(
           ProjectViewRoute.name,
-          path: '/project',
+          path: '/project-view',
         ),
       ];
 }
@@ -100,7 +100,7 @@ class PortfolioLayoutPageRoute
     _i4.Widget? centerView,
   }) : super(
           PortfolioLayoutPageRoute.name,
-          path: '/portfolio',
+          path: '/',
           args: PortfolioLayoutPageRouteArgs(
             key: key,
             centerView: centerView,
@@ -134,7 +134,7 @@ class ProjectViewRoute extends _i3.PageRouteInfo<ProjectViewRouteArgs> {
     _i4.Key? key,
   }) : super(
           ProjectViewRoute.name,
-          path: '/project',
+          path: '/project-view',
           args: ProjectViewRouteArgs(
             project: project,
             key: key,

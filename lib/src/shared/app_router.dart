@@ -15,12 +15,10 @@ import 'package:freeman_portfolio/src/presentation/project/project_view.dart';
       page: PortfolioLayoutPage,
       initial: true,
       transitionsBuilder: TransitionsBuilders.fadeIn,
-      path: '/portfolio',
     ),
     CustomRoute(
       page: ProjectView,
       transitionsBuilder: TransitionsBuilders.fadeIn,
-      path: '/project',
     ),
   ],
 )

@@ -40,6 +40,9 @@ class Project {
       hoverDescription: '',
     );
   }
+
+  String assetName(int index) =>
+      'assets/projects/$folderName/${folderName}_$index.png';
 }
 
 extension ProjectTypeX on ProjectType {
