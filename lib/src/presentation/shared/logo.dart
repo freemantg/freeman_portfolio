@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freeman_portfolio/src/shared/app_router.gr.dart';
 
 class Logo extends StatelessWidget {
-  final String imagePath = 'logo.svg';
+  final String imagePath = 'assets/logo.svg';
   final double width;
   final double height;
 
@@ -29,7 +29,7 @@ class Logo extends StatelessWidget {
 }
 
 class LogoFooter extends StatelessWidget {
-  final String imagePath = 'logoFooter.svg';
+  final String imagePath = 'assets/logoFooter.svg';
   final double width;
   final double height;
 
