@@ -1,10 +1,13 @@
 import 'package:animations/animations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:freeman_portfolio/src/shared/app_router.gr.dart';
 import 'package:freeman_portfolio/src/shared/extensions.dart';
 import 'package:freeman_portfolio/src/shared/styles.dart';
 
 import '../../domain/project.dart';
+import '../project/project_view.dart';
 import '../shared/project_preview_dialog.dart';
 
 class CustomAnimatedProjectTile extends HookWidget {
@@ -23,10 +26,7 @@ class CustomAnimatedProjectTile extends HookWidget {
 
     return Expanded(
       child: (context.isMobile)
-          ? _buildProjectTileContentsMobile(
-              project,
-              colorScheme,
-            )
+          ? _buildProjectTileContentsMobile(project, colorScheme)
           : MouseRegion(
               onEnter: (_) => isHovered.value = true,
               onExit: (_) => isHovered.value = false,
@@ -109,7 +109,9 @@ Widget _buildProjectTileContentsMobile(
       final height = width / aspectRatio;
 
       return GestureDetector(
-        onTap: () => _showAnimatedDialog(context, project),
+        onTap: () => context.router.push(
+          PortfolioLayoutPageRoute(centerView: ProjectView(project)),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
