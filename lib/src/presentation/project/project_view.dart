@@ -49,6 +49,14 @@ class ProjectView extends StatelessWidget {
                       },
                     );
                   },
+                  child: Hero(
+                    tag: '${project.title}_$index',
+                    child: Image(
+                      image: AssetImage(
+                        'projects/${project.folderName}/${project.folderName}_$index.png',
+                      ),
+                    ),
+                  ),
                 );
               },
             )
@@ -79,8 +87,8 @@ class ProjectDetails extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Text('Flutter', style: TextStyles.body1),
-                // const HSpace(size: Insets.m),
+                Text(
+                    "assets/projects/${project.folderName}/${project.folderName}_1.png"),
                 Text(project.title, style: TextStyles.h1),
                 const HSpace(size: Insets.l),
                 Text(

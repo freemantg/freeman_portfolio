@@ -78,7 +78,7 @@ class CustomAnimatedProjectTile extends HookWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(Insets.l),
                   child: Text(
-                    project.hoverDescription,
+                    project.basePath,
                     style: TextStyles.projectDescription,
                   ),
                 ),
