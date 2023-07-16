@@ -96,7 +96,7 @@ class NavigationDrawerItem extends ConsumerWidget {
         style: TextStyles.title1Mobile,
       ),
       onTap: () => ref.read(appRouterProvider).pushAndPopUntil(
-            PortfolioLayoutPageRoute(centerView: centerView),
+            PortfolioLayoutRoute(centerView: centerView),
             predicate: (_) => false,
           ),
     );

@@ -173,7 +173,7 @@ class ContactButton extends ConsumerWidget {
         ),
       ),
       onPressed: () => ref.read(appRouterProvider).push(
-            PortfolioLayoutPageRoute(
+            PortfolioLayoutRoute(
               centerView: const ContactView(),
             ),
           ),

@@ -13,6 +13,7 @@ class AppWidget extends ConsumerWidget {
     return MaterialApp.router(
       title: "The Coding Portfolio of Freeman Tang",
       theme: theme.themeData,
+      themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
       routerDelegate: appRouter.delegate(),
       routeInformationParser: appRouter.defaultRouteParser(),

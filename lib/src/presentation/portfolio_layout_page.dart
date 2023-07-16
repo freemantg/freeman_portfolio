@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:freeman_portfolio/src/presentation/shared/logo.dart';
 import 'package:freeman_portfolio/src/shared/extensions.dart';
@@ -11,6 +12,7 @@ import 'shared/navigation_menu_bar.dart';
 import 'shared/social_media_bar.dart';
 import 'shared/styled_footer.dart';
 
+@RoutePage()
 class PortfolioLayoutPage extends StatelessWidget {
   const PortfolioLayoutPage({
     Key? key,
@@ -38,6 +40,7 @@ class PortfolioLayoutPage extends StatelessWidget {
   }
 }
 
+@RoutePage()
 class HomeLayoutPage extends StatelessWidget {
   const HomeLayoutPage({Key? key}) : super(key: key);
 

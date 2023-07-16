@@ -1,161 +1,91 @@
-// **************************************************************************
-// AutoRouteGenerator
-// **************************************************************************
-
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
-// AutoRouteGenerator
+// AutoRouterGenerator
 // **************************************************************************
-//
+
 // ignore_for_file: type=lint
+// coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i3;
-import 'package:flutter/material.dart' as _i4;
+import 'package:auto_route/auto_route.dart' as _i2;
+import 'package:flutter/material.dart' as _i3;
+import 'package:freeman_portfolio/src/presentation/portfolio_layout_page.dart'
+    as _i1;
 
-import '../domain/project.dart' as _i5;
-import '../presentation/portfolio_layout_page.dart' as _i1;
-import '../presentation/project/project_view.dart' as _i2;
-
-class AppRouter extends _i3.RootStackRouter {
-  AppRouter([_i4.GlobalKey<_i4.NavigatorState>? navigatorKey])
-      : super(navigatorKey);
+abstract class $AppRouter extends _i2.RootStackRouter {
+  $AppRouter({super.navigatorKey});
 
   @override
-  final Map<String, _i3.PageFactory> pagesMap = {
-    HomeLayoutPageRoute.name: (routeData) {
-      return _i3.CustomPage<dynamic>(
-        routeData: routeData,
-        child: const _i1.HomeLayoutPage(),
-        transitionsBuilder: _i3.TransitionsBuilders.fadeIn,
-        opaque: true,
-        barrierDismissible: false,
-      );
-    },
-    PortfolioLayoutPageRoute.name: (routeData) {
-      final args = routeData.argsAs<PortfolioLayoutPageRouteArgs>(
-          orElse: () => const PortfolioLayoutPageRouteArgs());
-      return _i3.CustomPage<dynamic>(
+  final Map<String, _i2.PageFactory> pagesMap = {
+    PortfolioLayoutRoute.name: (routeData) {
+      final args = routeData.argsAs<PortfolioLayoutRouteArgs>(
+          orElse: () => const PortfolioLayoutRouteArgs());
+      return _i2.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i1.PortfolioLayoutPage(
           key: args.key,
           centerView: args.centerView,
         ),
-        transitionsBuilder: _i3.TransitionsBuilders.fadeIn,
-        opaque: true,
-        barrierDismissible: false,
       );
     },
-    ProjectViewRoute.name: (routeData) {
-      final args = routeData.argsAs<ProjectViewRouteArgs>();
-      return _i3.CustomPage<dynamic>(
+    HomeLayoutRoute.name: (routeData) {
+      return _i2.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i2.ProjectView(
-          args.project,
-          key: args.key,
-        ),
-        transitionsBuilder: _i3.TransitionsBuilders.fadeIn,
-        opaque: true,
-        barrierDismissible: false,
+        child: const _i1.HomeLayoutPage(),
       );
     },
   };
-
-  @override
-  List<_i3.RouteConfig> get routes => [
-        _i3.RouteConfig(
-          HomeLayoutPageRoute.name,
-          path: '/',
-        ),
-        _i3.RouteConfig(
-          PortfolioLayoutPageRoute.name,
-          path: '/',
-        ),
-        _i3.RouteConfig(
-          ProjectViewRoute.name,
-          path: '/project-view',
-        ),
-      ];
-}
-
-/// generated route for
-/// [_i1.HomeLayoutPage]
-class HomeLayoutPageRoute extends _i3.PageRouteInfo<void> {
-  const HomeLayoutPageRoute()
-      : super(
-          HomeLayoutPageRoute.name,
-          path: '/',
-        );
-
-  static const String name = 'HomeLayoutPageRoute';
 }
 
 /// generated route for
 /// [_i1.PortfolioLayoutPage]
-class PortfolioLayoutPageRoute
-    extends _i3.PageRouteInfo<PortfolioLayoutPageRouteArgs> {
-  PortfolioLayoutPageRoute({
-    _i4.Key? key,
-    _i4.Widget? centerView,
+class PortfolioLayoutRoute extends _i2.PageRouteInfo<PortfolioLayoutRouteArgs> {
+  PortfolioLayoutRoute({
+    _i3.Key? key,
+    _i3.Widget? centerView,
+    List<_i2.PageRouteInfo>? children,
   }) : super(
-          PortfolioLayoutPageRoute.name,
-          path: '/',
-          args: PortfolioLayoutPageRouteArgs(
+          PortfolioLayoutRoute.name,
+          args: PortfolioLayoutRouteArgs(
             key: key,
             centerView: centerView,
           ),
+          initialChildren: children,
         );
 
-  static const String name = 'PortfolioLayoutPageRoute';
+  static const String name = 'PortfolioLayoutRoute';
+
+  static const _i2.PageInfo<PortfolioLayoutRouteArgs> page =
+      _i2.PageInfo<PortfolioLayoutRouteArgs>(name);
 }
 
-class PortfolioLayoutPageRouteArgs {
-  const PortfolioLayoutPageRouteArgs({
+class PortfolioLayoutRouteArgs {
+  const PortfolioLayoutRouteArgs({
     this.key,
     this.centerView,
   });
 
-  final _i4.Key? key;
+  final _i3.Key? key;
 
-  final _i4.Widget? centerView;
+  final _i3.Widget? centerView;
 
   @override
   String toString() {
-    return 'PortfolioLayoutPageRouteArgs{key: $key, centerView: $centerView}';
+    return 'PortfolioLayoutRouteArgs{key: $key, centerView: $centerView}';
   }
 }
 
 /// generated route for
-/// [_i2.ProjectView]
-class ProjectViewRoute extends _i3.PageRouteInfo<ProjectViewRouteArgs> {
-  ProjectViewRoute({
-    required _i5.Project project,
-    _i4.Key? key,
-  }) : super(
-          ProjectViewRoute.name,
-          path: '/project-view',
-          args: ProjectViewRouteArgs(
-            project: project,
-            key: key,
-          ),
+/// [_i1.HomeLayoutPage]
+class HomeLayoutRoute extends _i2.PageRouteInfo<void> {
+  const HomeLayoutRoute({List<_i2.PageRouteInfo>? children})
+      : super(
+          HomeLayoutRoute.name,
+          initialChildren: children,
         );
 
-  static const String name = 'ProjectViewRoute';
-}
+  static const String name = 'HomeLayoutRoute';
 
-class ProjectViewRouteArgs {
-  const ProjectViewRouteArgs({
-    required this.project,
-    this.key,
-  });
-
-  final _i5.Project project;
-
-  final _i4.Key? key;
-
-  @override
-  String toString() {
-    return 'ProjectViewRouteArgs{project: $project, key: $key}';
-  }
+  static const _i2.PageInfo<void> page = _i2.PageInfo<void>(name);
 }

@@ -62,7 +62,7 @@ class AnimatedProjectTitle extends HookConsumerWidget {
             onExit: (_) => hoverController.value = false,
             child: GestureDetector(
                 onTap: () => ref.read(appRouterProvider).push(
-                      PortfolioLayoutPageRoute(
+                      PortfolioLayoutRoute(
                         centerView: ProjectView(project),
                       ),
                     ),

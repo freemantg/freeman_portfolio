@@ -130,7 +130,7 @@ class NavigationBarItem extends ConsumerWidget {
         ),
       ),
       onPressed: () => ref.read(appRouterProvider).pushAndPopUntil(
-            PortfolioLayoutPageRoute(centerView: centerView),
+            PortfolioLayoutRoute(centerView: centerView),
             predicate: (_) => false,
           ),
       child: Text(title, style: TextStyles.title1),

@@ -74,7 +74,7 @@ class NextPageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     void navigateToProjectsPage() {
       context.router.pushAndPopUntil(
-        PortfolioLayoutPageRoute(centerView: const ProjectsView()),
+        PortfolioLayoutRoute(centerView: const ProjectsView()),
         predicate: (_) => false,
       );
     }

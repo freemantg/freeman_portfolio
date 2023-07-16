@@ -110,7 +110,7 @@ Widget _buildProjectTileContentsMobile(
 
       return GestureDetector(
         onTap: () => context.router.push(
-          PortfolioLayoutPageRoute(centerView: ProjectView(project)),
+          PortfolioLayoutRoute(centerView: ProjectView(project)),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

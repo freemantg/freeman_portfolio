@@ -4,7 +4,7 @@ import 'package:riverpod/riverpod.dart';
 
 import '../domain/project_interface.dart';
 import '../infrastructure/url_launcher_repository.dart';
-import 'app_router.gr.dart';
+import 'app_router.dart';
 import 'theme.dart';
 
 //APP ROUTER

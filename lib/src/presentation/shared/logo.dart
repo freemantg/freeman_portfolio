@@ -13,7 +13,7 @@ class Logo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => context.router.push(PortfolioLayoutPageRoute()),
+      onTap: () => context.router.push(PortfolioLayoutRoute()),
       child: ConstrainedBox(
         constraints: BoxConstraints(
           maxWidth: width,

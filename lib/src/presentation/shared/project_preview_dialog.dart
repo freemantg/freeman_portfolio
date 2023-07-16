@@ -121,7 +121,7 @@ class ProjectPreviewDetails extends StatelessWidget {
                     title: 'View Project',
                     onPressed: () {
                       context.router.popAndPush(
-                        PortfolioLayoutPageRoute(
+                        PortfolioLayoutRoute(
                           centerView: ProjectView(project),
                         ),
                       );
